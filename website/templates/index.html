@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="banner">
+   <source media="(max-width: 660px)" srcset="{{ url_for('static', filename='image/banner-640.jpg') }}">
+   <source media="(max-width: 1608px)" srcset="{{ url_for('static', filename='image/banner-1280.jpg') }}">
+   <img src="{{ url_for('static', filename='image/banner-1920.jpg') }}" alt="banner image of live concert">
+
+</div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="page-content">
+   <div class="container py-4 mb-4 bg-body-white">
+       <div class="container-fluid">
+           <div class="row row-cols-auto justify-content-md-end justify-content-center align-items-center"
+               id="upcoming-event-filter">
+               <div class="col-auto">
+                   <h7>Upcoming Events:</h7>
+               </div>
+               <div class="col-auto">
+                   <div class="select-box">
+                       <select class="pr-5 col-12 text-center" id="genre-select">
+                           <option selected>ALL</option>
+                           <option value="pop">Pop</option>
+                           <option value="dance / EDM">Dance / EDM</option>
+                           <option value="hip-hop and rap">Hip-hop and Rap</option>
+                           <option value="r&b">R&B</option>
+                           <option value="latin">Latin</option>
+                           <option value="rock">Rock</option>
+                           <option value="metal">Metal</option>
+                           <option value="country">Country</option>
+                           <option value="folk / acoustic">Folk / Acoustic</option>
+                           <option value="classical">Classical</option>
+                           <option value="jazz">Jazz</option>
+                           <option value="blues">Blues</option>
+                           <option value="easy listening">Easy Listening</option>
+                           <option value="new age">New Age</option>
+                           <option value="world">World</option>
+                           <option value="other">Other</option>
+                       </select>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+<div class="container" id="event-background">
+   <div class="container mb-5" id="event-background">
+       <div class="row row-cols-1 g-4">
+
+         <!-- Add Forloop of Event Database Items Here -->
+           <div class="col list-col">
+               <div class="event-card">
+                   <div class="row g-0">
+                       <div class="col-md-4">
+                           <img src="{{ url_for('static', filename='image/event-image.avif') }}" class="event-card-img" alt="event image">
+                       </div>
+                       <div class="col-md-8">
+                           <div class="event-card-body">
+                               <h3 class=" event-card-title">Gin and Jazz Concert </h3>
+                               <p class="event-card-text">22/04/2023
+                                   <span class="badge bg-success">Open
+                                   </span>
+                               </p>
+                               <p>2:00 PM - 5:30 PM AEST </p>
+                               <p class="event-card-text">Brookfield Rose Farm, Brookfield, QLD </p>
+
+                               <p class="event-card-text">Brookfield Rose Farm</p>
+                               <div class="d-grid gap-2 d-flex justify-content-end flex-wrap"
+                                   id="event-card-btn">
+                                   <a href="event-details.html"
+                                       class="btn btn-primary btn-md flex-shrink-1">MORE
+                                       INFORMATION</a>
+                                   <a href="event-details.html"
+                                       class="btn btn-primary btn-md flex-shrink-1">GET TICKETS</a>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+{% endblock %}

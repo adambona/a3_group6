@@ -1,0 +1,535 @@
+/* CSS */
+
+/*base formatting*/
+html {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #263238;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  }
+  
+  h2, h1, h4, h5, th {
+    font-family: sans-serif;
+  }
+  
+  h7 {
+    font-weight: 600;
+    font-size: calc(1.6rem + 0.9vw) ;
+    line-height: 1.4em;
+    color: white;
+  }
+  
+  h3 {
+    color: #263238 !important;
+    font-family: sans-serif !important;
+  }
+  
+  div .list-col{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  option {
+    font-size: 1.2rem;
+  }
+  
+  #website-name
+  {
+    font-size: calc(2rem + 2vw);
+    color: white;
+    font-family: sans-serif;
+  }
+  
+  .background-custom{
+    background: #002b70
+  }
+  
+  .fw-bold-custom{
+    font-weight: 500;
+  }
+  
+  .h1-custom {
+    font-size: calc(2.2rem + 1.7vw);
+  }
+  
+  #DescriptionInput{
+    height: 150px;
+  }
+  
+  #previewImage {
+    border-style:dashed;
+    border-width: 3px;
+  }
+  
+  /*nav item formatting*/
+  #whats-on {
+    font-size: calc(1.2rem + 0.15vw);
+    color: white;
+    font-family: sans-serif;
+  }
+  
+  #create-event {
+    font-size: calc(1.2rem + 0.15vw);
+    color: white;
+    font-family: sans-serif;
+  }
+  
+  #footer-text {
+    color: white !important;
+    font-family: sans-serif;
+  }
+  
+  .nav-item .nav-link.active {
+    font-weight: bold !important;
+    font-family: sans-serif;
+  }
+  
+  .nav-link:hover {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .dropdown-toggle {
+    font-size: calc(1.2rem + 0.15vw) !important;
+    color: white !important;
+    font-family: sans-serif;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #d7d7d7 !important;
+  }
+  
+  .dropdown-item:focus {
+    color: black !important;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    border-color: #ffff !important;
+  }
+  
+  .navbar-toggler {
+    border-color: white !important;
+  }
+  
+  .navbar-toggler:focus, .navbar-toggler:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: white !important;
+  }
+  
+  .dropdown-toggle::not(.collapsed)::after{
+    display: none;
+  }
+  
+  .navbar .dropdown img {
+    width: 48px;
+    height: 48px;
+  }
+  
+  /*input field formatting*/
+  .input-text {
+    font-size: 1.2rem !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .input-text:hover {
+    border-color: #86b7fe !important;
+    border-width: 0.1rem !important;
+    color: #263238 !important;
+  }
+  
+  .input-text:hover::placeholder{
+    color: #263238 !important;
+  }
+  
+  .input-text:focus{
+    color: #263238 !important;
+    font-weight: 400 !important;
+    transform: scale(1.035)!important;
+  }
+  
+  .input-text:focus::placeholder{
+    color: #263238 !important;
+    font-weight: 400 !important;
+  }
+  
+  .label-custom {
+    font-size: 1.4rem !important;
+    font-family: sans-serif !important;
+  }
+  
+  #event-date, #event-time {
+    color: #6c757d;
+  }
+  
+  #currency-symbol-custom:hover, #currency-custom:hover {
+    border-color: #ced4da !important;
+    transform: none;
+  }
+  
+  .quantity-input {
+    max-width: 60px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  
+  /*modal formatting*/
+  .checkout{
+    background-color: white;
+    width: 100%;
+    margin-right: 0px;
+  }
+  
+  .modal-label-custom {
+    font-size: 1.4rem !important;
+    font-family: sans-serif !important;
+    font-weight: 400 !important;
+    margin-bottom: 0.2rem !important;
+  }
+  
+  .modal-label-custom-small {
+    font-size: 1rem !important;
+    font-family: sans-serif !important;
+    font-weight: 400 !important;
+    margin-bottom: 0.2rem !important;
+  }
+  
+  #amount-custom {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+  
+  #ticket-price-custom {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+  
+  #order-summary-text-custom {
+    font-size: 1.2rem !important;
+    font-family: sans-serif;
+    margin-bottom: 0 !important;
+    padding-top: 0.3rem;
+  }
+  
+  #modal-label-custom-small-mb-0 {
+    font-size: 1rem !important;
+    font-family: sans-serif !important;
+    font-weight: 400 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  /*button formatting*/
+  #btn-custom {
+    color:white ;
+    background-color: #00abe4 ;
+    border: 1px solid #00abe4 ;
+    transition: border-color 0.2s ease-in-out;
+    font-size: 1.5rem;
+  }
+  
+  .btn-custom-font {
+    font-weight: bold !important;
+    font-family: sans-serif !important;
+  }
+  
+  .btn-primary {
+    background-color: #00abe4 !important;
+    border-color: #00abe4 !important;
+    font-weight: bold !important;
+    font-family: sans-serif !important;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2373ff !important;
+    border-color: #2373ff !important;
+  }
+  
+  .btn-primary:active {
+    background-color: #2373ff;
+  }
+  .btn-primary:focus,
+  
+  .btn-primary.focus {
+    box-shadow: 0 0 0 0.15rem #2373ff !important;
+  }
+  .btn-primary.disabled,
+  .btn-primary:disabled {
+    background-color: #00abe4 !important;
+    border-color: #00abe4 !important;
+  }
+  
+  .btn-close {
+    background-color: white !important; 
+  }
+  
+  /*option select formatting*/
+  .option-custom {
+    font-size: 1.2rem !important;
+    color: #6c757d !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .option-custom:hover {
+    border-color: #86b7fe;
+    border-width: 0.1rem;
+    color: #263238 !important;
+  }
+  
+  .option-custom:focus {
+    font-size: 1.2rem !important;
+    font-weight: 400 !important;
+    color: #263238 !important;
+    transform: scale(1.035);
+  }
+    
+  
+  /*profile img formatting*/
+  .rounded-circle {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .comment-section img {
+    width: 48px;
+    height: 48px;
+  }
+  
+  /*event card formatting*/
+  .event-card {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    transition: all 0.25s ease-in-out;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+  
+  .event-card-title {
+    margin-bottom: 0;
+    font-family: sans-serif;
+  }
+  
+  .event-card-text {
+    margin-bottom: 0;
+  }
+  
+  .event-card:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.035);
+  }
+  
+  .event-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .event-card-body {
+    padding: 1.265rem;
+  }
+  
+  .event-selection{
+    padding-top: 30px;
+  }
+  
+  #event-card-btn {
+    margin-top: 1rem;
+  }
+  
+  
+  /*order history event card formatting*/
+  .event-card-img-order {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .event-card-title-order {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  
+  .event-card-text-order {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  
+  .event-card-order-history-img {
+    max-height: 250px;
+    object-fit: cover;
+  }
+  
+  .buy-btn{
+    width: 95%;
+  }
+  
+  .btn-square {
+    border-radius: 0;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  
+  /*banner image formatting*/
+  .banner {
+    width: 100%;
+    max-height: 480px;
+    min-height: 300px;
+  }
+  
+  .banner-img {
+    width: 100%;
+    max-height: 480px;
+    min-height: 300px;
+  }
+  
+  img {
+    width: 100%;
+    max-height: 480px;
+    display: block;
+    object-fit: cover;
+  }
+  
+  
+  
+  
+  
+  
+  /*table formatting*/
+  #table-text {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #263238;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+  }
+  
+  td {
+    color: #263238;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  }
+  
+  
+  /*genre selection formatting*/
+  #genre-select {
+    font-size: calc(1.2rem + 1vw) ;
+    font-weight: 600;
+    max-width: 350px;
+    border-color: #00abe4;
+    background-color: #00abe4;
+    color: white;
+  }
+  
+  #genre-select:focus {
+    border-color: #2373ff;
+    box-shadow: 0 0 9px 0 #2373ff;
+    outline: none;
+  }
+  
+  #genre-select option:checked {
+    background-color: #2373ff;
+    color: #fff;
+  }
+  
+  
+  /*event formatting*/
+  .event-hero img {
+    max-width: 940px;
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 1
+  }
+  
+  .event-title{
+    font-size: calc(2.3rem + 1.8vw);
+  }
+  
+  #thumbnail {
+    width: 600px;
+    height: 300px;
+    display: block;
+    object-fit: cover;
+  }
+  
+  #upcoming-event-filter{
+    background-color: #00abe4 ;
+  }
+  
+  .page-content{
+    background: white
+  }
+  
+  #badge-custom {
+    background-color: #efeef0;
+    color: #263238;
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 1rem;
+    font-weight: 400;
+    font-family: sans-serif;
+  }
+  
+  #comment:focus {
+    border-bottom: 2px solid black !important;
+    box-shadow: none;
+    transform: none!important;
+  }
+  
+  #num-comments {
+    font-size: 1.4rem;
+  }
+  
+  .username {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .date-posted {
+    font-size: 1rem;
+  }
+  
+  
+  /*map location formatting*/
+  #show-map {
+    font-size: 1.2rem;
+    padding-left: 0;
+  }
+  #show-map:not(.collapsed) {
+    width: 100%;
+  }
+  #show-map.collapsed {
+    width: 200px;
+  }
+  
+  
+  /*custom breakpoint for modal*/
+  @media (max-width: 510px) {
+    .col-xxs {
+      width: 100% !important;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
