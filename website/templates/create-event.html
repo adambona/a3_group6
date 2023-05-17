@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<head>
+    <title>Brisbane Live - Create Event</title>    
+</head>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
+        <h1 class="py-4">Event Details</h1>
+        <form>
+            <div>
+                <h3>Basic Info</h3>
+                <p>Let people know about you. Tell us about the event</p>
+                <div class="container mb-3 col-sm-11 ">
+                    <div class="mb-3">
+                        <label for="TitleInput" class="form-label label-custom">Your Event Title</label>
+                        <input type="text" class="form-control input-text" id="TitleInput"
+                            placeholder="Be clear and descriptive...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="ArtistInput" class="form-label label-custom">Artist name/s</label>
+                        <input type="text" class="form-control input-text" id="ArtistInput"
+                            placeholder="Specify the artist/s...">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="inputGenre" class="form-label label-custom">Genre</label>
+                        <select id="inputGenre" class="form-select input-text">
+                            <option value="pop">Pop</option>
+                            <option value="dance / EDM">Dance / EDM</option>
+                            <option value="hip-hop and rap">Hip-hop and Rap</option>
+                            <option value="r&b">R&B</option>
+                            <option value="latin">Latin</option>
+                            <option value="rock">Rock</option>
+                            <option value="metal">Metal</option>
+                            <option value="country">Country</option>
+                            <option value="folk / acoustic">Folk / Acoustic</option>
+                            <option value="classical">Classical</option>
+                            <option value="jazz">Jazz</option>
+                            <option value="blues">Blues</option>
+                            <option value="easy listening">Easy Listening</option>
+                            <option value="new age">New Age</option>
+                            <option value="world / traditional folk">World / Traditional Folk</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="DescriptionInput" class="form-label label-custom">Event Description</label>
+                        <textarea class="form-control input-text" id="DescriptionInput"
+                            placeholder="Be clear and descriptive..."></textarea>
+                    </div>
+
+
+                </div>
+                <h3 class="mt-4">Upload Image</h3>
+                <p>Upload an image to attract users. This will be shown on the upcoming events page.</p>
+                <div class="container col-sm-11 mb-3">
+                    <div class="row mb-3 align-items-center">
+
+                        <div class="col-md-3 ">
+                            <img src="./IMG/Placeholder_view_vector.png" class="img-thumbnail"
+                                alt="Placeholder Image" id="previewImage">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted">The file must be JPEG or PNG and must not exceed 200KB.</p>
+                            <input type="file" class="form-control" aria-label="file example">
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mt-4">Location</h3>
+                <p>Let people know where the event will be held.</p>
+                <div class="container col-sm-11 mb-3">
+                    <div class="mb-3">
+                        <label for="VenueInput" class="form-label label-custom">Venue Name</label>
+                        <input type="text" class="form-control input-text" id="VenueInput"
+                            placeholder="Specify the venue name...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="StreetInput" class="form-label label-custom">Street Address</label>
+                        <input type="text" class="form-control input-text" id="StreetInput"
+                            placeholder="Specify the street address...">
+                    </div>
+                </div>
+                <h3 class="mt-4">Date and time</h3>
+                <p>Let people know when the event starts and ends so they can make sure to attend.</p>
+                <div class="container col-sm-11 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="event-date" class="form-label label-custom">Event Starts</label>
+                            <input type="date" class="form-control input-text" id="event-date">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="event-time" class="form-label label-custom">Start Time</label>
+                            <input type="time" class="form-control input-text" id="event-time">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="event-date" class="form-label label-custom">Event Ends</label>
+                            <input type="date" class="form-control input-text" id="event-date">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="event-time" class="form-label label-custom">End Time</label>
+                            <input type="time" class="form-control input-text" id="event-time">
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mt-4">Ticket</h3>
+                <p>Specify the number of tickets available for your event and how much they will cost so people
+                    know.</p>
+                <div class="container col-sm-11 mb-3">
+                    <div class="col-md-3 mb-3">
+                        <label for="VenueInput" class="form-label label-custom ">Number of tickets available</label>
+                        <input type="number" min="1" step="any" class="form-control input-text text-right"
+                            id="TicketInput" placeholder="1">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="StreetInput" class="form-label label-custom ">Price per ticket</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text input-text" id="currency-symbol-custom">$</span>
+                            <input type="number" min="1" step="any" class="form-control input-text text-right"
+                                aria-label="Amount (to the nearest dollar)" placeholder="0.00">
+                            <span class="input-group-text input-text" id="currency-custom">AUD</span>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="mt-4">Event Status</h3>
+                <p>Provide a current status for your event so people know what is happening.</p>
+                <div class="container mb-3 col-sm-11 ">
+                    <div class="col-md-4 mb-3">
+                        <label for="inputGenre" class="form-label label-custom">Event Status</label>
+                        <select id="inputGenre" class="form-select option-custom">
+                            <option value="Open">Open</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Sold Out">Sold Out</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+        </form>
+    </div>
+    <div class="d-grid gap-2 d-flex justify-content-end flex-wrap">
+        <a href="#" class="btn btn-primary btn-lg flex-shrink-1">CANCEL</a>
+        <a href="#" class="btn btn-primary btn-lg flex-shrink-1">CREATE EVENT</a>
+    </div>
+
+</main>
+
+{% endblock %}

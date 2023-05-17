@@ -1,0 +1,458 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<head>
+    <title>Brisbane Live - Gin and Jazz Concert</title>    
+</head>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container bg-body-white">
+        <img src='./IMG/event-image.avif' class="img-fluid" alt="event image">
+    </div>
+    <div class="page-content">
+        <div class="container no gutters-xs-only py-4 mb-4 bg-body-white">
+            <div class="heading-section">
+                <div class="row align-items-center event-headline">
+                    <div class="col-md-9">
+                        <h2 class="event-title">Gin and Jazz Concert </h2>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="col-12 status-info">
+                            <h2 class="text-start">Status: <span class="badge bg-success">Open</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row justify-content-end sticky-lg-top sticky-bottom order-lg-1 order-2 w-100 p-0 m-0">
+                    <div class="col-lg-4 p-0">
+                        <div class="checkout-model border checkout rounded">
+                            <div class="checkout-model-body">
+                                <div class="text-center">
+                                    <h3 id="ticket-price-custom">$35.00</h3>
+                                </div>
+                            </div>
+                            <div class="checkout-model-button text-center">
+                                <button class="btn btn-primary buy-btn w-100 btn-square"
+                                    data-bs-target="#modal-toggle-buy-ticket" data-bs-toggle="modal">BUY
+                                    TICKETS</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row align-items-center">
+                        <h3>By Brookfield Rose Farm</h3>
+                    </div>
+                </div>
+                <div class="modal fade p-0" id="modal-toggle-buy-ticket" aria-hidden="true"
+                    aria-labelledby="modal-toggle-buy-ticket-label" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-xl">
+                        <div class="modal-content">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="main-model-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="modal-toggle-buy-ticket-label">Gin and Jazz
+                                                Concert
+                                            </h3>
+                                            <button type="button"
+                                                class="btn-close position-absolute top-0 end-0 m-3"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p class="modal-label-custom">Date and time:</p>
+                                            <p>22/04/2023 2:00 PM - 5:30 PM AEST</p>
+                                            <p class="modal-label-custom">Location:</p>
+                                            <p>Brookfield Rose Farm, Brookfield, QLD</p>
+
+                                            <div class="col-lg-8">
+                                                <div class="container align-items-stretch">
+                                                    <div class="row border p-1">
+                                                        <div
+                                                            class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
+                                                            <p class="p-2 mb-0">Final Sale Single Entry</p>
+                                                        </div>
+                                                        <div
+                                                            class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
+                                                            <div class="input-group ms-2 me-auto">
+                                                                <div class="input-group-prepend">
+                                                                    <button class="btn btn-square btn-primary"
+                                                                        type="button">&minus;</button>
+                                                                </div>
+                                                                <input type="text"
+                                                                    class="form-control text-center text-input quantity-input"
+                                                                    id="quantity" value="1">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-primary btn-square"
+                                                                        type="button">&#43;</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row border p-1">
+                                                        <div class="col-md-12">
+                                                            <p class="p-2 mb-0">AUD $35.00</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-block d-md-none">
+                                            <div class="accordion" id="accordion-custom">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                                            aria-expanded="true" aria-controls="collapseOne">
+                                                            $35.00 AUD
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                                        data-bs-parent="#accordion-custom">
+                                                        <div class="accordion-body">
+                                                            <div>
+                                                                <h4>Order Summary</h4>
+                                                                <div class="row align-items-center">
+                                                                    <div class="col-6">
+                                                                        <p id="order-summary-text-custom">1 x General Admission</p>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <p id="amount-custom">AUD $35.00</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <p id="order-summary-text-custom">Total</p>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <p id="amount-custom">AUD $35.00</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" data-bs-target="#modal-toggle-checkout"
+                                                data-bs-toggle="modal">Continue to Checkout
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 order-md-last d-none d-md-block">
+                                    <div class="side-model-content">
+                                        <div class="d-none d-md-block">
+                                            <img src="./IMG/event-image.avif" class="event-card-img"
+                                                alt="event image">
+                                        </div>
+
+                                        <div>
+                                            <h4 class="pt-2">Order Summary</h4>
+                                            <div class="row align-items-center">
+                                                <div class="col-lg-6">
+                                                    <p id="order-summary-text-custom">1 x General Admission</p>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <p id="amount-custom">AUD $35.00</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <p id="order-summary-text-custom">Total</p>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <p id="amount-custom">AUD $35.00</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade p-0" id="modal-toggle-checkout" aria-hidden="true"
+                    aria-labelledby="modal-toggle-checkout-label" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="modal-toggle-checkout-label">Checkout</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row g-5">
+                                    <div class="col">
+                                        <h4 class="mb-3 modal-label-custom">Billing address</h4>
+                                        <form>
+                                            <div class="row g-3">
+                                                <div class="col-sm-6">
+                                                    <label for="firstName"
+                                                        class="form-label modal-label-custom-small">First
+                                                        name</label>
+                                                    <input type="text" class="form-control" id="firstName">
+
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <label for="lastName"
+                                                        class="form-label modal-label-custom-small">Last
+                                                        name</label>
+                                                    <input type="text" class="form-control" id="lastName">
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label for="email"
+                                                        class="form-label modal-label-custom-small">Email <span
+                                                            class="text-body-secondary"></span></label>
+                                                    <input type="email" class="form-control" id="email"
+                                                        placeholder="you@example.com">
+                                                </div>
+                                            </div>
+
+                                            <h4 class="mb-3 modal-label-custom mt-4">Payment</h4>
+                                            <div class="my-3">
+                                                <div class="form-check">
+                                                    <input id="credit" name="paymentMethod" type="radio"
+                                                        class="form-check-input">
+                                                    <label class="form-check-label modal-label-custom-small"
+                                                        for="credit">Credit card</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input id="debit" name="paymentMethod" type="radio"
+                                                        class="form-check-input">
+                                                    <label class="form-check-label modal-label-custom-small"
+                                                        for="debit">Debit card</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input id="paypal" name="paymentMethod" type="radio"
+                                                        class="form-check-input">
+                                                    <label class="form-check-label modal-label-custom-small"
+                                                        for="paypal">PayPal</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row gy-3">
+                                                <div class="col-md-6">
+                                                    <label for="cc-number"
+                                                        class="form-label modal-label-custom-small">Credit card
+                                                        number</label>
+                                                    <input type="text" class="form-control" id="cc-number">
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="cc-expiration"
+                                                        class="form-label modal-label-custom-small">Expiration</label>
+                                                    <input type="text" class="form-control" id="cc-expiration">
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="cc-cvv"
+                                                        class="form-label modal-label-custom-small">CVV</label>
+                                                    <input type="text" class="form-control" id="cc-cvv">
+                                                </div>
+                                            </div>
+
+                                            <br>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="confirm-details">
+                                                <label class="form-check-label modal-label-custom-small"
+                                                    for="confirm-details">I confirm my
+                                                    details are correct</label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="accept-terms">
+                                                <label class="form-check-label modal-label-custom-small"
+                                                    for="accept-terms">I agree to
+                                                    Brisbane Live Terms of Service</label>
+                                            </div>
+
+                                            <button class="w-100 btn btn-primary btn-lg mt-4" type="submit">Place
+                                                Order</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" data-bs-target="#modal-toggle-buy-ticket"
+                                    data-bs-toggle="modal">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-details order-lg-2 order-1">
+                    <div class="row">
+                        <h1 class="pt-4">Event Details</h1>
+                    </div>
+
+                    <div class="row">
+                        <h3 class="pt-4">Date and time</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Starts - Sat, April 22, 2:00 PM</p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <p>Ends - Sat, April 22, 5:30 PM</p>
+                        </div>
+                        <div class="row align-items-center">
+                            <h3 class="pt-4">Location</h3>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-3">
+                                <p>Brookfield Rose Farm</p>
+                            </div>
+                            <div class="col-12 col-lg-5">
+                                <p>Brookfield Rose Farm, Brookfield, QLD</p>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <div class="accordion border-0" id="mapAccordion">
+                                    <div class="accordion-item border-0">
+                                        <h4 class="accordion-header border-0">
+                                            <button
+                                                class="accordion-button collapsed text-primary text-decoration-underline"
+                                                type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#mapCollapse" aria-expanded="false"
+                                                aria-controls="mapCollapse" id="show-map">
+                                                Show Map
+                                            </button>
+                                        </h4>
+                                        <div id="mapCollapse" class="accordion-collapse collapse"
+                                            aria-labelledby="mapHeading" data-bs-parent="#mapAccordion">
+                                            <div class="accordion-body p-0">
+                                                <img src="./IMG/event-1-map.jpg" alt="Map showing event location"
+                                                    class="w-100">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <h3 class="pt-4">Description</h3>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-8">
+                                <p>Brookfield Rose Garden presents its second concert in the garden.
+                                    This time it's all the best Jazz tunes we all know and love. Kick back with a
+                                    local Imbibis Gin and enjoy the music.
+                                    Brookfield Meander markets stalls will offer genuine locally produced products
+                                    from Brookfield and its surrounds.
+                                    Gates open at 2 pm bring your blankets, umbrellas and have a great afternoon.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <h3 class="pt-4">Genre</h3>
+                        </div>
+                        <div class="d-flex p-2">
+                            <span class="badge rounded-pill" id="badge-custom">Hip-hop and Rap</span>
+                        </div>
+
+                        <div class="d-flex flex-column mt-4 pb-0 mb-0">
+                            <div class="text-muted mb-1 pt-4" id="num-comments">4 Comments</div>
+                            <div class="d-flex my-4 comment-section">
+                                <img src="./IMG/blank-profile-picture-973460_960_720.webp" alt="profile picture"
+                                    class="rounded-circle mr-2 ">
+                                <div class="flex-grow-1">
+                                    <input class="form-control border-0 rounded-0 border-bottom input-text"
+                                        type="text" placeholder="Add a comment..." id="comment">
+                                    <div class="d-flex justify-content-end mt-1 gap-2 mt-2" id="button-group">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary btn-md mr-2"
+                                                type="button">Cancel</button>
+                                            <button class="btn btn-primary btn-md" type="button">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <div class="d-flex comment-section">
+                            <img src="./IMG/blank-profile-picture-973460_960_720.webp" alt="profile picture"
+                                class="rounded-circle mr-2">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="row row-cols-auto">
+                                        <p class="mb-0 align-self-center username">Joey Blogs</p>
+                                        <p class="mb-0 text-muted self-center date-posted">3 days ago</p>
+                                    </div>
+                                </div>
+                                <p class="mt-0">Great event for a good price. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <div class="d-flex comment-section">
+                            <img src="./IMG/blank-profile-picture-973460_960_720.webp" alt="profile picture"
+                                class="rounded-circle mr-2">
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="row row-cols-auto">
+                                        <p class="mb-0 align-self-center username">Henry Low</p>
+                                        <p class="mb-0 text-muted self-center date-posted">1 weeks ago</p>
+                                    </div>
+                                </div>
+                                <p class="mt-0">They always host a great event for a good price. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <div class="d-flex comment-section">
+                            <img src="./IMG/blank-profile-picture-973460_960_720.webp" alt="profile picture"
+                                class="rounded-circle mr-2">
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="row row-cols-auto">
+                                        <p class="mb-0 align-self-center username">Sean Davis</p>
+                                        <p class="mb-0 text-muted self-center date-posted">2 weeks ago</p>
+                                    </div>
+                                </div>
+                                <p class="mt-0">Great fun. </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <div class="d-flex comment-section">
+                            <img src="./IMG/blank-profile-picture-973460_960_720.webp" alt="profile picture"
+                                class="rounded-circle mr-2">
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="row row-cols-auto">
+                                        <p class="mb-0 align-self-center username">Dally Johns</p>
+                                        <p class="mb-0 text-muted self-center date-posted">1 month ago</p>
+                                    </div>
+                                </div>
+                                <p class="mt-0">Will definetly be attending the next one. Always a great atmosphere
+                                    at the Brookfield Rose Farm. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+{% endblock %}

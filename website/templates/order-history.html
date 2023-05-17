@@ -1,0 +1,168 @@
+
+{% extends 'base.html' %}
+
+{% block header %}
+<head>
+    <title>Brisbane Live - Order History</title>    
+</head>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="page-content">
+        <div class="container no gutters-xs-only py-4 mb-4 bg-body-white">
+            <div class="py-4">
+                <h1>Order History</h1>
+                <p>Check the status of recent orders, manage returns and discover similiar experiences.</p>
+            </div>
+            <div class="table-responsive d-none d-lg-block">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Event</th>
+                            <th class="text-center">Order Placed</th>
+                            <th class="text-center">Total Amount</th>
+                            <th class="text-center">Order Number</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-custom">
+                            <td class="w-50">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6 col-sm-4 col-6">
+                                        <img src="./IMG/event-image.avif" class="img-fluid" alt="event image">
+                                    </div>
+                                    <div class="col-md-6 col-sm-8 col-6">
+                                        <h5>Gin and Jazz Concert</h5>
+                                        <p id="table-text">22/04/2023</p>
+                                        <p id="table-text">Brookfield Rose Farm, Brookfield, QLD</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle w-10 text-center">20/04/2023 1:53 PM </td>
+                            <td class="align-middle w-10 text-center">$35.00</td>
+                            <td class="align-middle w-10 text-center">N11051019</td>
+                            <td class="align-middle w-10 text-center">
+                                <a href="event-details.html" class="btn btn-primary btn-sm">View Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-50">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6 col-sm-4 col-6">
+                                        <img src="./IMG/event-4-image.jpg" class="img-fluid" alt="event image">
+                                    </div>
+                                    <div class="col-md-6 col-sm-8 col-6 ">
+                                        <h5>SoulOnFire Brisbane</h5>
+                                        <p id="table-text">22/04/2023</p>
+                                        <p id="table-text">Caesers niteclub 243 Brunswick Street Fortitude Valley,
+                                            QLD 4006</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle w-10 text-center">18/04/2023 3:30 PM</td>
+                            <td class="align-middle w-10 text-center">$14.00</td>
+                            <td class="align-middle w-10 text-center">N12345678</td>
+                            <td class="align-middle w-10 text-center">
+                                <a href="event-details.html" class="btn btn-primary btn-sm">View Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w-50">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6 col-sm-4 col-6">
+                                        <img src="./IMG/event-9-image.jpg" class="img-fluid" alt="event image">
+                                    </div>
+                                    <div class="col-md-6 col-sm-8 col-6">
+                                        <h5>DELIRIO</h5>
+                                        <p id="table-text">30/04/2023</p>
+                                        <p id="table-text">Friday's Riverside 123 Eagle Street Brisbane City, QLD
+                                            4000</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle w-10 text-center">17/04/2023 9:00 AM</td>
+                            <td class="align-middle w-10 text-center">$17.00</td>
+                            <td class="align-middle w-10 text-center">N87654321</td>
+                            <td class="align-middle w-10 text-center">
+                                <a href="event-details.html" class="btn btn-primary btn-sm">View Details</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row row-cols-1 g-4 d-lg-none">
+                <div class="col">
+                    <div class="card event-card">
+                        <img src="./IMG/event-image.avif"
+                            class="card-img-top event-card-img event-card-order-history-img" alt="event image">
+                        <div class="card-body event-card-body">
+                            <h3 class="card-title event-card-title">Gin and Jazz Concert</h3>
+                            <p class="event-card-text">22/04/2023</p>
+                            <p class="event-card-text">Brookfield Rose Farm, Brookfield, QLD</p>
+                            <hr>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Placed:</span> 20/04/2023
+                                1:53 PM</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Total Amount:</span> $35.00</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Number: </span> N11051019
+                            </p>
+                            <div class="d-grid gap-2 d-flex justify-content-end flex-wrap" id="event-card-btn">
+                                <a href="event-details.html" class="btn btn-primary btn-md flex-shrink-1">View
+                                    Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card event-card">
+                        <img src="./IMG/event-4-image.jpg"
+                            class="card-img-top event-card-img event-card-order-history-img" alt="event image">
+                        <div class="card-body event-card-body">
+                            <h3 class="card-title event-card-title">SoulOnFire Brisbane</h3>
+                            <p class="event-card-text">22/04/2023</p>
+                            <p class="event-card-text">Caesers niteclub 243 Brunswick Street Fortitude Valley, QLD
+                                4006</p>
+                            <hr>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Placed:</span> 18/04/2023
+                                3:30 PM</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Total Amount:</span> $14.00</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Number: </span>N12345678
+                            </p>
+                            <div class="d-grid gap-2 d-flex justify-content-end flex-wrap" id="event-card-btn">
+                                <a href="event-details.html" class="btn btn-primary btn-md flex-shrink-1">View
+                                    Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card event-card">
+                        <img src="./IMG/event-9-image.jpg"
+                            class="card-img-top event-card-img event-card-order-history-img" alt="event image">
+                        <div class="card-body event-card-body">
+                            <h3 class="card-title event-card-title">DELIRO</h3>
+                            <p class="event-card-text">30/04/2023</p>
+                            <p class="event-card-text">Friday's Riverside 123 Eagle Street Brisbane City, QLD 4000
+                            </p>
+                            <hr>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Placed:</span> 17/04/2023
+                                9:00 AM</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Total Amount:</span> $17.00</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Number: </span> N87654321
+                            </p>
+                            <div class="d-grid gap-2 d-flex justify-content-end flex-wrap" id="event-card-btn">
+                                <a href="event-details.html" class="btn btn-primary btn-md flex-shrink-1">View
+                                    Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+
+{% endblock}
