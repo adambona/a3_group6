@@ -1,15 +1,14 @@
-from forms import createEventForm
+from .forms import createEventForm
 from flask import Blueprint, render_template, request, redirect, url_for
 
+bp = Blueprint('createEvent', __name__, url_prefix='/create-event')
 
-bp = Blueprint('createEvent', __name__, url_prefix='/createEvent')
-
-@bp.route('/')
+@bp.route('/create-event')
 def createEvent():
     return render_template('create-event.html')
 
-@bp.route('/createEvent', methods = ['GET', 'POST'])
-def createEvent():
+@bp.route('/create-event', methods = ['GET', 'POST'])
+def addEvent():
   print('Method type: ', request.method)
   form = createEventForm()
   if form.validate_on_submit():

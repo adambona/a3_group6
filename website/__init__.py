@@ -45,5 +45,4 @@ def create_app():
     from . import createEvent
     app.register_blueprint(createEvent.bp)
 
-    
     return app
