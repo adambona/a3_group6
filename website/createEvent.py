@@ -1,16 +1,16 @@
 from .forms import createEventForm
+from .models import Event
 from flask import Blueprint, render_template, request, redirect, url_for
 
-bp = Blueprint('createEvent', __name__, url_prefix='/create-event')
+bp = Blueprint('createEvent', __name__)
 
-@bp.route('/create-event')
+@bp.route('/createEvent', methods=['GET', 'POST'])
 def createEvent():
-    return render_template('create-event.html')
+    form = createEventForm()
+    if form.validate_on_submit():
+        print('Successfully created new event', 'success')
+        return redirect(url_for('createEvent.createEvent'))
+    return render_template('createEvent.html', form=form)
 
-@bp.route('/create-event', methods = ['GET', 'POST'])
-def addEvent():
-  print('Method type: ', request.method)
-  form = createEventForm()
-  if form.validate_on_submit():
-    print('Successfully created new event', 'success')
-  return render_template('index.html')
+  
+
