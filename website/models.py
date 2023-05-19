@@ -77,7 +77,7 @@ class Event(db.Model):
     description = db.Column(db.String(500), nullable=False, index=True)
     image = db.Column(db.String(400), nullable=False, index=True)
     ticket_price = db.Column(db.Float(2), CheckConstraint('ticket_price >= 0'), nullable=False, index=True)
-    num_tickets = db.Column(db.Integer(6), CheckConstraint('num_tickets >= 0'), nullable=False, index=True)
+    num_tickets = db.Column(db.Integer, CheckConstraint('num_tickets >= 0'), nullable=False, index=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     genre = db.Column(db.Integer, db.ForeignKey('genres.id'))
@@ -169,12 +169,12 @@ class PhysicalAddress(db.Model):
     __tablename__ = 'physical_addresses'
 
     id = db.Column(db.Integer, primary_key=True)
-    unit_num = db.Column(db.Integer(10), nullable=True)
-    street_num = db.Column(db.Interger(10), nullable=False)
+    unit_num = db.Column(db.Integer, nullable=True)
+    street_num = db.Column(db.Integer, nullable=False)
     street_name = db.Column(db.String(100), nullable=False, index=True)
     street_suffix = db.Column(db.String(10), nullable=False, index=True)
     city = db.Column(db.String(100), nullable=False, index=True)
-    postcode = db.Column(db.Integer(4), nullable=False, index=True)
+    postcode = db.Column(db.Integer, nullable=False, index=True)
     state = db.Column(db.String(20), CheckConstraint("state IN ('QLD')"), nullable=False, index=True)
 
     #A value range constrainst which checks if the postcode value is between the MIN_POSTCODE and the MAX_POSTCODE
