@@ -2,24 +2,23 @@ from flask_login import UserMixin
 from . import db
 from datetime import datetime
 
-class Event:
+class Event(db.Model):
 
-    def __init__(self, eventId, userId, genre, name, artistName, status, startTime, endTime, location, ticketPrice, numTickets, description, image):
-        self.eventId = eventId
-        self.userId = userId
-        self.genre = genre
-        self.name = name
-        self.artistName = artistName
-        self.status = status
-        self.startTime = startTime
-        self.endTIme = endTime
-        self.location = location
-        self.ticketPrice = ticketPrice
-        self.numTickets = numTickets
-        self.description = description
-        self.image = image
+    __tablename__ = 'Events'
 
-    
+    eventId = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'))
+    genre = db.Column(db.String(80))
+    name = db.Column(db.String(80))
+    artistName = db.Column(db.String(80))
+    status = db.Column(db.DateTime)
+    startTime = db.Column(db.DateTime)
+    location = db.Column(db.String(80))
+    ticketPrice = db.Column(db.Float)
+    numTickets = db.Column(db.Integer)
+    description = db.Column(db.String)
+    #image = db.column(db.File)
+
     def get_event(self):
         return str(self)
 
