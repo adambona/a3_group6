@@ -174,13 +174,9 @@ class PhysicalAddress(db.Model):
     street_name = db.Column(db.String(100), nullable=False, index=True)
     street_suffix = db.Column(db.String(10), nullable=False, index=True)
     city = db.Column(db.String(100), nullable=False, index=True)
-    postcode = db.Column(db.Integer, nullable=False, index=True)
+    postcode = db.Column(db.Integer, CheckConstraint(f'postcode >= {MIN_POSTCODE} AND postcode <= {MAX_POSTCODE}'), nullable=False, index=True)
     state = db.Column(db.String(20), CheckConstraint("state IN ('QLD')"), nullable=False, index=True)
-
-    #A value range constrainst which checks if the postcode value is between the MIN_POSTCODE and the MAX_POSTCODE
-    value_range_constraint = CheckConstraint('value >= :min_val AND value <= :max_val',
-                                             name='value_range_constraint')
-    __table_args__ = (value_range_constraint, {'min_val': MIN_POSTCODE, 'max_val': MAX_POSTCODE})
+    
     
     def __repr__(self):
         return f"PhysicalAddress: (Unit number:'{self.unit_num}', Street number:'{self.street_num}', Street name:'{self.street_name}', Street suffix:'{self.street_suffix}', City:'{self.city}', Postcode:'{self.postcode}', State:'{self.state}')"
