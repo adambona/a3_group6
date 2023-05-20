@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from .forms import LoginForm,RegisterForm
 from flask_login import login_user, login_required,logout_user
 from . import db
+from .models import User
 
 #create a blueprint
 bp = Blueprint('auth', __name__)
