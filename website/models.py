@@ -85,12 +85,12 @@ class Event(db.Model):
 
     artist_names = db.relationship('Artist', backref='events')
 
-    def __init__(self, eventId, userId, genre, name, Artist, status, startTime, endTime, location, ticketPrice, numTickets, description, image):
+    def __init__(self, eventId, userId, genre, name, artistName, status, startTime, endTime, location, ticketPrice, numTickets, description, image):
         self.eventId = eventId
         self.userId = userId
         self.genre = genre
         self.name = name
-        self.Artist = Artist
+        self.artistName = artistName #Fixed naming convention
         self.status = status
         self.startTime = startTime
         self.endTime = endTime
@@ -99,7 +99,9 @@ class Event(db.Model):
         self.numTickets = numTickets
         self.description = description
         self.image = image
-        
+
+
+# -----------------------------------------------------------------Merge Conflict Resolved Events/User duplicated Commented out --------------------------------------------------------------------
 # class User(db.Model, UserMixin):
 #     __tablename__='Users' 
 #     id = db.Column(db.Integer, primary_key=True)
@@ -130,9 +132,7 @@ class Event(db.Model):
 #     def __repr__(self):
 #         str = "eventId: {0}\n userId: {1} \n genreId: {2} \n name: {3} \n Artist: {4} \n status: {5} \n startTime: {6} \n endTime: {7} \n location: {8} \n ticketPrice: {9} \n numTickets: {10} \n description {11} \n image {12}" 
 #         str =str.format( self.eventId, self.userId, self. genre, self.name, self.Artist, self.status, self.startTime, self.endTIme, self.location, self.ticketPrice, self.numTickets, self.description, self.image)
-#         return str
-    
-    
+#         return str 
 class Location(db.Model):
     """
     location model representing a location for a music event.

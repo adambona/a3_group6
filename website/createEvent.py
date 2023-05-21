@@ -11,10 +11,10 @@ bp = Blueprint('createEvent', __name__)
 def createEvent():
     form = createEventForm()
     if form.validate_on_submit():
-        db_file_path = check_upload_file(form)
-        event = Event(genre=form.genre.data, name=form.name.data, artistName=form.artistName.data, startTime=form.startTime.data, endTime=form.endTime.data, location=form.location.data, ticketPrice=form.ticketPrice.data, numTickets=form.numTickets.data, description=form.description.data, image=form.image.data)
+        # db_file_path = check_upload_file(form)
+        event = Event(eventId = form.eventId.data, userId=form.userId.data, status = form.status.data, genre=form.genre.data, name=form.name.data, artistName=form.artistName.data, startTime=form.startTime.data, endTime=form.endTime.data, location=form.location.data, ticketPrice=form.ticketPrice.data, numTickets=form.numTickets.data, description=form.description.data, image=form.image.data)
 
-        db.session.add(Event)
+        db.session.add(event)
         db.session.commit()
 
         print('Successfully created new event', 'success')
