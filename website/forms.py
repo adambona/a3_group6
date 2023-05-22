@@ -4,7 +4,7 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms.validators import Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
-ALLOWED_FILE = ['PNG','JPG','png','jpg']
+# ALLOWED_FILE = ['PNG','JPG','.png','jpg']
 
 #creates the login information
 class LoginForm(FlaskForm):
@@ -25,18 +25,18 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 class createEventForm(FlaskForm):
-    eventId=IntegerField("Event ID") # was previously id("Event ID")
-    userId=IntegerField("User ID") #was previously id("User ID")
+    event_id=IntegerField("Event ID") # was previously id("Event ID")
+    user_id=IntegerField("User ID") #was previously id("User ID")
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
-    artistName=StringField("Artist name", validators=[InputRequired()]) 
+    artist_name=StringField("Artist name", validators=[InputRequired()]) 
     status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"]) 
-    startTime=TimeField("Start time") 
-    endTime=TimeField("End time") 
+    start_time=TimeField("Start time")
+    end_time=TimeField("End time")
     location=StringField("Location/venue", validators=[InputRequired()]) 
-    ticketPrice=StringField("Price per ticket", validators=[InputRequired()]) 
-    numTickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
+    ticket_price=StringField("Price per ticket", validators=[InputRequired()]) 
+    num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
     description=StringField("Detailed Description of the Event", validators=[InputRequired()]) 
-    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)]) #Cant iterate over FileAllowed fields
-    #image=FileField("Thumbnail image for the event")
+    # image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)]) #File storage not supported temp comment
+    image = StringField('Cover Image', validators=[InputRequired()])
     submit=SubmitField("Create Event")

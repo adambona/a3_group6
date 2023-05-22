@@ -18,11 +18,11 @@ Classes:
 - EventStatus: Represents the status of an event.
 """
 
+from sqlalchemy import CheckConstraint
+from datetime import datetime
 from flask_login import UserMixin
 from . import db
-from datetime import datetime
 from enum import Enum
-from sqlalchemy import CheckConstraint
 
 class EventStatus(Enum):
     """
@@ -72,8 +72,8 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(56), nullable=False)
     status = db.Column(db.String(10), CheckConstraint("status IN ('Open', 'Inactive', 'Sold Out', 'Cancelled')"), nullable=False, index=True) #checks status is valid status
-    start_time = db.Column(db.DateTime, nullable=False, index=True)
-    end_time = db.Column(db.DateTime, nullable=False, index=True)
+    start_time = db.Column(db.Time, nullable=False, index=True)
+    end_time = db.Column(db.Time, nullable=False, index=True)
     description = db.Column(db.String(500), nullable=False, index=True)
     image = db.Column(db.String(400), nullable=False, index=True)
     ticket_price = db.Column(db.Float(2), CheckConstraint('ticket_price >= 0'), nullable=False, index=True)
@@ -85,18 +85,18 @@ class Event(db.Model):
 
     artist_names = db.relationship('Artist', backref='events')
 
-    def __init__(self, eventId, userId, genre, name, artistName, status, startTime, endTime, location, ticketPrice, numTickets, description, image):
-        self.eventId = eventId
-        self.userId = userId
+    def __init__(self, event_id, user_id, genre, name, artist_name, status, start_time, end_time, location, ticket_price, num_tickets, description, image):
+        self.event_id = event_id
+        self.user_id = user_id
         self.genre = genre
         self.name = name
-        self.artistName = artistName #Fixed naming convention
+        self.artist_name = artist_name #Fixed naming convention
         self.status = status
-        self.startTime = startTime
-        self.endTime = endTime
+        self.start_time = start_time
+        self.end_time = end_time
         self.location = location
-        self.ticketPrice = ticketPrice
-        self.numTickets = numTickets
+        self.ticket_price = ticket_price
+        self.num_tickets = num_tickets
         self.description = description
         self.image = image
 
@@ -119,10 +119,10 @@ class Event(db.Model):
 #     name = db.Column(db.String(80))
 #     artistName = db.Column(db.String(80))
 #     status = db.Column(db.DateTime)
-#     startTime = db.Column(db.DateTime)
+#     start_time = db.Column(db.DateTime)
 #     location = db.Column(db.String(80))
 #     ticketPrice = db.Column(db.Float)
-#     numTickets = db.Column(db.Integer)
+#     num_tickets = db.Column(db.Integer)
 #     description = db.Column(db.String)
 #     #image = db.column(db.File)
 
@@ -130,8 +130,8 @@ class Event(db.Model):
 #         return str(self)
 
 #     def __repr__(self):
-#         str = "eventId: {0}\n userId: {1} \n genreId: {2} \n name: {3} \n Artist: {4} \n status: {5} \n startTime: {6} \n endTime: {7} \n location: {8} \n ticketPrice: {9} \n numTickets: {10} \n description {11} \n image {12}" 
-#         str =str.format( self.eventId, self.userId, self. genre, self.name, self.Artist, self.status, self.startTime, self.endTIme, self.location, self.ticketPrice, self.numTickets, self.description, self.image)
+#         str = "eventId: {0}\n userId: {1} \n genreId: {2} \n name: {3} \n Artist: {4} \n status: {5} \n start_time: {6} \n end_time: {7} \n location: {8} \n ticketPrice: {9} \n num_tickets: {10} \n description {11} \n image {12}" 
+#         str =str.format( self.eventId, self.userId, self. genre, self.name, self.Artist, self.status, self.start_time, self.end_time, self.location, self.ticketPrice, self.num_tickets, self.description, self.image)
 #         return str 
 class Location(db.Model):
     """
@@ -270,7 +270,7 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):
         return "Comment: {}".format(self.text)
@@ -289,7 +289,7 @@ class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):
         return "Ticket: {}".format(self.id)
