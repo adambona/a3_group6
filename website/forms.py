@@ -25,8 +25,8 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 class createEventForm(FlaskForm):
-    eventId=id("Event ID")
-    userId=id("User ID")
+    eventId=IntegerField("Event ID") # was previously id("Event ID")
+    userId=IntegerField("User ID") #was previously id("User ID")
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
     artistName=StringField("Artist name", validators=[InputRequired()]) 
