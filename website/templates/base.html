@@ -24,14 +24,24 @@
                     <div class="collapse navbar-collapse col-lg-7" id="navbarNavDropdown">
                         <ul class="navbar-nav col-4">
                             <li class="nav-item active">
-                                <a class="nav-link active" href="index.html" id="whats-on">What's On</a>
+                                <a class="nav-link active" href="{{url_for('main.index')}}" id="whats-on">What's On</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav col-4">
                             <li class="nav-item">
-                                <a class="nav-link" href="/createEvent" id="create-event">Create an Event</a>
+                                <a class="nav-link" href="{{url_for('createEvent.createEvent')}}" id="create-event">Create an Event</a>
                             </li>
                         </ul>
+
+                        <ul class="navbar-nav col-4">
+                            <li class="nav-item">
+                                <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.search')}}" >
+                                    <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2"   id="SearchForm">
+                                    <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Search</button>
+                                  </form>
+                            </li>
+                        </ul>
+
                         <ul class="navbar-nav col-4">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
