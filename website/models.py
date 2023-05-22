@@ -291,3 +291,20 @@ class Ticket(db.Model):
 
     def __repr__(self):
         return "Ticket: {}".format(self.id)
+
+class Order(db.Model):
+    """ Order model representing an order for an event.
+
+    Attributes
+
+    """
+    __tablename__ = 'orders'
+    order_id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer)
+    total_amount = db.Column(db.Float(5), default= 0.0)
+    ordered_at = db.Column(db.DateTime, default=datetime.now())
+
+    def __init__(self,order_id ,event_id ,total_amount):
+        self.order_id = order_id
+        self.event_id = event_id
+        self.total_amount = total_amount
