@@ -9,4 +9,5 @@ def orderHistory():
     # new_order = Order(1,1,66.66) Create a new order for testing
     # db.session.add(new_order)
     # db.session.commit()
-    return render_template('order-history.html')
+    orders = Order.query.all()
+    return render_template('order-history.html', orders=orders)
