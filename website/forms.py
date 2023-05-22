@@ -4,7 +4,7 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms.validators import Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
-ALLOWED_FILE = {'PNG','JPG','png','jpg'}
+ALLOWED_FILE = ['PNG','JPG','png','jpg']
 
 #creates the login information
 class LoginForm(FlaskForm):
@@ -37,6 +37,6 @@ class createEventForm(FlaskForm):
     ticketPrice=StringField("Price per ticket", validators=[InputRequired()]) 
     numTickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
     description=StringField("Detailed Description of the Event", validators=[InputRequired()]) 
-    # image=FileField("Thumbnail image for the event", FileAllowed(ALLOWED_FILE)) Cant iterate over FileAllowed fields
-    image=FileField("Thumbnail image for the event")
+    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)]) #Cant iterate over FileAllowed fields
+    #image=FileField("Thumbnail image for the event")
     submit=SubmitField("Create Event")
