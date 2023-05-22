@@ -22,25 +22,31 @@
                </div>
                <div class="col-auto">
                    <div class="select-box">
-                       <select class="pr-5 col-12 text-center" id="genre-select">
-                           <option selected>ALL</option>
-                           <option value="pop">Pop</option>
-                           <option value="dance / EDM">Dance / EDM</option>
-                           <option value="hip-hop and rap">Hip-hop and Rap</option>
-                           <option value="r&b">R&B</option>
-                           <option value="latin">Latin</option>
-                           <option value="rock">Rock</option>
-                           <option value="metal">Metal</option>
-                           <option value="country">Country</option>
-                           <option value="folk / acoustic">Folk / Acoustic</option>
-                           <option value="classical">Classical</option>
-                           <option value="jazz">Jazz</option>
-                           <option value="blues">Blues</option>
-                           <option value="easy listening">Easy Listening</option>
-                           <option value="new age">New Age</option>
-                           <option value="world">World</option>
-                           <option value="other">Other</option>
-                       </select>
+                       <form action="{{url_for('main.searchGenre')}}">
+                           <label>
+                               <select class="pr-5 col-12 text-center" id="genre-select" name="search">
+                                   <option selected>ALL</option>
+                                   <option value="pop">Pop</option>
+                                   <option value="dance / EDM">Dance / EDM</option>
+                                   <option value="hip-hop and rap">Hip-hop and Rap</option>
+                                   <option value="r&b">R&B</option>
+                                   <option value="latin">Latin</option>
+                                   <option value="rock">Rock</option>
+                                   <option value="metal">Metal</option>
+                                   <option value="country">Country</option>
+                                   <option value="folk / acoustic">Folk / Acoustic</option>
+                                   <option value="classical">Classical</option>
+                                   <option value="jazz">Jazz</option>
+                                   <option value="blues">Blues</option>
+                                   <option value="easy listening">Easy Listening</option>
+                                   <option value="new age">New Age</option>
+                                   <option value="world">World</option>
+                                   <option value="other">Other</option>
+                                   <option value="test">test</option>
+                               </select>
+                           </label>
+                           <input class = "btn btn-primary" type="submit">
+                       </form>
                    </div>
                </div>
            </div>
@@ -64,14 +70,15 @@
                        <div class="col-md-8">
                            <div class="event-card-body">
                                <h3 class=" event-card-title">{{event.name}}</h3>
-                               <p class="event-card-text">add date value to event
+                               <p class="event-card-text">${{event.ticket_price}}</p>
                                    <span class="badge bg-success">{{event.status}}
                                    </span>
                                </p>
-                               <p>{{event.start_time}} - {{event.end_time}}</p>
+                               <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
                                <p class="event-card-text">{{event.location}} </p>
 
-                               <p class="event-card-text">??????</p>
+                               <p class="event-card-text">{{event.genre}}</p>
+                               <p class="event-card-text">Tickets Remaining - {{event.num_tickets}}</p>
                                <div class="d-grid gap-2 d-flex justify-content-end flex-wrap"
                                    id="event-card-btn">
                                    <a href="event-details.html"
