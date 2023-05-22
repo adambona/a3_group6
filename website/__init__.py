@@ -45,6 +45,9 @@ def create_app():
     from . import createEvent
     app.register_blueprint(createEvent.bp)
 
+    from . import myAccount
+    app.register_blueprint(myAccount.bp)
+
     #config upload folder
     UPLOAD_FOLDER = '/static/image'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER  
