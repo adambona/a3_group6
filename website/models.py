@@ -78,14 +78,13 @@ class Event(db.Model):
     image = db.Column(db.String(400), nullable=False, index=True)
     ticket_price = db.Column(db.Float(2), CheckConstraint('ticket_price >= 0'), nullable=False, index=True)
     num_tickets = db.Column(db.Integer, CheckConstraint('num_tickets >= 0'), nullable=False, index=True)
-    
+    event_date = db.Column(db.Date, nullable=False, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     genre = db.Column(db.Integer, db.ForeignKey('genres.id'))
     location = db.Column(db.Integer, db.ForeignKey('locations.id'))
-
     artist_names = db.relationship('Artist', backref='events')
 
-    def __init__(self, event_id, user_id, genre, name, artist_name, status, start_time, end_time, location, ticket_price, num_tickets, description, image):
+    def __init__(self, event_id, user_id, genre, name, artist_name, status, start_time, end_time, location, ticket_price, num_tickets, description, image, event_date):
         self.event_id = event_id
         self.user_id = user_id
         self.genre = genre
@@ -99,6 +98,7 @@ class Event(db.Model):
         self.num_tickets = num_tickets
         self.description = description
         self.image = image
+        self.event_date = event_date
 
 
 # -----------------------------------------------------------------Merge Conflict Resolved Events/User duplicated Commented out --------------------------------------------------------------------
@@ -200,8 +200,7 @@ class PhysicalAddress(db.Model):
     city = db.Column(db.String(100), nullable=False, index=True)
     postcode = db.Column(db.Integer, CheckConstraint(f'postcode >= {MIN_POSTCODE} AND postcode <= {MAX_POSTCODE}'), nullable=False, index=True)
     state = db.Column(db.String(20), CheckConstraint("state IN ('QLD')"), nullable=False, index=True)
-    
-    
+
     def __repr__(self):
         return f"PhysicalAddress: (Unit number:'{self.unit_num}', Street number:'{self.street_num}', Street name:'{self.street_name}', Street suffix:'{self.street_suffix}', City:'{self.city}', Postcode:'{self.postcode}', State:'{self.state}')"
 
@@ -274,7 +273,6 @@ class Comment(db.Model):
 
     def __repr__(self):
         return "Comment: {}".format(self.text)
-    
 
 class Ticket(db.Model):
     """

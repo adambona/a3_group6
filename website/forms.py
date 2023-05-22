@@ -1,6 +1,6 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms.validators import Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
@@ -30,13 +30,15 @@ class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
     artist_name=StringField("Artist name", validators=[InputRequired()]) 
-    status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"]) 
+    status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"])
+    event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
     end_time=TimeField("End time")
     location=StringField("Location/venue", validators=[InputRequired()]) 
     ticket_price=StringField("Price per ticket", validators=[InputRequired()]) 
     num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
-    description=StringField("Detailed Description of the Event", validators=[InputRequired()]) 
+    description=TextAreaField("Detailed Description of the Event", validators=[InputRequired()]) 
     # image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)]) #File storage not supported temp comment
     image = StringField('Cover Image', validators=[InputRequired()])
     submit=SubmitField("Create Event")
+    
