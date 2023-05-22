@@ -427,12 +427,14 @@ html {
   
   /*genre selection formatting*/
   #genre-select {
-    font-size: calc(1.2rem + 1vw) ;
-    font-weight: 600;
+    /* font-size: calc(1.2rem + 1vw) ; */
+    /* font-weight: 600; */
     max-width: 350px;
     border-color: #00abe4;
     background-color: #00abe4;
     color: white;
+    border: white solid .5px;
+    border-radius: 5px;
   }
   
   #genre-select:focus {
@@ -525,10 +527,10 @@ html {
     }
   }
   
-  
-  
-  
-  
+  /* index css added */
+.title {
+  color: white;
+}
   
   
   
