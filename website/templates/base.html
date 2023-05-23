@@ -43,6 +43,8 @@
                         </ul>
 
                         <ul class="navbar-nav col-4">
+                            <!-- Register/Login/Logout and welcome -->
+                            {% if current_user.is_authenticated %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
                                     id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
@@ -56,9 +58,13 @@
                                     <a class="dropdown-item" href="{{ url_for('myAccount.orderHistory') }}">Order History</a>
                                     <a class="dropdown-item" href="#">Settings</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                    <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Log Out</a>
                                 </div>
                             </li>
+                            {% else %}
+                                <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                                <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Log In</a>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>
