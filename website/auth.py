@@ -1,16 +1,14 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
 from werkzeug.security import generate_password_hash,check_password_hash
 #from .models import User
-from .forms import LoginForm,RegisterForm
-from flask_login import login_user, login_required,logout_user
+from .forms import LoginForm, RegisterForm
+from flask_login import login_user, login_required, logout_user
 from . import db
 from .models import User
 
 #create a blueprint
 bp = Blueprint('auth', __name__)
 
-
-# this is a hint for a login function
 # @bp.route('/login', methods=['GET', 'POST'])
 # def authenticate(): #view function
 #     print('In Login View function')
@@ -68,12 +66,13 @@ def login():
         
         #check if there is a user with that name
         if user is None:
-            error='Incorrect user name'
+            error='There is no matching user name in our system. Please try again'
         #check the password
         elif not check_password_hash(user.password_hash, password):
-            error='Incorrect password'
+            error='There is no matching password in our system. Please try again'
         if error is None:
         #sign in and set the login user
+            flash('You logged in successfully')
             login_user(user)
             return redirect(url_for('main.index'))
         else:
