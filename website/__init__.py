@@ -1,16 +1,18 @@
 #from package import Class
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
+
 db=SQLAlchemy()
+app=Flask(__name__)  # this is the name of the module/package that is calling this app
+
 
 #create a function that creates a web application
 # a web server will run this web application
 def create_app():
-
-    app=Flask(__name__)  # this is the name of the module/package that is calling this app
+    
     app.debug=True
     app.secret_key='somesecretgoeshere'
     #set the app configuration data 
@@ -53,3 +55,11 @@ def create_app():
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER  
 
     return app
+
+@app.errorhandler(404) 
+def not_found(e): 
+  return render_template("error.html",error=404)
+
+@app.errorhandler(500)
+def server_error(e): 
+  return render_template("error.html",error=500)
