@@ -2,7 +2,7 @@
 
 {% block header %}
 <head>
-    <title>Brisbane Live - Gin and Jazz Concert</title>    
+    <title>Brisbane Live {{event.title}}</title>    
 </head>
 {% endblock %}
 
@@ -10,18 +10,18 @@
 
 <main>
     <div class="container bg-body-white">
-        <img src='./IMG/event-image.avif' class="img-fluid" alt="event image">
+        <img src="{{event.image}}" class="img-fluid" alt="event image">
     </div>
     <div class="page-content">
         <div class="container no gutters-xs-only py-4 mb-4 bg-body-white">
             <div class="heading-section">
                 <div class="row align-items-center event-headline">
                     <div class="col-md-9">
-                        <h2 class="event-title">Gin and Jazz Concert </h2>
+                        <h2 class="event-title">{{event.title}} </h2>
                     </div>
                     <div class="col-md-3">
                         <div class="col-12 status-info">
-                            <h2 class="text-start">Status: <span class="badge bg-success">Open</span></h2>
+                            <h2 class="text-start">Status: <span class="badge bg-success">{{event.status}}</span></h2>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="checkout-model border checkout rounded">
                             <div class="checkout-model-body">
                                 <div class="text-center">
-                                    <h3 id="ticket-price-custom">$35.00</h3>
+                                    <h3 id="ticket-price-custom">{{event.ticket_price}}</h3>
                                 </div>
                             </div>
                             <div class="checkout-model-button text-center">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col">
                     <div class="row align-items-center">
-                        <h3>By Brookfield Rose Farm</h3>
+                        <h3>event artist</h3>
                     </div>
                 </div>
                 <div class="modal fade p-0" id="modal-toggle-buy-ticket" aria-hidden="true"
@@ -56,8 +56,7 @@
                                 <div class="col-md-8">
                                     <div class="main-model-content">
                                         <div class="modal-header">
-                                            <h3 class="modal-title" id="modal-toggle-buy-ticket-label">Gin and Jazz
-                                                Concert
+                                            <h3 class="modal-title" id="modal-toggle-buy-ticket-label">{{event.genre}}
                                             </h3>
                                             <button type="button"
                                                 class="btn-close position-absolute top-0 end-0 m-3"
@@ -65,9 +64,9 @@
                                         </div>
                                         <div class="modal-body">
                                             <p class="modal-label-custom">Date and time:</p>
-                                            <p>22/04/2023 2:00 PM - 5:30 PM AEST</p>
+                                            <p>{{event.event_date}}</p>
                                             <p class="modal-label-custom">Location:</p>
-                                            <p>Brookfield Rose Farm, Brookfield, QLD</p>
+                                            <p>{{event.location}}</p>
 
                                             <div class="col-lg-8">
                                                 <div class="container align-items-stretch">

@@ -7,6 +7,13 @@ from werkzeug.utils import secure_filename
 
 bp = Blueprint('createEvent', __name__)
 
+@bp.route('/<id>')
+def show(id):
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    # create the comment form
+    #form = CommentForm()    
+    return render_template('event-details.html', event=event) #form=form)
+
 @bp.route('/createEvent', methods=['GET', 'POST'])
 def createEvent():
     form = createEventForm()
