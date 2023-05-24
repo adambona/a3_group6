@@ -42,13 +42,14 @@ def register():
             uname =register.user_name.data
             pwd = register.password.data
             email=register.email_id.data
+            mobile_number = register.mobile_number.data
             #check if a user exists
             u1 = User.query.filter_by(name=uname).first()
             if u1:
                 flash('User name already exists, please login')
                 return redirect(url_for('auth.login'))
             pwd_hash = generate_password_hash(pwd)
-            new_user = User(name=uname, password_hash=pwd_hash, email_address=email)
+            new_user = User(name=uname, password_hash=pwd_hash, email_address=email, mobile_number=mobile_number)
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('main.index'))
