@@ -1,23 +1,39 @@
-{% include "base.html" %}
+{% extends "base_without_header.html" %}
 {% import "bootstrap5/form.html" as wtf %}
-{% block body %}
 
-<div class="page-header">
-    <h4>{{heading}}</h4>
-</div>
+{% block header %}
+    <!-- Override the header block with an empty content -->
+{% endblock %}
 
-<!-- Form rendering is simple and easy if using WTForms -->
-<!-- If you want more granular control, declare the form manually: -->
-<!-- <form action="/route" method="post"> -->
-<div class="col-md-6">
-    {{wtf.render_form(form)}}
-</div>
+{% block content %}
 
-<!-- When you have login form, then show the user a link to register -->
-{% if heading|lower =='login' %}
-<div class="col-md-4">
-    <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
+<div class="container-fluid m-0 p-0">
+  <div class="row g-0">
+    
+    <div class="col-md-8 col-lg-6">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <h3 class="login-heading mb-4">{{ heading }}</h3>
+
+              {{ wtf.render_form(form) }}
+
+              <!-- When you have a login form, show a link to register -->
+              {% if heading|lower == 'login' %}
+              <div class="row mt-3">
+                  <div class="col-md-6">
+                     <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
+                  </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-md-flex col-md-4 col-lg-6 login-bg-image"></div>
+  </div>
 </div>
-{% endif %}
 
 {% endblock %}
