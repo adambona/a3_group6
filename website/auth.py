@@ -48,7 +48,7 @@ def register():
                 flash('User name already exists, please login')
                 return redirect(url_for('auth.login'))
             pwd_hash = generate_password_hash(pwd)
-            new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+            new_user = User(name=uname, password_hash=pwd_hash, email_address=email)
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('main.index'))
