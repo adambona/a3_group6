@@ -301,23 +301,25 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p>Starts - Sat, April 22, 2:00 PM</p>
+                            <p>Date - {{event.event_date.strftime("%d/%m/%Y")}}</p>
+                            <p>Starts - {{event.start_time.strftime("%I:%M %p")}}</p>
                         </div>
                     </div>
 
                     <div class="row align-items-center">
                         <div class="col">
-                            <p>Ends - Sat, April 22, 5:30 PM</p>
+                            <p>Ends {{event.end_time.strftime("%I:%M %p")}}</p>
                         </div>
                         <div class="row align-items-center">
                             <h3 class="pt-4">Location</h3>
+                            <hr>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-3">
-                                <p>Brookfield Rose Farm</p>
+                                <p>Event Venue name ??? ****</p>
                             </div>
                             <div class="col-12 col-lg-5">
-                                <p>Brookfield Rose Farm, Brookfield, QLD</p>
+                                <p>{{event.location}}</p>
                             </div>
                         </div>
 
@@ -350,12 +352,7 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-8">
-                                <p>Brookfield Rose Garden presents its second concert in the garden.
-                                    This time it's all the best Jazz tunes we all know and love. Kick back with a
-                                    local Imbibis Gin and enjoy the music.
-                                    Brookfield Meander markets stalls will offer genuine locally produced products
-                                    from Brookfield and its surrounds.
-                                    Gates open at 2 pm bring your blankets, umbrellas and have a great afternoon.
+                                <p>{{event.description}}
                                 </p>
                             </div>
                         </div>
@@ -364,7 +361,7 @@
                             <h3 class="pt-4">Genre</h3>
                         </div>
                         <div class="d-flex p-2">
-                            <span class="badge rounded-pill" id="badge-custom">Hip-hop and Rap</span>
+                            <span class="badge rounded-pill" id="badge-custom">{{event.genre}}</span>
                         </div>
 
                         <div class="d-flex flex-column mt-4 pb-0 mb-0">
