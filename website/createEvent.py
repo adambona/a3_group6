@@ -18,14 +18,15 @@ def show(id):
 def createEvent():
     form = createEventForm()
     if form.validate_on_submit():
-        # db_file_path = check_upload_file(form)
-        event = Event(event_id = form.event_id.data, user_id=form.user_id.data, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_name=form.artist_name.data, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=form.image.data)
+        db_file_path = check_upload_file(form)
+        event = Event(event_id = form.event_id.data, user_id=form.user_id.data, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_name=form.artist_name.data, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
 
         db.session.add(event)
         db.session.commit()
 
         print('Successfully created new event', 'success')
         return redirect(url_for('createEvent.createEvent'))
+    
     return render_template('createEvent.html', form=form)
 
 def check_upload_file(form):
