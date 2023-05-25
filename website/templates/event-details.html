@@ -56,8 +56,9 @@
                                 <div class="col-md-8">
                                     <div class="main-model-content">
                                         <div class="modal-header">
-                                            <h3 class="modal-title" id="modal-toggle-buy-ticket-label">{{event.genre}}
+                                            <h3 class="modal-title" id="modal-toggle-buy-ticket-label">{{event.name}}
                                             </h3>
+
                                             <button type="button"
                                                 class="btn-close position-absolute top-0 end-0 m-3"
                                                 data-bs-dismiss="modal" aria-label="Close"></button>
@@ -73,7 +74,7 @@
                                                     <div class="row border p-1">
                                                         <div
                                                             class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
-                                                            <p class="p-2 mb-0">Final Sale Single Entry</p>
+                                                            <p class="p-2 mb-0">Adult</p>
                                                         </div>
                                                         <div
                                                             class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
@@ -94,7 +95,7 @@
                                                     </div>
                                                     <div class="row border p-1">
                                                         <div class="col-md-12">
-                                                            <p class="p-2 mb-0">AUD $35.00</p>
+                                                            <p class="p-2 mb-0">${{event.ticket_price}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -149,7 +150,7 @@
                                 <div class="col-md-4 order-md-last d-none d-md-block">
                                     <div class="side-model-content">
                                         <div class="d-none d-md-block">
-                                            <img src="./IMG/event-image.avif" class="event-card-img"
+                                            <img src="{{event.image}}" class="event-card-img"
                                                 alt="event image">
                                         </div>
 
