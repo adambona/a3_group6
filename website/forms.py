@@ -4,7 +4,7 @@ from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordFiel
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms.validators import Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
-ALLOWED_FILE = ['PNG','JPG','.png','jpg', 'jpeg', 'JPEG']
+ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
 #creates the login information
 class LoginForm(FlaskForm):
