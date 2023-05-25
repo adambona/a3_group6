@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% import "bootstrap5/form.html" as wtf %}
+
 {% block header %}
 <head>
     <title>Brisbane Live {{event.title}}</title>    
@@ -161,7 +163,7 @@
                                                     <p id="order-summary-text-custom">1 x General Admission</p>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <p id="amount-custom">AUD $35.00</p>
+                                                    <p id="amount-custom">Add Amount Summary*****</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -169,7 +171,7 @@
                                                     <p id="order-summary-text-custom">Total</p>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <p id="amount-custom">AUD $35.00</p>
+                                                    <p id="amount-custom">Add Amount Summary*****</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,100 +192,8 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="row g-5">
-                                    <div class="col">
-                                        <h4 class="mb-3 modal-label-custom">Billing address</h4>
-                                        <form>
-                                            <div class="row g-3">
-                                                <div class="col-sm-6">
-                                                    <label for="firstName"
-                                                        class="form-label modal-label-custom-small">First
-                                                        name</label>
-                                                    <input type="text" class="form-control" id="firstName">
-
-                                                </div>
-
-                                                <div class="col-sm-6">
-                                                    <label for="lastName"
-                                                        class="form-label modal-label-custom-small">Last
-                                                        name</label>
-                                                    <input type="text" class="form-control" id="lastName">
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <label for="email"
-                                                        class="form-label modal-label-custom-small">Email <span
-                                                            class="text-body-secondary"></span></label>
-                                                    <input type="email" class="form-control" id="email"
-                                                        placeholder="you@example.com">
-                                                </div>
-                                            </div>
-
-                                            <h4 class="mb-3 modal-label-custom mt-4">Payment</h4>
-                                            <div class="my-3">
-                                                <div class="form-check">
-                                                    <input id="credit" name="paymentMethod" type="radio"
-                                                        class="form-check-input">
-                                                    <label class="form-check-label modal-label-custom-small"
-                                                        for="credit">Credit card</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input id="debit" name="paymentMethod" type="radio"
-                                                        class="form-check-input">
-                                                    <label class="form-check-label modal-label-custom-small"
-                                                        for="debit">Debit card</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input id="paypal" name="paymentMethod" type="radio"
-                                                        class="form-check-input">
-                                                    <label class="form-check-label modal-label-custom-small"
-                                                        for="paypal">PayPal</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="row gy-3">
-                                                <div class="col-md-6">
-                                                    <label for="cc-number"
-                                                        class="form-label modal-label-custom-small">Credit card
-                                                        number</label>
-                                                    <input type="text" class="form-control" id="cc-number">
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label for="cc-expiration"
-                                                        class="form-label modal-label-custom-small">Expiration</label>
-                                                    <input type="text" class="form-control" id="cc-expiration">
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label for="cc-cvv"
-                                                        class="form-label modal-label-custom-small">CVV</label>
-                                                    <input type="text" class="form-control" id="cc-cvv">
-                                                </div>
-                                            </div>
-
-                                            <br>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input"
-                                                    id="confirm-details">
-                                                <label class="form-check-label modal-label-custom-small"
-                                                    for="confirm-details">I confirm my
-                                                    details are correct</label>
-                                            </div>
-
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="accept-terms">
-                                                <label class="form-check-label modal-label-custom-small"
-                                                    for="accept-terms">I agree to
-                                                    Brisbane Live Terms of Service</label>
-                                            </div>
-
-                                            <button class="w-100 btn btn-primary btn-lg mt-4" type="submit">Place
-                                                Order</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                                {{wtf.render_form(form)}}
+                            </div>  
                             <div class="modal-footer">
                                 <button class="btn btn-primary" data-bs-target="#modal-toggle-buy-ticket"
                                     data-bs-toggle="modal">Back</button>

@@ -1,4 +1,4 @@
-from .forms import createEventForm
+from .forms import createEventForm, paymentEventForm
 from .models import Event
 from flask import Blueprint, render_template, request, redirect, url_for
 from . import db
@@ -11,8 +11,10 @@ bp = Blueprint('createEvent', __name__)
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     # create the comment form
-    #form = CommentForm()    
-    return render_template('event-details.html', event=event) #form=form)
+    #form = CommentForm()
+
+    paymentform = paymentEventForm()
+    return render_template('event-details.html', event=event, form=paymentform) #form=form)
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
 def createEvent():
