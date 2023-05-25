@@ -29,6 +29,24 @@ def createEvent():
     
     return render_template('createEvent.html', form=form)
 
+@bp.route('/updateStatus<id>/<status>')
+def updateStatusInactive(id, status):
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    if status == 'open':
+        event.status = 'Open'
+    if status == 'inactive':
+        event.status = 'Inactive'
+    if status == 'soldout':
+        event.status = 'Sold Out'
+    if status == 'cancelled':
+        event.status = 'Cancelled'
+
+    db.session.commit()
+
+    events = Event.query.all()
+    return render_template('my-events.html', events=events)
+
+
 def check_upload_file(form):
   #get file data from form  
   fp = form.image.data
