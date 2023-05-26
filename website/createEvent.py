@@ -7,13 +7,21 @@ from werkzeug.utils import secure_filename
 
 bp = Blueprint('createEvent', __name__)
 
-@bp.route('/<id>')
+@bp.route('/<id>', methods=['GET', 'POST'])
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     # create the comment form
     #form = CommentForm()
-    return render_template('event-details.html', event=event,) #form=form
+    form = paymentEventForm()
+    
+    if form.validate_on_submit():
+        payment = Payment(first_name = form.first_name.data, last_name = form.last_name.data, email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data)
+        db.session.add(payment)
+        db.session.commit()
+        print('Successfully created new event', 'success')
+        return redirect(url_for('createEvent.show', id=id))
 
+    return render_template('event-details.html', event=event, form=form)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])

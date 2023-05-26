@@ -45,7 +45,7 @@ class paymentEventForm(FlaskForm):
     first_name=StringField("First name", validators=[InputRequired()])
     last_name=StringField("Last name", validators=[InputRequired()])
     email=StringField("Email address", validators=[InputRequired()])
-    payment_type=RadioField("Select payment type", choices=[('value', 'Credit Card'), ('value', 'Debit Card'), ('value', 'PayPal')], validators=[InputRequired()])
+    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
     card_number=StringField("Card number", validators=[InputRequired()])
     expiration=StringField('Expiration', validators=[InputRequired()])
     cvv=StringField("CVV", validators=[InputRequired()])

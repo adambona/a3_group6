@@ -325,7 +325,7 @@ class Payment(db.Model):
     card_number = db.Column(db.String) 
     expiration = db.Column(db.String)
     cvv = db.Column(db.String)
-    
+
     def __init__(self,first_name, last_name, email, pay_type, card_number, expiration, cvv):
         self.first_name = first_name
         self.last_name = last_name
