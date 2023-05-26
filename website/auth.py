@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, render_template, request, url_for, redirect
+from flask import Blueprint, flash, render_template, request, url_for, redirect, session
 from werkzeug.security import generate_password_hash,check_password_hash
 #from .models import User
 from .forms import LoginForm, RegisterForm
@@ -75,6 +75,7 @@ def login():
         #sign in and set the login user
             flash('You logged in successfully')
             login_user(user)
+            session['user'] = user
             return redirect(url_for('main.index'))
         else:
             flash(error,'danger')
