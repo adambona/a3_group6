@@ -308,3 +308,29 @@ class Order(db.Model):
         self.order_id = order_id
         self.event_id = event_id
         self.total_amount = total_amount
+
+class Payment(db.Model):
+    """ Payment model representing the payment details of a user
+
+    Attributes: 
+
+    """
+    __tablename__ = 'payment'
+    payment_id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
+    email = db.Column(db.String)
+    pay_type = db.Column(db.String)
+    #Testing only, add hashing/industry standart later
+    card_number = db.Column(db.String) 
+    expiration = db.Column(db.String)
+    cvv = db.Column(db.String)
+    
+    def __init__(self,first_name, last_name, email, pay_type, card_number, expiration, cvv):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.email = email
+        self.pay_type = pay_type
+        self.card_number = card_number
+        self.expiration = expiration
+        self.cvv = cvv
