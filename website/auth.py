@@ -1,16 +1,14 @@
-from flask import Blueprint, flash, render_template, request, url_for, redirect
+from flask import Blueprint, flash, render_template, request, url_for, redirect, session
 from werkzeug.security import generate_password_hash,check_password_hash
 #from .models import User
-from .forms import LoginForm,RegisterForm
-from flask_login import login_user, login_required,logout_user
+from .forms import LoginForm, RegisterForm
+from flask_login import login_user, login_required, logout_user
 from . import db
 from .models import User
 
 #create a blueprint
 bp = Blueprint('auth', __name__)
 
-
-# this is a hint for a login function
 # @bp.route('/login', methods=['GET', 'POST'])
 # def authenticate(): #view function
 #     print('In Login View function')
@@ -44,13 +42,14 @@ def register():
             uname =register.user_name.data
             pwd = register.password.data
             email=register.email_id.data
+            mobile_number = register.mobile_number.data
             #check if a user exists
             u1 = User.query.filter_by(name=uname).first()
             if u1:
                 flash('User name already exists, please login')
                 return redirect(url_for('auth.login'))
             pwd_hash = generate_password_hash(pwd)
-            new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+            new_user = User(name=uname, password_hash=pwd_hash, email_address=email, mobile_number=mobile_number)
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('main.index'))
@@ -68,12 +67,13 @@ def login():
         
         #check if there is a user with that name
         if user is None:
-            error='Incorrect user name'
+            error='There is no matching user name in our system. Please try again'
         #check the password
         elif not check_password_hash(user.password_hash, password):
-            error='Incorrect password'
+            error='There is no matching password in our system. Please try again'
         if error is None:
         #sign in and set the login user
+            flash('You logged in successfully')
             login_user(user)
             return redirect(url_for('main.index'))
         else:

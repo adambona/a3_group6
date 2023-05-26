@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "bootstrap/form.html" as wtf %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Error</h1>
+    <p>We cannot find what you are looking for.</p>
+    {% if error==404 %}
+    <h1>404</h1>
+    <h2>Oops! Page not found</h2>
+    <p>Make sure you have typed the URL in correctly. Otherwise the page you were looking for may have been moved or deleted.</p>
+    <p>You can read more about a 404 error <a href="https://en.wikipedia.org/wiki/HTTP_404">here</a></p>
+    {% elif error==500 %}
+    <h1>500</h1>
+    <h2>Oops! An internal server error occured</h2>
+    <p>Try refreshing the page or try again later.</p>
+    <p>If the problem persists please report your problem to our team and we will try and help you.</p> 
+    <p>You can read more about a 500 error <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_server_errors">here</a></p>
+    {% else %}
+    <p>Oops! An error occured. Please try again later.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

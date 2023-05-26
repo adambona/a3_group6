@@ -531,7 +531,32 @@ html {
 .title {
   color: white;
 }
-  
-  
-  
+  /*login/registration for container formatting*/
+.form-container {
+  max-width: 360px;
+  margin: 0 auto;
+}  
+
+
+.form-img {
+  height: 100%; /* Ensure the container takes the full height of the column */
+  background-image: url("/website/static/image/banner-1280.jpg");
+  background-size: cover;
+  background-position: center;
+}
+ 
+
+.login {
+  min-height: 100vh;
+}
+
+.login-bg-image {
+  background-image: url('../image/front-view-engaged-crowd-smiley-dj.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-heading {
+  font-weight: 350;
+}
   
