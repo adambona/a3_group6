@@ -75,7 +75,6 @@ def login():
         #sign in and set the login user
             flash('You logged in successfully')
             login_user(user)
-            session['user'] = user
             return redirect(url_for('main.index'))
         else:
             flash(error,'danger')
