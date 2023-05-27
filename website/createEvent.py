@@ -1,5 +1,6 @@
 from .forms import createEventForm
 from .models import Event
+from .models import Artist
 from flask import Blueprint, render_template, request, redirect, url_for
 from . import db
 import os
@@ -21,7 +22,18 @@ def createEvent():
     form = createEventForm()
     if form.validate_on_submit():
         db_file_path = check_upload_file(form)
-        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_name=form.artist_name.data, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+
+        #for name in form.artist_names:
+        artist = Artist(event_id = 0, name = form.artist_names.data)
+        db.session.add(artist)
+
+        #artist_list = []
+        #artist_list.append(artist.name)
+        #print(artist_list)
+
+        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        artist_update = db.session.scalar(db.select(Artist).where(Artist.id==artist.id))
+        artist_update.event_id = event.id
 
         db.session.add(event)
         db.session.commit()
