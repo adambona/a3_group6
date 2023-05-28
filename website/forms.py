@@ -16,6 +16,7 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired()])
     email_id = StringField("Email Address", validators=[Email()])
+    mobile_number = StringField("Mobile Number", validators=[InputRequired()])
     #linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
@@ -25,8 +26,6 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 class createEventForm(FlaskForm):
-    event_id=IntegerField("Event ID") # was previously id("Event ID")
-    user_id=IntegerField("User ID") #was previously id("User ID")
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
     artist_name=StringField("Artist name", validators=[InputRequired()]) 

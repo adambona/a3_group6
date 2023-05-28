@@ -84,8 +84,7 @@ class Event(db.Model):
     location = db.Column(db.Integer, db.ForeignKey('locations.id'))
     artist_names = db.relationship('Artist', backref='events')
 
-    def __init__(self, event_id, user_id, genre, name, artist_name, status, start_time, end_time, location, ticket_price, num_tickets, description, image, event_date):
-        self.event_id = event_id
+    def __init__(self, user_id, genre, name, artist_name, status, start_time, end_time, location, ticket_price, num_tickets, description, image, event_date):
         self.user_id = user_id
         self.genre = genre
         self.name = name

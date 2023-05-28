@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from . import db
 import os
 from werkzeug.utils import secure_filename
+from flask_login import login_required, current_user
 
 bp = Blueprint('createEvent', __name__)
 
@@ -11,25 +12,17 @@ bp = Blueprint('createEvent', __name__)
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     # create the comment form
-    #form = CommentForm()
-    form = paymentEventForm()
-    
-    if form.validate_on_submit():
-        payment = Payment(first_name = form.first_name.data, last_name = form.last_name.data, email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data)
-        db.session.add(payment)
-        db.session.commit()
-        print('Successfully created new event', 'success')
-        return redirect(url_for('createEvent.show', id=id))
-
-    return render_template('event-details.html', event=event, form=form)
+    #form = CommentForm()    
+    return render_template('event-details.html', event=event) #form=form)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
+@login_required
 def createEvent():
     form = createEventForm()
     if form.validate_on_submit():
         db_file_path = check_upload_file(form)
-        event = Event(event_id = form.event_id.data, user_id=form.user_id.data, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_name=form.artist_name.data, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_name=form.artist_name.data, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
 
         db.session.add(event)
         db.session.commit()

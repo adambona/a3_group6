@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Order
 from .models import Event
 from . import db
+from flask_login import login_required, current_user
 
 bp = Blueprint('myAccount', __name__)
 
@@ -15,7 +16,6 @@ def orderHistory():
 
 @bp.route('/my-events')
 def myEvents():
-    #events = Event.query.filter(Event.user_id==currentUser).all()
-    event = Event.query.all()
-    return render_template('my-events.html', events=event)
+    events = Event.query.filter(Event.user_id==current_user.id).all()
+    return render_template('my-events.html', events=events)
 
