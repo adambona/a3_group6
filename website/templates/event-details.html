@@ -51,6 +51,7 @@
                         <h3>event artist</h3>
                     </div>
                 </div>
+
                 <div class="modal fade p-0" id="modal-toggle-buy-ticket" aria-hidden="true"
                     aria-labelledby="modal-toggle-buy-ticket-label" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-xl">
@@ -209,17 +210,17 @@
                     </div>
 
                     <div class="row">
-                        <h3 class="pt-4">Date and time</h3>
+                        <h3 class="pt-4">{{event.event_date}}</h3>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <p>Starts - Sat, April 22, 2:00 PM</p>
+                            <p>Starts - {{event.start_time}}</p>
                         </div>
                     </div>
 
                     <div class="row align-items-center">
                         <div class="col">
-                            <p>Ends - Sat, April 22, 5:30 PM</p>
+                            <p>Ends - {{event.end_time}}</p>
                         </div>
                         <div class="row align-items-center">
                             <h3 class="pt-4">Location</h3>
@@ -227,10 +228,10 @@
                         </div>
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-3">
-                                <p>Brookfield Rose Farm</p>
+                                <p>{{event.location}}</p>
                             </div>
                             <div class="col-12 col-lg-5">
-                                <p>Brookfield Rose Farm, Brookfield, QLD</p>
+                                <p>{{event.location}}</p>
                             </div>
                         </div>
 
@@ -259,7 +260,7 @@
                             </div>
                         </div>
                         <div class="row align-items-center">
-                            <h3 class="pt-4">Description</h3>
+                            <h3 class="pt-4">{{Description}}</h3>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-8">
