@@ -99,39 +99,6 @@ class Event(db.Model):
         self.image = image
         self.event_date = event_date
 
-
-# -----------------------------------------------------------------Merge Conflict Resolved Events/User duplicated Commented out --------------------------------------------------------------------
-# class User(db.Model, UserMixin):
-#     __tablename__='Users' 
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
-#     emailid = db.Column(db.String(100), index=True, nullable=False)
-#     password_hash = db.Column(db.String(255), nullable=False)
-
-# class Event(db.Model):
-
-#     __tablename__ = 'Events'
-
-#     eventId = db.Column(db.Integer, primary_key=True)
-#     userId = db.Column(db.Integer, db.ForeignKey('users.id'))
-#     genre = db.Column(db.String(80))
-#     name = db.Column(db.String(80))
-#     artistName = db.Column(db.String(80))
-#     status = db.Column(db.DateTime)
-#     start_time = db.Column(db.DateTime)
-#     location = db.Column(db.String(80))
-#     ticketPrice = db.Column(db.Float)
-#     num_tickets = db.Column(db.Integer)
-#     description = db.Column(db.String)
-#     #image = db.column(db.File)
-
-#     def get_event(self):
-#         return str(self)
-
-#     def __repr__(self):
-#         str = "eventId: {0}\n userId: {1} \n genreId: {2} \n name: {3} \n Artist: {4} \n status: {5} \n start_time: {6} \n end_time: {7} \n location: {8} \n ticketPrice: {9} \n num_tickets: {10} \n description {11} \n image {12}" 
-#         str =str.format( self.eventId, self.userId, self. genre, self.name, self.Artist, self.status, self.start_time, self.end_time, self.location, self.ticketPrice, self.num_tickets, self.description, self.image)
-#         return str 
 class Location(db.Model):
     """
     location model representing a location for a music event.
@@ -291,19 +258,21 @@ class Ticket(db.Model):
     def __repr__(self):
         return "Ticket: {}".format(self.id)
 
-class Order(db.Model):
-    """ Order model representing an order for an event.
 
-    Attributes
+class Order(db.Model):
+    """ Payment model representing the payment details of a user
+
+    Attributes: 
 
     """
-    __tablename__ = 'orders'
-    order_id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer)
-    total_amount = db.Column(db.Float(5), default= 0.0)
-    ordered_at = db.Column(db.DateTime, default=datetime.now())
+    __tablename__ = 'payment'
 
-    def __init__(self,order_id ,event_id ,total_amount):
-        self.order_id = order_id
-        self.event_id = event_id
-        self.total_amount = total_amount
+    order_id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String)
+    last_name = db.Column(db.String)
+    email = db.Column(db.String)
+    pay_type = db.Column(db.String)
+    card_number = db.Column(db.String) 
+    expiration = db.Column(db.String)
+    cvv = db.Column(db.String)
+    num_tickets = db.Column(db.Integer)
