@@ -1,5 +1,5 @@
-from .forms import createEventForm, paymentEventForm
-from .models import Event, Payment
+from .forms import createEventForm, ticketForm, orderForm
+from .models import Event, Order
 from flask import Blueprint, render_template, request, redirect, url_for
 from . import db
 import os
@@ -13,16 +13,18 @@ def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     # create the comment form
     #form = CommentForm()
-    form = paymentEventForm()
+    tform = ticketForm()
+    form = orderForm()
     
     if form.validate_on_submit():
-        payment = Payment(first_name = form.first_name.data, last_name = form.last_name.data, email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data)
+        payment = Order(first_name = form.first_name.data, last_name = form.last_name.data,
+        email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= tform.num_tickets.data)
         db.session.add(payment)
         db.session.commit()
         print('Successfully created new event', 'success')
         return redirect(url_for('createEvent.show', id=id))
 
-    return render_template('event-details.html', event=event, form=form)
+    return render_template('event-details.html', event=event, form=form, tform=tform)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])

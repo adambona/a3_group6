@@ -40,7 +40,7 @@ class createEventForm(FlaskForm):
     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
     submit=SubmitField("Create Event")
     
-class paymentEventForm(FlaskForm):
+class orderForm(FlaskForm):
     first_name=StringField("First name", validators=[InputRequired()])
     last_name=StringField("Last name", validators=[InputRequired()])
     email=StringField("Email address", validators=[InputRequired()])
@@ -51,3 +51,6 @@ class paymentEventForm(FlaskForm):
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
+
+class ticketForm(FlaskForm):
+    num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])

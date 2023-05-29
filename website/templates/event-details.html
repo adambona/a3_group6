@@ -3,6 +3,8 @@
 
 {% import "bootstrap5/form.html" as wtf %}
 
+
+
 {% block header %}
 <head>
     <title>Brisbane Live {{event.title}}</title>    
@@ -13,7 +15,7 @@
 
 <main>
     <div class="container bg-body-white">
-        <img src='{{event.image}}' class="img-fluid" alt="event image">
+        <img src="{{event.image}}" class="img-fluid" alt="event image">
     </div>
     <div class="page-content">
         <div class="container no gutters-xs-only py-4 mb-4 bg-body-white">
@@ -83,23 +85,15 @@
                                                         <div
                                                             class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
                                                             <div class="input-group ms-2 me-auto">
-                                                                <div class="input-group-prepend">
-                                                                    <button class="btn btn-square btn-primary"
-                                                                        type="button">&minus;</button>
-                                                                </div>
-                                                                <input type="text"
-                                                                    class="form-control text-center text-input quantity-input"
-                                                                    id="quantity" value="1">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-primary btn-square"
-                                                                        type="button">&#43;</button>
-                                                                </div>
+
+                                                                {{wtf.render_form(tform)}}
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row border p-1">
                                                         <div class="col-md-12">
-                                                            <p class="p-2 mb-0">${{event.ticket_price}}</p>
+                                                            <p class="p-2 mb-0">Ticket Cost - ${{event.ticket_price}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
