@@ -1,8 +1,7 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField
-from wtforms.validators import InputRequired, Length, Email, EqualTo
-from wtforms.validators import Email
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, IntegerRangeField
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
@@ -41,16 +40,14 @@ class createEventForm(FlaskForm):
     submit=SubmitField("Create Event")
     
 class orderForm(FlaskForm):
+    num_tickets=IntegerField("Number of tickets")
     first_name=StringField("First name", validators=[InputRequired()])
     last_name=StringField("Last name", validators=[InputRequired()])
     email=StringField("Email address", validators=[InputRequired()])
     pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
-    card_number=StringField("Card number", validators=[InputRequired()])
+    card_number=IntegerField("Card number", validators=[InputRequired()])
     expiration=StringField('Expiration', validators=[InputRequired()])
-    cvv=StringField("CVV", validators=[InputRequired()])
+    cvv=IntegerField("CVV", validators=[InputRequired()])
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
-
-class ticketForm(FlaskForm):
-    num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])

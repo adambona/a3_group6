@@ -1,4 +1,4 @@
-from .forms import createEventForm, ticketForm, orderForm
+from .forms import createEventForm, orderForm
 from .models import Event, Order
 from flask import Blueprint, render_template, request, redirect, url_for
 from . import db
@@ -11,20 +11,17 @@ bp = Blueprint('createEvent', __name__)
 @bp.route('/<id>', methods=['GET', 'POST'])
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
-    # create the comment form
-    #form = CommentForm()
-    tform = ticketForm()
     form = orderForm()
     
     if form.validate_on_submit():
-        payment = Order(first_name = form.first_name.data, last_name = form.last_name.data,
-        email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= tform.num_tickets.data)
-        db.session.add(payment)
+        order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
+        email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
+        db.session.add(order)
         db.session.commit()
         print('Successfully created new event', 'success')
         return redirect(url_for('createEvent.show', id=id))
 
-    return render_template('event-details.html', event=event, form=form, tform=tform)
+    return render_template('event-details.html', event=event, form=form)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])

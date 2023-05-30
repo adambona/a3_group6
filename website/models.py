@@ -265,9 +265,10 @@ class Order(db.Model):
     Attributes: 
 
     """
-    __tablename__ = 'payment'
+    __tablename__ = 'orders'
 
     order_id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     email = db.Column(db.String)
@@ -276,3 +277,5 @@ class Order(db.Model):
     expiration = db.Column(db.String)
     cvv = db.Column(db.String)
     num_tickets = db.Column(db.Integer)
+    booked_by = db.Column(db.String)
+    total_cost  = db.Column(db.Float(2))
