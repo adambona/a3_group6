@@ -42,3 +42,7 @@ class createEventForm(FlaskForm):
     image = StringField('Cover Image', validators=[InputRequired()])
     submit=SubmitField("Create Event")
     
+#comment form 
+class CommentForm(FlaskForm):
+  text = TextAreaField('Comment', [InputRequired()])
+  submit = SubmitField('Create')
