@@ -1,18 +1,20 @@
-from .forms import createEventForm
-from .models import Event
-from flask import Blueprint, render_template, request, redirect, url_for
+from .forms import createEventForm, CommentForm
+from .models import Event, Comment
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 import os
 from werkzeug.utils import secure_filename
+from flask_login import login_required, current_user
 
-bp = Blueprint('createEvent', __name__)
+#bp = Blueprint('createEvent', __name__)
+bp = Blueprint('createEvent', __name__, url_prefix='/event')
 
 @bp.route('/<id>')
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     # create the comment form
-    #form = CommentForm()    
-    return render_template('event-details.html', event=event) #form=form)
+    cform = CommentForm()    
+    return render_template('event-details.html', event=event, form=cform)
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
 def createEvent():
@@ -41,3 +43,23 @@ def check_upload_file(form):
   #save the file and return the db upload path  
   fp.save(upload_path)
   return db_upload_path
+
+@bp.route('/<event>/comment', methods=['GET', 'POST'])
+#@login_required
+def comment(event):
+    form = CommentForm()
+    # get the destination object associated to the page and the comment
+    event_obj = Event.query.filter_by(id=event).first()
+    if form.validate_on_submit():
+        # read the comment from the form
+        comment = Comment(text=form.text.data,
+                          events=event_obj,
+                          #user=current_user
+                          )
+        db.session.add(comment)
+        db.session.commit()
+
+        # flashing a message which needs to be handled by the html
+        flash('Your comment has been added', 'success')
+        print('Your comment has been added', 'success')
+    return redirect(url_for('createEvent.show', id=event))
