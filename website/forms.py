@@ -1,6 +1,6 @@
 
-from flask_wtf import FlaskForm, Form
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FieldList, FormField
+from flask_wtf import FlaskForm
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms.validators import Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
@@ -25,14 +25,10 @@ class RegisterForm(FlaskForm):
     #submit button
     submit = SubmitField("Register")
 
-class newArtist(Form):
-    name=StringField("Artist")
-
 class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
-    #artist_names=StringField("Artist", validators=[InputRequired()])
-    artist_names=FieldList(FormField(newArtist), min_entries=1, max_entries=None)
+    artist_name=StringField("Artist name", validators=[InputRequired()]) 
     status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"])
     event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
@@ -44,18 +40,6 @@ class createEventForm(FlaskForm):
     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
     submit=SubmitField("Create Event")
     
-class orderForm(FlaskForm):
-    first_name=StringField("First name", validators=[InputRequired()])
-    last_name=StringField("Last name", validators=[InputRequired()])
-    email=StringField("Email address", validators=[InputRequired()])
-    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
-    card_number=StringField("Card number", validators=[InputRequired()])
-    expiration=StringField('Expiration', validators=[InputRequired()])
-    cvv=StringField("CVV", validators=[InputRequired()])
-    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
-    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
-    submit=SubmitField('Process Payment')
-
 class orderForm(FlaskForm):
     first_name=StringField("First name", validators=[InputRequired()])
     last_name=StringField("Last name", validators=[InputRequired()])
