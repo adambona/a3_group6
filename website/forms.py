@@ -31,9 +31,9 @@ class newArtist(Form):
 class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
-    #artist_names=StringField("Artist", validators=[InputRequired()])
     artist_names=FieldList(FormField(newArtist), min_entries=1, max_entries=None)
-    status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"])
+    addrow = SubmitField('Add row')
+    status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"])
     event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
     end_time=TimeField("End time")
