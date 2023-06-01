@@ -31,7 +31,6 @@ def show(id):
 @login_required
 def createEvent():
     form = createEventForm()
-
     artist_names_field = [{"name": "Enter Artist Name"},
                           {"name": "Enter Artist Name"}]
     form = createEventForm(artist_names=artist_names_field)
