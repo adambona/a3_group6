@@ -1,6 +1,6 @@
 
 from flask_wtf import FlaskForm, Form
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, FieldList, FormField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FieldList, FormField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from wtforms.validators import Email
 from flask_wtf.file import FileRequired, FileField, FileAllowed
@@ -44,3 +44,29 @@ class createEventForm(FlaskForm):
     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
     submit=SubmitField("Create Event")
     
+class orderForm(FlaskForm):
+    first_name=StringField("First name", validators=[InputRequired()])
+    last_name=StringField("Last name", validators=[InputRequired()])
+    email=StringField("Email address", validators=[InputRequired()])
+    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
+    card_number=StringField("Card number", validators=[InputRequired()])
+    expiration=StringField('Expiration', validators=[InputRequired()])
+    cvv=StringField("CVV", validators=[InputRequired()])
+    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
+    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
+    submit=SubmitField('Process Payment')
+
+class orderForm(FlaskForm):
+    first_name=StringField("First name", validators=[InputRequired()])
+    last_name=StringField("Last name", validators=[InputRequired()])
+    email=StringField("Email address", validators=[InputRequired()])
+    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
+    card_number=StringField("Card number", validators=[InputRequired()])
+    expiration=StringField('Expiration', validators=[InputRequired()])
+    cvv=StringField("CVV", validators=[InputRequired()])
+    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
+    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
+    submit=SubmitField('Process Payment')
+
+class ticketForm(FlaskForm):
+    num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])
