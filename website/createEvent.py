@@ -20,20 +20,24 @@ def show(id):
 @login_required
 def createEvent():
     form = createEventForm()
+
+    artist_names_field = [{"name": "Enter Artist Name"},
+                          {"name": "Enter Artist Name"}]
+    form = createEventForm(artist_names=artist_names_field)
+
     if form.validate_on_submit():
         db_file_path = check_upload_file(form)
+        artist_list = []
 
-        #for name in form.artist_names:
-        artist = Artist(event_id = 0, name = form.artist_names.data)
-        db.session.add(artist)
+        for field in form.artist_names:
+            artist = Artist(event_id = 0, name = field.data['name'])
+            db.session.add(artist)
+            artist_list.append(artist)    
 
-        #artist_list = []
-        #artist_list.append(artist.name)
-        #print(artist_list)
-
-        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
-        artist_update = db.session.scalar(db.select(Artist).where(Artist.id==artist.id))
-        artist_update.event_id = event.id
+        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        
+        for artist in artist_list:
+            artist.event_id = event.id
 
         db.session.add(event)
         db.session.commit()

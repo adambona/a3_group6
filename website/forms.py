@@ -25,13 +25,14 @@ class RegisterForm(FlaskForm):
     #submit button
     submit = SubmitField("Register")
 
-#class newArtist(Form):
- #   name=StringField("Artist")
+class newArtist(Form):
+    name=StringField("Artist")
 
 class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
-    artist_names=StringField("Artist", validators=[InputRequired()])
+    #artist_names=StringField("Artist", validators=[InputRequired()])
+    artist_names=FieldList(FormField(newArtist), min_entries=1, max_entries=None)
     status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"])
     event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
