@@ -26,12 +26,16 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 class newArtist(Form):
-    name=StringField("Artist")
+    name=StringField("")
 
 class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
-    artist_names=FieldList(FormField(newArtist), min_entries=1, max_entries=None)
+
+    #WTF render_form renders the label + -0, -1, -2 etc. Text is also larger than the rest of the form
+    artist_names=FieldList(FormField(newArtist), min_entries=1, max_entries=None, name="Artist")
+
+
     addrow = SubmitField('Add row')
     status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"])
     event_date=DateField("Event date", validators=[InputRequired()])

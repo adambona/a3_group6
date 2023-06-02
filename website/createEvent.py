@@ -31,9 +31,18 @@ def show(id):
 @login_required
 def createEvent():
     form = createEventForm()
-    artist_names_field = [{"name": "Enter Artist Name"},
-                          {"name": "Enter Artist Name"}]
+    artist_names_field = [{"name": ""},
+                          {"name": ""}]
     form = createEventForm(artist_names=artist_names_field)
+
+##### Add new entry button function
+    read_from_form = form.data
+    if form.addrow():
+        artist_names_field.append({})
+        read_from_form['artist_names'] = artist_names_field
+        print('add new row')
+
+#####
 
     if form.validate_on_submit():
         db_file_path = check_upload_file(form)
@@ -41,6 +50,7 @@ def createEvent():
 
         for field in form.artist_names:
             artist = Artist(event_id = 0, name = field.data['name'])
+            field.name.label = None
             db.session.add(artist)
             artist_list.append(artist)    
 
