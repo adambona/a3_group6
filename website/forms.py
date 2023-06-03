@@ -1,7 +1,8 @@
 
-from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField
+from flask_wtf import FlaskForm, Form
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FormField, FieldList
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp
+
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
@@ -24,11 +25,20 @@ class RegisterForm(FlaskForm):
     #submit button
     submit = SubmitField("Register")
 
+class newArtist(Form):
+   name=StringField("")
+
 class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
-    artist_name=StringField("Artist name", validators=[InputRequired()]) 
-    status=SelectField("Event status", choices=["Open", "Inactive", "Soldout", "Canceled"])
+
+    #WTF render_form renders the label + -0, -1, -2 etc. Text is also larger than the rest of the form
+    artist_names=FieldList(FormField(newArtist), min_entries=1, max_entries=None, name="Artist")
+    #artist_names=StringField("Artists", validators=[InputRequired()])
+    addrow = SubmitField('Add row')
+
+
+    status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"])
     event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
     end_time=TimeField("End time")
@@ -38,6 +48,7 @@ class createEventForm(FlaskForm):
     description=TextAreaField("Detailed Description of the Event", validators=[InputRequired()]) 
     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
     submit=SubmitField("Create Event")
+    
     
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired(), NumberRange(min=1,max=5)])

@@ -51,7 +51,11 @@
                 </div>
                 <div class="col">
                     <div class="row align-items-center">
-                        <h3>event artist</h3>
+
+                        {% for field in event.artist_names %}
+                        <h4>{{field.name}}</h4>
+                        {% endfor %}
+
                     </div>
                 </div>
 

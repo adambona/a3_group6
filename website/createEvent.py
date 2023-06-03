@@ -1,5 +1,5 @@
 from .forms import createEventForm, orderForm
-from .models import Event, Order
+from .models import Event, Order, Artist
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 import os
@@ -50,9 +50,37 @@ def show(id):
 @login_required
 def createEvent():
     form = createEventForm()
+    artist_names_field = [{"name": ""}]
+    form = createEventForm(artist_names=artist_names_field)
+
+##### Add new entry button function
+    read_from_form = form.data
+    if form.addrow():
+        artist_names_field.append({})
+        read_from_form['artist_names'] = artist_names_field
+        print('add new row')
+
+#####
+
     if form.validate_on_submit():
         db_file_path = check_upload_file(form)
-        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_name=form.artist_name.data, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        artist_list = []
+
+    # Option 1
+        for field in form.artist_names:
+            artist = Artist(event_id = 0, name = field.data['name'])
+            db.session.add(artist)
+            artist_list.append(artist)
+
+    # Alternative    
+    #    artist = Artist(event_id = 0, name = from.artist_names.data)
+    #    db.session.add(artist)
+    #    artist_list.append(artist)
+
+        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        
+        for artist in artist_list:
+            artist.event_id = event.id
 
         db.session.add(event)
         db.session.commit()
