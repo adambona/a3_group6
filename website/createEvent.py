@@ -1,30 +1,43 @@
 from .forms import createEventForm, orderForm
 from .models import Event, Order
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
+from sqlalchemy.sql import func
 
 bp = Blueprint('createEvent', __name__)
 
-@bp.route('/<id>', methods=['GET', 'POST'])
+@bp.route('/<int:id>', methods=['GET', 'POST'])
 def show(id):
+    
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     form = orderForm()
+
+    # Sum of tickets sold for specific event
+    tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
+    total_tickets = db.session.query(Event.num_tickets).filter(Event.id==id).scalar()
+    tickets_remaining = total_tickets - tickets_sold
+
+    print(tickets_remaining)
 
     if form.validate_on_submit():
         order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
         email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
 
-        print(order.num_tickets)
-        # Add validation if num tickets is greater than available tickets
-        # flash and redirect if not otherwise accept
+        if form.num_tickets.data > tickets_remaining :
+            flash('Number of Tickets Exceeded amount remaining')
+            return redirect(url_for('createEvent.show', id=id))
 
-        db.session.add(order)
-        db.session.commit()
 
-        return redirect(url_for('createEvent.show', id=id))
+        
+        else:
+            db.session.add(order)
+            db.session.commit()
+            flash('Tickets Purchased Succesfully')
+            return redirect(url_for('createEvent.show', id=id))
+
 
     return render_template('event-details.html', event=event, form=form)
 

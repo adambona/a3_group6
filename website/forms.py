@@ -1,7 +1,7 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, IntegerRangeField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Email
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
@@ -40,14 +40,14 @@ class createEventForm(FlaskForm):
     submit=SubmitField("Create Event")
     
 class orderForm(FlaskForm):
-    num_tickets=IntegerField("Number of tickets")
-    first_name=StringField("First name", validators=[InputRequired()])
-    last_name=StringField("Last name", validators=[InputRequired()])
-    email=StringField("Email address", validators=[InputRequired()])
+    num_tickets=IntegerField("Number of tickets", validators=[InputRequired(), NumberRange(min=1,max=5)])
+    first_name=StringField("First name", validators=[InputRequired(), Length(min=2,max=20)])
+    last_name=StringField("Last name", validators=[InputRequired(), Length(min=2,max=20)])
+    email=StringField("Email address", validators=[InputRequired(), Email()])
     pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
-    card_number=IntegerField("Card number", validators=[InputRequired()])
-    expiration=StringField('Expiration', validators=[InputRequired()])
-    cvv=IntegerField("CVV", validators=[InputRequired()])
+    card_number=StringField("Card number", validators=[InputRequired(), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
+    expiration=StringField('Expiration', validators=[InputRequired(), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
+    cvv=StringField("CVV", validators=[InputRequired(), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
