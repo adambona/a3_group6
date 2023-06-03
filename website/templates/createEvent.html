@@ -14,47 +14,8 @@
     <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
                 <h3>Basic Info</h3>
                 <p>Let people know about you. Tell us about the event</p>
-                
-                {{ wtf.render_field(form.name) }}
-                {{ wtf.render_field(form.genre) }}
 
-
-<!-- Render artist names field section -->
-                {% for field in form.artist_names %}
-
-
-        <!-- Alternative way to render
-                Renders only the input field and hides the label but cannot style as the rest of the form
-                <div class="form-group">
-                {{field (class="form-control")}}
-            </div>            
-        -->
-
-
-        <!-- Issue: Text is larger than the rest of the form, renders the label with index number from 0-->    
-                {{ wtf.render_field(field)}}
-
-                {% endfor %}
-            
-                {{ wtf.render_field(form.addrow)}}
-                <br>
-                <br>
-
-<!---->
-
-
-                {{ wtf.render_field(form.status) }}
-                {{ wtf.render_field(form.event_date) }}
-                {{ wtf.render_field(form.start_time) }}
-                {{ wtf.render_field(form.end_time) }}
-                {{ wtf.render_field(form.location) }}
-                {{ wtf.render_field(form.ticket_price) }}
-                {{ wtf.render_field(form.num_tickets) }}
-                {{ wtf.render_field(form.description) }}
-                {{ wtf.render_field(form.image) }}
-                {{ wtf.render_field(form.submit) }}
-
-                <!-- {{wtf.render_form(form)}} -->
+                {{wtf.render_form(form)}}
             </div>
                 </main>
 
