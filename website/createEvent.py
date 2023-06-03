@@ -13,15 +13,19 @@ bp = Blueprint('createEvent', __name__)
 def show(id):
     
     event = db.session.scalar(db.select(Event).where(Event.id==id))
-    form = orderForm()
+    
 
     # Sum of tickets sold for specific event
     tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
     total_tickets = db.session.query(Event.num_tickets).filter(Event.id==id).scalar()
-    tickets_remaining = total_tickets - tickets_sold
 
-    print(tickets_remaining)
+    if tickets_sold is not None:
+        tickets_remaining = total_tickets - tickets_sold
+    else:
+        tickets_remaining = total_tickets
 
+    form = orderForm()
+    
     if form.validate_on_submit():
         order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
         email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
@@ -38,8 +42,8 @@ def show(id):
             flash('Tickets Purchased Succesfully')
             return redirect(url_for('createEvent.show', id=id))
 
-
-    return render_template('event-details.html', event=event, form=form)
+# Remove remaining tickets ?
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])

@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="row justify-content-end sticky-lg-top sticky-bottom order-lg-1 order-2 w-100 p-0 m-0">
                     <div class="col-lg-4 p-0">
@@ -129,6 +129,10 @@
                             <form method="post" form="form">
                             <div class="modal-body">
                                 
+                                <!-- Working Ticket Remaining -->
+                                {% if remaining < 5 %}
+                                <p>Hurry only {{remaining}} Tickets Remaining </p>
+                                {% endif %}
 
                                 {% if current_user.is_authenticated %}
                                     {% for field in form %}
