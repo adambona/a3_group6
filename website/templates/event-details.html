@@ -31,6 +31,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="row justify-content-end sticky-lg-top sticky-bottom order-lg-1 order-2 w-100 p-0 m-0">
                     <div class="col-lg-4 p-0">
@@ -58,6 +59,7 @@
                     </div>
                 </div>
 
+                
                 <div class="modal fade p-0" id="modal-toggle-buy-ticket" aria-hidden="true"
                     aria-labelledby="modal-toggle-buy-ticket-label" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-xl">
@@ -86,14 +88,6 @@
                                                             class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
                                                             <p class="p-2 mb-0">Adult</p>
                                                         </div>
-                                                        <div
-                                                            class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
-                                                            <div class="input-group ms-2 me-auto">
-
-                                                                {{wtf.render_form(tform)}}
-
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     <div class="row border p-1">
                                                         <div class="col-md-12">
@@ -104,44 +98,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="d-block d-md-none">
-                                            <div class="accordion" id="accordion-custom">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header">
-                                                        <button class="accordion-button" type="button"
-                                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                                            aria-expanded="true" aria-controls="collapseOne">
-                                                            $35.00 AUD
-                                                        </button>
-                                                    </h2>
-                                                    <div id="collapseOne" class="accordion-collapse collapse show"
-                                                        data-bs-parent="#accordion-custom">
-                                                        <div class="accordion-body">
-                                                            <div>
-                                                                <h4>Order Summary</h4>
-                                                                <div class="row align-items-center">
-                                                                    <div class="col-6">
-                                                                        <p id="order-summary-text-custom">1 x General Admission</p>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <p id="amount-custom">AUD $35.00</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <p id="order-summary-text-custom">Total</p>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <p id="amount-custom">AUD $35.00</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-primary" data-bs-target="#modal-toggle-checkout"
                                                 data-bs-toggle="modal">Continue to Checkout
@@ -149,6 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4 order-md-last d-none d-md-block">
                                     <div class="side-model-content">
                                         <div class="d-none d-md-block">
@@ -156,25 +113,6 @@
                                                 alt="event image">
                                         </div>
 
-                                        <div>
-                                            <h4 class="pt-2">Order Summary</h4>
-                                            <div class="row align-items-center">
-                                                <div class="col-lg-6">
-                                                    <p id="order-summary-text-custom">1 x General Admission</p>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <p id="amount-custom">Add Amount Summary*****</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <p id="order-summary-text-custom">Total</p>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <p id="amount-custom">Add Amount Summary*****</p>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -191,9 +129,30 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
+
+                            <form method="post" form="form">
                             <div class="modal-body">
-                                {{wtf.render_form(form)}}
-                            </div>  
+                                
+                                <!-- Working Ticket Remaining -->
+                                {% if remaining < 5 %}
+                                <p>Hurry only {{remaining}} Tickets Remaining </p>
+                                {% endif %}
+
+                                {% if current_user.is_authenticated %}
+                                    {% for field in form %}
+                                    
+                                    {{wtf.render_field(field)}}
+
+                                    {% endfor %}
+
+                                    {% else %} 
+                                        <p>You must be logged in to buy a ticket <a href="{{url_for('auth.login')}}"> Login Here</a></p>
+                                {% endif %}
+
+                                
+                            </div>
+                        </form>
+
                             <div class="modal-footer">
                                 <button class="btn btn-primary" data-bs-target="#modal-toggle-buy-ticket"
                                     data-bs-toggle="modal">Back</button>
