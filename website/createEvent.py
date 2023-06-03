@@ -12,13 +12,18 @@ bp = Blueprint('createEvent', __name__)
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     form = orderForm()
-    
+
     if form.validate_on_submit():
         order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
         email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
+
+        print(order.num_tickets)
+        # Add validation if num tickets is greater than available tickets
+        # flash and redirect if not otherwise accept
+
         db.session.add(order)
         db.session.commit()
-        print('Successfully created new event', 'success')
+
         return redirect(url_for('createEvent.show', id=id))
 
     return render_template('event-details.html', event=event, form=form)
