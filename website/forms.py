@@ -1,25 +1,40 @@
 
 from flask_wtf import FlaskForm, Form
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FormField, FieldList
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp, ValidationError
 
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
+PASSWORD_REGEX="^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\\d\\s:]).*$"
+PASSWORD_ERROR_MESSAGE="Password must be a text string of arbitrary length, at least 8 non-white-space characters which must contain at least one uppercase letter, one lowercase letter, one digit, one non-alphanumeric character (e.g., !@#$%^&*)"
+MOBILE_NUM_REGEX = "^(\+?61|0)[2-478](?:[ -]?[0-9]){8}$"
+MOBILE_ERROR_MESSAGE="Mobile number must be a valid Australian mobile number. It must be in the form of 04XXXXXXXX or +61XXXXXXXXX."
+
+#custom length validator
+def validate_length(min=-1,max=-1, min_error_message="Field length too short", max_error_message="Field length too long"):
+  def _validate_length(form, field):
+    if len(field.data) < min :
+        raise ValidationError(min_error_message) 
+    elif len(field.data) > max:
+        raise ValidationError(max_error_message)   
+  return _validate_length   
+
 
 #creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired('Enter user name')])
-    password=PasswordField("Password", validators=[InputRequired('Enter user password')])
+    user_name=StringField("User Name", validators=[InputRequired('Please enter a user name')])
+    password=PasswordField("Password", validators=[InputRequired('Please enter a password')])
     submit = SubmitField("Login")
 
+  
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired()])
-    email_id = StringField("Email Address", validators=[Email()])
-    mobile_number = StringField("Mobile Number", validators=[InputRequired()])
+    user_name=StringField("User Name", validators=[InputRequired("Please enter a user name"), validate_length(min=1, max=36, min_error_message='User name must be atleast 1 character',max_error_message='User name must be 36 characters or less')])
+    email_id = StringField("Email Address", validators=[Email("Please enter a valid email"), Length(min=1,max=254), InputRequired()])
+    mobile_number = StringField("Mobile Number", validators=[InputRequired("Please enter a mobile number"), Regexp(MOBILE_NUM_REGEX, message=MOBILE_ERROR_MESSAGE)])
     #linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
-                  EqualTo('confirm', message="Passwords should match")])
+                  EqualTo('confirm', message="Passwords should match"), Regexp(PASSWORD_REGEX, message=PASSWORD_ERROR_MESSAGE)])
     confirm = PasswordField("Confirm Password")
 
     #submit button
