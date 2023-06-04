@@ -264,3 +264,4 @@ class Order(db.Model):
     num_tickets = db.Column(db.Integer)
     booked_by = db.Column(db.String)
     total_cost  = db.Column(db.Float(2))
+    ordered_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)

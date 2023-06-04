@@ -44,8 +44,8 @@ class createEventForm(FlaskForm):
     
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired(), NumberRange(min=1,max=5)])
-    first_name=StringField("First name", validators=[InputRequired(), Length(min=2,max=20)])
-    last_name=StringField("Last name", validators=[InputRequired(), Length(min=2,max=20)])
+    first_name=StringField("First name", validators=[InputRequired(), Length(min=1,max=20)])
+    last_name=StringField("Last name", validators=[InputRequired(), Length(min=1,max=20)])
     email=StringField("Email address", validators=[InputRequired(), Email()])
     pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
     card_number=StringField("Card number", validators=[InputRequired(), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
