@@ -28,25 +28,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for order in orders %}
+                        {% for event, order in result %}
                         <tr class="tr-custom">
                             <td class="w-50">
                                 <div class="row align-items-center">
                                     <div class="col-md-6 col-sm-4 col-6">
-                                        <img src="{{url_for('static', filename='image/event-2-image.jpg')}}" class="img-fluid" alt="event image">
+                                        <img src="{{event.image}}" class="img-fluid" alt="event image">
                                     </div>
                                     <div class="col-md-6 col-sm-8 col-6">
-                                        <h5>Event Name: event id = {{order.event_id}}</h5>
-                                        <p id="table-text">{{order.ordered_at.strftime("%d/%m/%Y")}}</p>
-                                        <p id="table-text">Event Location Here</p>
+                                        <h5>{{event.name}}</h5>
+                                        <p id="table-text">{{event.event_date.strftime("%d/%m/%Y")}}</p>
+                                        <p id="table-text">{{event.location}}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td class="align-middle w-10 text-center">20/04/2023 1:53 PM </td>
-                            <td class="align-middle w-10 text-center">{{order.total_amount}}</td>
+                            <td class="align-middle w-10 text-center">{{order.ordered_at.strftime("%d/%m/%Y")}} </td>
+                            <td class="align-middle w-10 text-center">Tickets: {{order.num_tickets}} Total Cost:{{order.total_cost}}</td>
                             <td class="align-middle w-10 text-center">{{order.order_id}}</td>
                             <td class="align-middle w-10 text-center">
-                                <a href="event-details.html" class="btn btn-primary btn-sm">View Details</a>
+                                <a href="/{{event.id}}" class="btn btn-primary btn-sm">View Event</a>
                             </td>
                         </tr>
                     </tbody>

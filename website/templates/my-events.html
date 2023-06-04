@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<head>
+    <title>Brisbane Live - My Events</title>    
+</head>
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="page-content">
+        <div class="container no gutters-xs-only py-4 mb-4 bg-body-white">
+            <div class="py-4">
+                <h1>My Events</h1>
+                <p>Check and manage the status of your events.</p>
+            </div>
+            <div class="table-responsive d-none d-lg-block">
+                      <!-- Add Forloop of Event Database Items Here -->
+           <div class="col list-col">
+            {% for event in events %}
+               <div class="event-card">
+                
+                   <div class="row g-0">
+                       <div class="col-md-4">
+                           <img src="{{event.image}}" class="event-card-img" alt="event image">
+                       </div>
+                       <div class="col-md-8">
+                           <div class="event-card-body">
+                               <h3 class="event-card-title">{{event.name}}</h3>
+                               <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
+                               <!-- TODO add if statement for open events -->
+                               <br>
+                               <small>{{event.event_date.strftime("%d/%m/%Y")}}</small>
+                               <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
+                               <p class="event-card-text">{{event.location}} </p>
+
+                               <p class="event-card-text">{{event.genre}}</p>
+                               <p class="event-card-text">Tickets Remaining - {{event.num_tickets}}</p>
+                               <br>
+            
+                               <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Update Status</button>
+                                <div class="dropdown-menu">
+                                    <a href="/updateStatus{{event.id}}/open" class="dropdown-item">OPEN</a>
+                                    <a href="/updateStatus{{event.id}}/inactive" class="dropdown-item">INACTIVE</a>
+                                    <a href="/updateStatus{{event.id}}/soldout"" class="dropdown-item">SOLDOUT</a>
+                                    <a href="/updateStatus{{event.id}}/cancelled" class="dropdown-item">CANCELLED</a>
+                                </div>
+                            </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           {% endfor %}
+            </div>
+
+        </div>
+</main>
+
+{% endblock %}
