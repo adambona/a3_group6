@@ -12,17 +12,20 @@ bp = Blueprint('auth', __name__)
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
     register = RegisterForm()
-    #the validation of form submis is fine
+    #the validation of form submission is fine
     if (register.validate_on_submit() == True):
             #get username, password and email from the form
             uname =register.user_name.data
             pwd = register.password.data
             email=register.email_id.data
             mobile_number = register.mobile_number.data
+
             pwd_hash = generate_password_hash(pwd)
             new_user = User(name=uname, password_hash=pwd_hash, email_address=email, mobile_number=mobile_number)
             db.session.add(new_user)
             db.session.commit()
+
+            #flash('You have successfully registered.', 'success')
             return redirect(url_for('auth.login'))
     else:
         return render_template('user.html', form=register, heading='Register')
@@ -30,27 +33,28 @@ def register():
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
-    error=None
+    #error = None
+     #the validation of form submission is fine
     if(login_form.validate_on_submit()==True):
-        user_name = login_form.user_name.data
-        password = login_form.password.data
-        user = User.query.filter_by(name=user_name).first()
+        email = login_form.email_id.data
+        #password = login_form.password.data
+        user = User.query.filter_by(email_address=email).first()
         
         #check if there is a user with that name
-        if user is None:
-            error='There is no matching user name in our system. Please try again.'
+        #if user is None:
+            #error='There is no matching user name in our system. Please try again.'
         #check the password
-        elif not check_password_hash(user.password_hash, password):
-            error='There is no matching password in our system. Please try again.'
-        if error is None:
+        #elif not check_password_hash(user.password_hash, password):
+            #error='There is no matching password in our system. Please try again.'
+        #if error is None:
         #sign in and set the login user
 
-            flash('You logged in successfully', 'success')
+        flash('You logged in successfully', 'success')
 
-            login_user(user)
-            return redirect(url_for('main.index'))
-        else:
-            flash(error,'danger')
+        login_user(user)
+        return redirect(url_for('main.index'))
+    #else:
+        #flash(error,'danger')
     return render_template('user.html', form=login_form, heading='Login')
 
 @bp.route('/logout')

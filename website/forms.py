@@ -6,7 +6,7 @@ from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRang
 from .models import User
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 from flask import url_for, Markup
-
+from werkzeug.security import check_password_hash
 
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
@@ -28,7 +28,7 @@ def validate_length(min=-1,max=-1, min_error_message="Field length too short", m
 #checks to see if email already in use
 def validate_unique_email(form, field):
     email = field.data
-    if email_exists(email):
+    if email_exists(email) is not None:
         url = url_for('auth.login')
         message = 'This email address is already in use. Please use a different email address or log in with your existing account <a href="' + url + '">here.</a>'
         raise ValidationError(Markup(message))
@@ -37,14 +37,29 @@ def validate_unique_email(form, field):
 def email_exists(email):
     u1 = User.query.filter_by(email_address=email).first()
     return u1
-    
 
 #creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired(message='Please enter a user name.')])
+    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
+    #email_id=StringField("User Name", validators=[InputRequired(message='Please enter a user name.')])
     password=PasswordField("Password", validators=[InputRequired(message='Please enter a password.')])
     submit = SubmitField("Login")
 
+    def validate_email_id(self, field):
+        # Custom email validation logic
+        email = field.data
+        user = User.query.filter_by(email_address=email).first()
+
+        if user is None:
+            raise ValidationError('There is no matching email address in our system. Please try again.')
+
+    def validate_password(self, field):
+        # Custom password validation logic
+        password = field.data
+        user = User.query.filter_by(email_address=self.email_id.data).first()
+
+        if user is not None and not check_password_hash(user.password_hash, password):
+            raise ValidationError('There is no matching password in our system. Please try again.')
   
  # this is the registration form
 class RegisterForm(FlaskForm):
