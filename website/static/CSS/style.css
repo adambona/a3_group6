@@ -560,3 +560,14 @@ html {
   font-weight: 350;
 }
   
+.error-h1 {
+  font-weight: 1000;
+  font-size: calc(2.6rem + 0.9vw) ;
+  line-height: 1.4em;
+}
+
+.error-h2 {
+  font-weight: 600;
+  font-size: calc(1.6rem + 0.9vw) ;
+  line-height: 1.4em;
+}
