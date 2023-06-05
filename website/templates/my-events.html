@@ -19,8 +19,6 @@
                       <!-- Add Forloop of Event Database Items Here -->
            <div class="col list-col">
             {% for event in events %}
-               <div class="event-card">
-                
                    <div class="row g-0">
                        <div class="col-md-4">
                            <img src="{{event.image}}" class="event-card-img" alt="event image">
@@ -42,17 +40,16 @@
                                <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Update Status</button>
                                 <div class="dropdown-menu">
-                                    <a href="/updateStatus{{event.id}}/open" class="dropdown-item">OPEN</a>
-                                    <a href="/updateStatus{{event.id}}/inactive" class="dropdown-item">INACTIVE</a>
-                                    <a href="/updateStatus{{event.id}}/soldout"" class="dropdown-item">SOLDOUT</a>
-                                    <a href="/updateStatus{{event.id}}/cancelled" class="dropdown-item">CANCELLED</a>
+                                    <a href="/updateStatus{{event.id}}/Open" class="dropdown-item">OPEN</a>
+                                    <a href="/updateStatus{{event.id}}/Inactive" class="dropdown-item">INACTIVE</a>
+                                    <a href="/updateStatus{{event.id}}/Soldout" class="dropdown-item">SOLDOUT</a>
+                                    <a href="/updateStatus{{event.id}}/Cancelled" class="dropdown-item">CANCELLED</a>
                                 </div>
                             </div>
                                </div>
                            </div>
                        </div>
                    </div>
-               </div>
            </div>
            {% endfor %}
             </div>
