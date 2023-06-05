@@ -37,8 +37,8 @@ class createEventForm(FlaskForm):
     name=StringField("Event name", validators=[InputRequired()]) 
     artist_names=StringField("Artists", validators=[InputRequired()])
 
-    # status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"]) Shouldnt be able to enter an inactive event ?
-    status=SelectField("Event status", choices=["Open"])
+    status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"])
+    # status=SelectField("Event status", choices=["Open"])
 
     event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
@@ -71,6 +71,3 @@ class orderForm(FlaskForm):
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
-
-
-
