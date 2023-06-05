@@ -14,7 +14,7 @@
     <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
         <h1 class="py-4">Event Details</h1>
         
-        <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}">
+        <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <div>
                 <h3>Basic Info</h3>

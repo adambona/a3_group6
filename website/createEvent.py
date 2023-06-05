@@ -55,7 +55,7 @@ def show(id):
 def createEvent():
     form = createEventForm()
     print("Created form")
-    if form.validate_on_submit():
+    if request.method == 'POST':
         db_file_path = check_upload_file(form)
         artist_list = []
         
@@ -63,7 +63,9 @@ def createEvent():
         db.session.add(artist) 
         artist_list.append(artist)
 
-        event = Event(user_id=current_user.id, status = form.status.data, event_date=form.event_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data, location=form.location.data, ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data, 
+                      #location=form.location.data, 
+                      ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
         
         for artist in artist_list:
             artist.event_id = event.id
