@@ -28,11 +28,21 @@
                                 <a class="nav-link active" href="{{url_for('main.index')}}" id="whats-on">What's On</a>
                             </li>
                         </ul>
+
+                        {% if  request.endpoint  == 'createEvent.createEvent' %}
+                        <ul class="navbar-nav col-4">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{url_for('createEvent.createEvent')}}" id="create-event">Create an Event</a>
+                            </li>
+                        </ul>
+
+                        {% else %}
                         <ul class="navbar-nav col-4">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url_for('createEvent.createEvent')}}" id="create-event">Create an Event</a>
                             </li>
                         </ul>
+                        {% endif %}
 
                         <ul class="navbar-nav col-4">
                             <!-- Register/Login/Logout and welcome -->
@@ -98,7 +108,7 @@
        <div class="row mt-3 mb-3">
            <div class="col-md-12">
                {% for message in messages %} <!--loop through the messages-->
-               <div class="alert alert-info">{{ message }}</div> <!--display as alert-->
+               <div class="{{ category }}">{{ message }}</div> <!--display as alert-->
                {% endfor %}
        </div>
    </div>

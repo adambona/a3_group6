@@ -9,8 +9,7 @@ from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.sql import func
 
-#bp = Blueprint('createEvent', __name__)
-bp = Blueprint('createEvent', __name__, url_prefix='/event')
+bp = Blueprint('createEvent', __name__)
 
 @bp.route('/<int:id>', methods=['GET', 'POST'])
 def show(id):
@@ -74,6 +73,7 @@ def createEvent():
         return redirect(url_for('createEvent.createEvent'))
       
     return render_template('createEvent.html', form=form)
+
 
 @bp.route('/updateStatus<id>/<status>')
 def updateStatusInactive(id, status):
