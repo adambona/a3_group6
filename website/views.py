@@ -6,7 +6,7 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    events = db.session.query(Event).filter(Event.status != 'Inactive').order_by(Event.event_date).all()
+    events = db.session.query(Event).filter(Event.status != 'Inactive').order_by(Event.start_date).all()
     return render_template('index.html', events=events)
 
 @bp.route('/search')
