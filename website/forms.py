@@ -75,7 +75,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 
-class createEventForm(FlaskForm):
+""" class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
     artist_names=StringField("Artists", validators=[InputRequired()])
@@ -92,9 +92,60 @@ class createEventForm(FlaskForm):
     ticket_price=StringField("Price per ticket", validators=[InputRequired()]) 
     num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
     description=TextAreaField("Detailed Description of the Event", validators=[InputRequired('You must enter a description and it must be atleast 6 characters'), validate_length(min=6, max=500, min_error_message='Description must be 6 characters or greater', max_error_message='Description must be 500 characters or less')]) 
-    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
+    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)]) """
 
-    
+class createEventForm(FlaskForm):
+    genre = SelectField("Genre", choices=[
+        ("Pop", "Pop"),
+        ("DanceEDM", "Dance/EDM"),
+        ("Hiphop & Rap", "Hip-hop & Rap"),
+        ("R&B", "R&B"),
+        ("Latin", "Latin"),
+        ("Rock", "Rock"),
+        ("Metal", "Metal"),
+        ("Country", "Country"),
+        ("Folk/Acoustic", "Folk/Acoustic"),
+        ("Classical", "Classical"),
+        ("Jazz", "Jazz"),
+        ("Blues", "Blues"),
+        ("Easy Listening", "Easy Listening"),
+        ("New Age", "New Age"),
+        ("World/Traditional Folk", "World/Traditional Folk"),
+        ("Others", "Others")
+    ])
+
+    name = StringField("Event Name", validators=[InputRequired()])
+    artist_names = StringField("Artists", validators=[InputRequired()])
+
+    description = TextAreaField("Detailed Description of the Event", validators=[
+        InputRequired("You must enter a description and it must be at least 6 characters"),
+        validate_length(min=6, max=500, min_error_message="Description must be 6 characters or greater",
+                        max_error_message="Description must be 500 characters or less")
+    ])
+
+    image = FileField("Thumbnail Image for the Event", validators=[
+        FileRequired(),
+        FileAllowed(ALLOWED_FILE)
+    ])
+
+    venue_name = StringField("Venue Name", validators=[InputRequired()])
+    street_address = StringField("Street Address", validators=[InputRequired()])
+
+    start_date = DateField("Event Starts", validators=[InputRequired()])
+    end_date = DateField("Event Ends", validators=[InputRequired()])
+    start_time = TimeField("Start Time",
+                           description="Let people know when the event starts and ends so they can make sure to attend.")
+    end_time = TimeField("End Time")
+
+    ticket_price = StringField("Price per Ticket", validators=[InputRequired()])
+    num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired()])
+
+    status = SelectField("Event Status", choices=[
+        ("Open", "Open"),
+        ("Inactive", "Inactive"),
+        ("Sold Out", "Sold Out"),
+        ("Cancelled", "Cancelled")
+    ])
 #       DELETE IF RENDERING FORM MANUALLY ELSE COPY OVER DESC
 #     location=StringField("Location/venue", validators=[InputRequired()], description="Let people know where the event will be held.") 
 #     ticket_price=StringField("Price per ticket", validators=[InputRequired()], description="Specify how much the tickets will cost so people know.") 
