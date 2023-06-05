@@ -1,5 +1,7 @@
+
 from .forms import createEventForm, orderForm, CommentForm
 from .models import Event, Order, Artist, Comment
+
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 import os
@@ -42,10 +44,12 @@ def show(id):
             db.session.commit()
             flash('Tickets Purchased Succesfully')
             return redirect(url_for('createEvent.show', id=id))
+
         
         # create the comment form
     cform = CommentForm()    
     return render_template('event-details.html', event=event, form=cform)
+
 
 # Remove remaining tickets ?
     return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining)
@@ -71,10 +75,8 @@ def createEvent():
 
         db.session.add(event)
         db.session.commit()
-
-        print('Successfully created new event', 'success')
         return redirect(url_for('createEvent.createEvent'))
-    
+      
     return render_template('createEvent.html', form=form)
 
 @bp.route('/updateStatus<id>/<status>')
