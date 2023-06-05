@@ -54,7 +54,7 @@ def show(id):
 @login_required
 def createEvent():
     form = createEventForm()
-
+    print("Created form")
     if form.validate_on_submit():
         db_file_path = check_upload_file(form)
         artist_list = []
@@ -70,7 +70,9 @@ def createEvent():
 
         db.session.add(event)
         db.session.commit()
-        return redirect(url_for('createEvent.createEvent'))
+        print("got to here")
+        return redirect(url_for('main.index'))
+    print(form.errors)    
       
     return render_template('createEvent.html', form=form)
 

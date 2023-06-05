@@ -34,18 +34,79 @@
     {% block footer %}
     
     <div class="background-custom">
-        <div class="container no gutters-xs-only py-4 pb-4">
-            <footer class="page-footer">
-                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav item">
-                        <a href="index.html" class="nav-link px-2 text-body-secondary" id="footer-text">What's On</a>
-                    </li>
-                    <li class="nav item">
-                        <a href="create-event.html" class="nav-link px-2 text-body-secondary" id="footer-text">Create
-                            Event</a>
-                    </li>
-                </ul>
-                <p class="text-center text-body-secondary" id="footer-text">© 2023 Brisbane Live, Inc</p>
+        <div class="container no gutters-xs-only ">
+            <footer class="text-center text-white" >
+                 <div class="container">
+                    <section class="mt-5">
+                        <div class="row text-center d-flex justify-content-center pt-5">
+                            <div class="col-md-2">
+                                <h6 class="text-uppercase font-weight-bold">
+                                    <a href="#" class="text-white">About us  </a>
+                                </h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="text-uppercase font-weight-bold">
+                                    <a href="{{url_for('main.index')}}" class="text-white">What's On</a>
+                                </h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="text-uppercase font-weight-bold">
+                                    <a href="{{url_for('createEvent.createEvent')}}" class="text-white">Create Event</a>
+                                </h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="text-uppercase font-weight-bold">
+                                    <a href="#" class="text-white">Help</a>
+                                </h6>
+                            </div>
+                            <div class="col-md-2">
+                                <h6 class="text-uppercase font-weight-bold">
+                                    <a href="#" class="text-white">Contact Us</a>
+                                </h6>
+                            </div>
+                        </div>
+                    </section>
+
+                    <hr class="my-5" />
+                    
+                    <section class="mb-3">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-lg-8">
+                            <p id="footer-text">
+                                Find live music near you and buy tickets for all the best upcoming concert, theatre and festival events around Brisbane.
+                                Join thousands of happy customers that have attended their favourite events, thanks to Brisbane Live.
+                            </p>
+                          </div>
+                        </div>
+                    </section>
+
+                    <section class="mb-5">
+                        <p class="d-flex justify-content-center align-items-center"id="footer-text">
+                            <span class="me-3">Be the first to know about the latest events and special offers</span>
+                        <p class="d-flex justify-content-center align-items-center"id="footer-text">
+                            <span class="me-3">Register for free</span>
+                            <button type="button" class="btn btn-outline-primary btn-rounded">
+                            <a id="footer-text" href="#">Sign up!</a>
+                            </button>
+                        </p>
+                      </section>
+
+                    <hr class="mb-4" />
+
+                    <section class="text-center mb-5">
+                        <a href="#"class="me-4"><i class="fa fa-facebook"></i></a>
+                        <a href="#"class="me-4"><i class="fa fa-twitter"></i></a>
+                        <a href="#"class="me-4"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"class="me-4"><i class="fa fa-instagram"></i></a>
+                    </section>
+
+                    <div class = "background-custom">
+                        <div class="text-center p-3" id="footer-text">
+                         © 2023 Copyright:
+                        <a class="text-white" href="index.html"> Brisbane Live, Inc</a>
+                        </div>
+                    </div>
+                </div>
             </footer>
         </div>
     </div>
