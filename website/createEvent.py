@@ -11,7 +11,7 @@ from sqlalchemy.sql import func
 
 bp = Blueprint('createEvent', __name__)
 
-@bp.route('/<int:id>', methods=['GET', 'POST'])
+@bp.route('/event/<int:id>', methods=['GET', 'POST'])
 def show(id):
     
     event = db.session.scalar(db.select(Event).where(Event.id==id))
