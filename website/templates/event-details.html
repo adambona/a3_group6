@@ -134,8 +134,8 @@
                             <div class="modal-body">
                                 
                                 <!-- Working Ticket Remaining -->
-                                {% if remaining < 5 %}
-                                <p>Hurry only {{remaining}} Tickets Remaining </p>
+                                {% if remaining < 10 %}
+                                <p class="text-danger">Tickets are almost sold out!</p>
                                 {% endif %}
 
                                 {% if current_user.is_authenticated %}

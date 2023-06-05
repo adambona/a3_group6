@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event
+from . import db
 
 bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    events = Event.query.all()
+    events = db.session.query(Event).filter(Event.status == 'Open').order_by(Event.event_date).all()
     return render_template('index.html', events=events)
 
 @bp.route('/search')
