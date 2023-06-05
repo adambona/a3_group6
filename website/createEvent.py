@@ -28,6 +28,7 @@ def show(id):
         tickets_remaining = total_tickets
 
     form = orderForm()
+    cform = CommentForm()  
     
     if form.validate_on_submit():
         order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
@@ -45,14 +46,9 @@ def show(id):
             flash('Tickets Purchased Succesfully')
             return redirect(url_for('createEvent.show', id=id))
 
-        
-        # create the comment form
-    cform = CommentForm()    
-    return render_template('event-details.html', event=event, form=cform)
-
 
 # Remove remaining tickets ?
-    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining)
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
@@ -127,6 +123,4 @@ def comment(event):
         db.session.commit()
 
         # flashing a message which needs to be handled by the html
-        flash('Your comment has been added', 'success')
-        print('Your comment has been added', 'success')
     return redirect(url_for('createEvent.show', id=event))

@@ -134,9 +134,6 @@
                             <div class="modal-body">
                                 
                                 <!-- Working Ticket Remaining -->
-                                {% if remaining < 5 %}
-                                <p>Hurry only {{remaining}} Tickets Remaining </p>
-
                                 {% if remaining < 10 %}
                                 <p class="text-danger">Tickets are almost sold out!</p>
 
@@ -238,7 +235,7 @@
                         </div>
 
                         <div class="row border-bottom"> 
-                            {{wtf.render_form(form,"/event/{0}/comment".format(event.id))}} 
+                            {{wtf.render_form(cform,"/event/{0}/comment".format(event.id))}} 
                             {% for comment in event.comments %}
                             <div class="col-md-12">  
                               <b>{{comment.user.name}} <span class="ml-2 text-muted">{{comment.date_posted.strftime("%m/%d/%Y, %H:%M:%S")}}</span></b>
@@ -254,5 +251,4 @@
     </div>
     </div>
 </main>
-
 {% endblock %}
