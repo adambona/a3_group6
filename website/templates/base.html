@@ -60,9 +60,7 @@
                             {% endif %}
                         </ul>
 
-
                         {% if  request.endpoint  == 'main.index' or request.endpoint == 'main.search' or request.endpoint == 'main.searchGenre' %}
-
                         <ul class="navbar-nav col-4">
                             <li class="nav-item">
                                 <form class="form-inline d-flex flex-nowrap me-3 mt-3" action="{{url_for('main.search')}}" >
@@ -71,7 +69,6 @@
                                   </form>
                             </li>
                         </ul>
-
 
                         {% elif request.endpoint  == 'myAccount.orderHistory' or request.endpoint == 'myAccount.search' %}
                         <ul class="navbar-nav col-4">
@@ -84,7 +81,6 @@
                         </ul>
 
                         {% endif %}
-
 
                     </div>
                 </nav>

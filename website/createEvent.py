@@ -1,7 +1,5 @@
-
-from .forms import createEventForm, orderForm, CommentForm
-from .models import Event, Order, Artist, Comment
-
+from .forms import createEventForm, orderForm
+from .models import Event, Order, Artist
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 import os
@@ -9,8 +7,7 @@ from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.sql import func
 
-#bp = Blueprint('createEvent', __name__)
-bp = Blueprint('createEvent', __name__, url_prefix='/event')
+bp = Blueprint('createEvent', __name__)
 
 @bp.route('/<int:id>', methods=['GET', 'POST'])
 def show(id):
@@ -45,12 +42,6 @@ def show(id):
             flash('Tickets Purchased Succesfully')
             return redirect(url_for('createEvent.show', id=id))
 
-        
-        # create the comment form
-    cform = CommentForm()    
-    return render_template('event-details.html', event=event, form=cform)
-
-
 # Remove remaining tickets ?
     return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining)
 
@@ -76,7 +67,7 @@ def createEvent():
         db.session.add(event)
         db.session.commit()
         return redirect(url_for('createEvent.createEvent'))
-      
+
     return render_template('createEvent.html', form=form)
 
 @bp.route('/updateStatus<id>/<status>')
@@ -110,23 +101,3 @@ def check_upload_file(form):
   #save the file and return the db upload path  
   fp.save(upload_path)
   return db_upload_path
-
-@bp.route('/<event>/comment', methods=['GET', 'POST'])
-@login_required
-def comment(event):
-    form = CommentForm()
-    # get the destination object associated to the page and the comment
-    event_obj = Event.query.filter_by(id=event).first()
-    if form.validate_on_submit():
-        # read the comment from the form
-        comment = Comment(text=form.text.data,
-                          events=event_obj,
-                          #user=current_user
-                          )
-        db.session.add(comment)
-        db.session.commit()
-
-        # flashing a message which needs to be handled by the html
-        flash('Your comment has been added', 'success')
-        print('Your comment has been added', 'success')
-    return redirect(url_for('createEvent.show', id=event))

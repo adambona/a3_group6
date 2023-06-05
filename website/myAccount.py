@@ -26,7 +26,6 @@ def myEvents():
     return render_template('my-events.html', events=events)
 
 
-
 @bp.route('/order-history/search')
 def search():
 
@@ -46,4 +45,3 @@ def search():
         # quesry the Destination table and use the filter - like(similar to query)
         return render_template('order-history.html', result=result)
     return redirect(url_for('order-history.html'))
-
