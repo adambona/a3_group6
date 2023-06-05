@@ -41,13 +41,13 @@ class createEventForm(FlaskForm):
     # status=SelectField("Event status", choices=["Open"])
 
     event_date=DateField("Event date", validators=[InputRequired()])
-    start_time=TimeField("Start time")
+    start_time=TimeField("Start time", description="Let people know when the event starts and ends so they can make sure to attend.")
     end_time=TimeField("End time")
-    location=StringField("Location/venue", validators=[InputRequired()]) 
-    ticket_price=StringField("Price per ticket", validators=[InputRequired()]) 
-    num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
+    location=StringField("Location/venue", validators=[InputRequired()], description="Let people know where the event will be held.") 
+    ticket_price=StringField("Price per ticket", validators=[InputRequired()], description="Specify how much the tickets will cost so people know.") 
+    num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()], description="Specify the number of tickets available for your event.") 
     description=TextAreaField("Detailed Description of the Event", validators=[InputRequired()]) 
-    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
+    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)], description="Upload an image to attract users. This will be shown on the upcoming events page.The file must be JPEG or PNG and must not exceed 200KB.")
     submit=SubmitField("Create Event")
 
     def validate_event_date(self, event_date):
