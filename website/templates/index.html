@@ -80,7 +80,7 @@
                                <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
                                <!-- TODO add if statement for open events -->
                                <br>
-                               <small>{{event.event_date.strftime("%d/%m/%Y")}}</small>
+                               <small>{{event.start_date.strftime("%d/%m/%Y")}}</small>
                                <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
                                <p class="event-card-text">{{event.location}} </p>
 
