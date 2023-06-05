@@ -66,10 +66,8 @@ def createEvent():
 
         db.session.add(event)
         db.session.commit()
-
-        print('Successfully created new event', 'success')
         return redirect(url_for('createEvent.createEvent'))
-    
+
     return render_template('createEvent.html', form=form)
 
 @bp.route('/updateStatus<id>/<status>')
