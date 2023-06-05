@@ -43,13 +43,13 @@ def login():
         
         #check if there is a user with that name
         if user is None:
-            error='There is no matching user name in our system. Please try again'
+            error='There is no matching user name in our system. Please try again.'
         #check the password
         elif not check_password_hash(user.password_hash, password):
-            error='There is no matching password in our system. Please try again'
+            error='There is no matching password in our system. Please try again.'
         if error is None:
         #sign in and set the login user
-            flash('You logged in successfully')
+            flash('You logged in successfully.')
             login_user(user)
             return redirect(url_for('main.index'))
         else:
@@ -60,5 +60,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("You have been successfully signed out. See you next time", 'success')
+    flash("You have been successfully signed out. See you next time.", 'success')
     return redirect(url_for('main.index'))
