@@ -83,6 +83,8 @@ class Event(db.Model):
     genre = db.Column(db.Integer, db.ForeignKey('genres.id'))
     location = db.Column(db.Integer, db.ForeignKey('locations.id'))
     artist_names = db.relationship('Artist', backref='events')
+    comments = db.relationship('Comment', backref='events')
+
 
 class Location(db.Model):
     """

@@ -1,6 +1,10 @@
 
 from flask_wtf import FlaskForm, Form
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FormField, FieldList
+
+from flask_wtf.file import FileRequired, FileField, FileAllowed
+ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
+
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp, ValidationError
 from datetime import datetime, date
 
@@ -32,8 +36,10 @@ class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
     artist_names=StringField("Artists", validators=[InputRequired()])
+
     # status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"]) Shouldnt be able to enter an inactive event ?
     status=SelectField("Event status", choices=["Open"])
+
     event_date=DateField("Event date", validators=[InputRequired()])
     start_time=TimeField("Start time")
     end_time=TimeField("End time")
@@ -48,8 +54,6 @@ class createEventForm(FlaskForm):
         if event_date.data < date.today():
             raise ValidationError('Date must be in the future')
 
-
-    
     
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired(), NumberRange(min=1,max=5)])
@@ -64,6 +68,9 @@ class orderForm(FlaskForm):
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
 
+class CommentForm(FlaskForm):
+  text = TextAreaField('Comment', [InputRequired()])
+  submit = SubmitField('Create')
 
 
-# Custom validators
+
