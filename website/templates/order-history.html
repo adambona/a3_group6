@@ -22,6 +22,7 @@
                         <tr>
                             <th class="text-center">Event</th>
                             <th class="text-center">Order Placed</th>
+                            <th class="text-center">Ticket Quantity</th>
                             <th class="text-center">Total Amount</th>
                             <th class="text-center">Order Number</th>
                             <th class="text-center">Action</th>
@@ -43,15 +44,40 @@
                                 </div>
                             </td>
                             <td class="align-middle w-10 text-center">{{order.ordered_at.strftime("%d/%m/%Y")}} </td>
-                            <td class="align-middle w-10 text-center">Tickets: {{order.num_tickets}} Total Cost:{{order.total_cost}}</td>
+                            <td class="align-middle w-10 text-center">{{order.num_tickets}}</td>
+                            <td class="align-middle w-10 text-center">${{order.total_cost}}</td>
                             <td class="align-middle w-10 text-center">{{order.order_id}}</td>
                             <td class="align-middle w-10 text-center">
-                                <a href="/{{event.id}}" class="btn btn-primary btn-sm">View Event</a>
+                                <a href="/event/{{event.id}}" class="btn btn-primary btn-sm">View Details</a>
                             </td>
                         </tr>
                     </tbody>
                     {% endfor %}
                 </table>
+            </div>
+            <div class="row row-cols-1 g-4 d-lg-none">
+                {% for event, order in result %}
+                <div class="col">
+                    <div class="card event-card">
+                        <img src="{{event.image}}" class="card-img-top event-card-img event-card-order-history-img" alt="event image">
+                        <div class="card-body event-card-body">
+                            <h3 class="card-title event-card-title">{{event.name}}</h3>
+                            <p class="event-card-text">{{event.event_date.strftime("%d/%m/%Y")}}</p>
+                            <p class="event-card-text">{{event.location}}</p>
+                            <hr>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Placed:</span> {{order.ordered_at.strftime("%d/%m/%Y")}}</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Ticket Quantity:</span> {{order.num_tickets}}</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Total Amount:</span> ${{order.total_cost}}</p>
+                            <p class="event-card-text"><span class="fw-bold-custom">Order Number: </span> {{order.order_id}}
+                            </p>
+                            <div class="d-grid gap-2 d-flex justify-content-end flex-wrap" id="event-card-btn">
+                                <a href="/event/{{event.id}}" class="btn btn-primary btn-md flex-shrink-1">View
+                                    Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
 
         </div>
