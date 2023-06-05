@@ -16,6 +16,10 @@
                 <h1>Order History</h1>
                 <p>Check the status of recent orders, manage returns and discover similiar experiences.</p>
             </div>
+
+            
+
+
             <div class="table-responsive d-none d-lg-block">
                 <table class="table">
                     <thead>
@@ -27,6 +31,20 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
+
+                    {% if results|length < 1 %}
+                    <tbody>
+
+                        <tr class="tr-custom">
+                            <td class="w-50">
+                        It looks like no orders have been made, when you place an order it will show up here
+                                </td>
+                            </tr>
+
+                    </tbody>
+
+                    {% else %}
+
                     <tbody>
                         {% for event, order in result %}
                         <tr class="tr-custom">
@@ -50,7 +68,9 @@
                             </td>
                         </tr>
                     </tbody>
+                        
                     {% endfor %}
+                    {% endif %}
                 </table>
             </div>
 
