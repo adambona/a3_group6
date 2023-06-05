@@ -17,8 +17,17 @@
                 <p>Check the status of recent orders, manage returns and discover similiar experiences.</p>
             </div>
 
-            
 
+            {% if result|length == 0 %}
+
+            <h5>No orders have been placed</h5>
+
+            {% else %}
+            
+        
+            <!-- DEBUGGING -->
+            <p>DEBUGGING</p>
+            <span>number of orders should be </span>{{result|length}}
 
             <div class="table-responsive d-none d-lg-block">
                 <table class="table">
@@ -31,20 +40,6 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-
-                    {% if results|length < 1 %}
-                    <tbody>
-
-                        <tr class="tr-custom">
-                            <td class="w-50">
-                        It looks like no orders have been made, when you place an order it will show up here
-                                </td>
-                            </tr>
-
-                    </tbody>
-
-                    {% else %}
-
                     <tbody>
                         {% for event, order in result %}
                         <tr class="tr-custom">
@@ -69,10 +64,10 @@
                         </tr>
                     </tbody>
                         
-                    {% endfor %}
-                    {% endif %}
+                        {% endfor %}
                 </table>
             </div>
+            {% endif %}
 
         </div>
 </main>
