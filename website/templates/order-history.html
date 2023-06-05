@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-8 col-6">
                                         <h5>{{event.name}}</h5>
-                                        <p id="table-text">{{event.event_date.strftime("%d/%m/%Y")}}</p>
+                                        <p id="table-text">{{event.start_date.strftime("%d/%m/%Y")}}</p>
                                         <p id="table-text">{{event.location}}</p>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                             <td class="align-middle w-10 text-center">Tickets: {{order.num_tickets}} Total Cost:{{order.total_cost}}</td>
                             <td class="align-middle w-10 text-center">{{order.order_id}}</td>
                             <td class="align-middle w-10 text-center">
-                                <a href="/{{event.id}}" class="btn btn-primary btn-sm">View Event</a>
+                                <a href="/event/{{event.id}}" class="btn btn-primary btn-sm">View Event</a>
                             </td>
                         </tr>
                     </tbody>

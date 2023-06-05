@@ -146,13 +146,6 @@ class createEventForm(FlaskForm):
         ("Sold Out", "Sold Out"),
         ("Cancelled", "Cancelled")
     ])
-#       DELETE IF RENDERING FORM MANUALLY ELSE COPY OVER DESC
-#     location=StringField("Location/venue", validators=[InputRequired()], description="Let people know where the event will be held.") 
-#     ticket_price=StringField("Price per ticket", validators=[InputRequired()], description="Specify how much the tickets will cost so people know.") 
-#     num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()], description="Specify the number of tickets available for your event.") 
-#     description=TextAreaField("Detailed Description of the Event", validators=[InputRequired()]) 
-#     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)], description="Upload an image to attract users. This will be shown on the upcoming events page.The file must be JPEG or PNG and must not exceed 200KB.")
-
 
     submit=SubmitField("Create Event")
 
