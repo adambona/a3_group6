@@ -61,6 +61,8 @@
                         </ul>
 
 
+                        {% if  request.endpoint  == 'main.index' or request.endpoint == 'main.search' or request.endpoint == 'main.searchGenre' %}
+
                         <ul class="navbar-nav col-4">
                             <li class="nav-item">
                                 <form class="form-inline d-flex flex-nowrap me-3 mt-3" action="{{url_for('main.search')}}" >
@@ -69,6 +71,20 @@
                                   </form>
                             </li>
                         </ul>
+
+
+                        {% elif request.endpoint  == 'myAccount.orderHistory' or request.endpoint == 'myAccount.search' %}
+                        <ul class="navbar-nav col-4">
+                            <li class="nav-item">
+                                <form class="form-inline d-flex flex-nowrap me-3 mt-3" action="{{url_for('myAccount.search')}}" >
+                                    <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2"   id="SearchForm">
+                                    <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Search</button>
+                                  </form>
+                            </li>
+                        </ul>
+
+                        {% endif %}
+
 
                     </div>
                 </nav>
@@ -104,7 +120,7 @@
                         <div class="row text-center d-flex justify-content-center pt-5">
                             <div class="col-md-2">
                                 <h6 class="text-uppercase font-weight-bold">
-                                    <a href="#" class="text-white">About us</a>
+                                    <a href="#" class="text-white">About us  </a>
                                 </h6>
                             </div>
                             <div class="col-md-2">

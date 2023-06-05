@@ -1,9 +1,10 @@
 
 from flask_wtf import FlaskForm, Form
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FormField, FieldList
+from datetime import datetime, date
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp, ValidationError
-from flask_wtf.file import FileRequired, FileField, FileAllowed
 
+from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
 PASSWORD_REGEX="^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\\d\\s:]).*$"
@@ -20,6 +21,7 @@ def validate_length(min=-1,max=-1, min_error_message="Field length too short", m
     elif len(field.data) > max:
         raise ValidationError(max_error_message)   
   return _validate_length   
+
 
 
 #creates the login information
@@ -47,17 +49,36 @@ class createEventForm(FlaskForm):
     genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
     name=StringField("Event name", validators=[InputRequired()]) 
     artist_names=StringField("Artists", validators=[InputRequired()])
+
     status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"])
+    # status=SelectField("Event status", choices=["Open"])
+
     event_date=DateField("Event date", validators=[InputRequired()])
-    start_time=TimeField("Start time")
+    start_time=TimeField("Start time", description="Let people know when the event starts and ends so they can make sure to attend.")
     end_time=TimeField("End time")
+    
+
     location=StringField("Location/venue", validators=[InputRequired()]) 
     ticket_price=StringField("Price per ticket", validators=[InputRequired()]) 
     num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
     description=TextAreaField("Detailed Description of the Event", validators=[InputRequired('You must enter a description and it must be atleast 6 characters'), validate_length(min=6, max=500, min_error_message='Description must be 6 characters or greater', max_error_message='Description must be 500 characters or less')]) 
     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)])
-    submit=SubmitField("Create Event")
+
     
+#       DELETE IF RENDERING FORM MANUALLY ELSE COPY OVER DESC
+#     location=StringField("Location/venue", validators=[InputRequired()], description="Let people know where the event will be held.") 
+#     ticket_price=StringField("Price per ticket", validators=[InputRequired()], description="Specify how much the tickets will cost so people know.") 
+#     num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()], description="Specify the number of tickets available for your event.") 
+#     description=TextAreaField("Detailed Description of the Event", validators=[InputRequired()]) 
+#     image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)], description="Upload an image to attract users. This will be shown on the upcoming events page.The file must be JPEG or PNG and must not exceed 200KB.")
+
+
+    submit=SubmitField("Create Event")
+
+    def validate_event_date(self, event_date):
+        if event_date.data < date.today():
+            raise ValidationError('Date must be in the future')
+
     
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired(), NumberRange(min=1,max=5)])
@@ -71,3 +92,10 @@ class orderForm(FlaskForm):
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
+
+class CommentForm(FlaskForm):
+  text = TextAreaField('Comment', [InputRequired()])
+  submit = SubmitField('Create')
+
+
+
