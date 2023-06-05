@@ -3,8 +3,11 @@ from flask_wtf import FlaskForm, Form
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FormField, FieldList
 from datetime import datetime, date
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp, ValidationError
-
+from .models import User
 from flask_wtf.file import FileRequired, FileField, FileAllowed
+from flask import url_for, Markup
+
+
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
 PASSWORD_REGEX="^.*(?=.{8,})(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\\d\\s:]).*$"
@@ -22,7 +25,19 @@ def validate_length(min=-1,max=-1, min_error_message="Field length too short", m
         raise ValidationError(max_error_message)   
   return _validate_length   
 
+#checks to see if email already in use
+def validate_unique_email(form, field):
+    email = field.data
+    if email_exists(email):
+        url = url_for('auth.login')
+        message = 'This email address is already in use. Please use a different email address or log in with your existing account <a href="' + url + '">here.</a>'
+        raise ValidationError(Markup(message))
 
+#query database for email
+def email_exists(email):
+    u1 = User.query.filter_by(email_address=email).first()
+    return u1
+    
 
 #creates the login information
 class LoginForm(FlaskForm):
@@ -34,10 +49,10 @@ class LoginForm(FlaskForm):
  # this is the registration form
 class RegisterForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired(message="Please enter a user name."), validate_length(min=1, max=36, min_error_message='User name must be at least 1 character.',max_error_message='User name must be 36 characters or less.')])
-    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired()])
+    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address."), validate_unique_email])
     mobile_number = StringField("Mobile Number", validators=[InputRequired(message="Please enter a mobile number."), Regexp(MOBILE_NUM_REGEX, message=MOBILE_ERROR_MESSAGE)])
     #linking two fields - password should be equal to data entered in confirm
-    password=PasswordField("Password", validators=[InputRequired(),
+    password=PasswordField("Password", validators=[InputRequired(message="Please enter a password."),
                   EqualTo('confirm', message="Passwords do not match. Please Try again."), Regexp(PASSWORD_REGEX, message=PASSWORD_ERROR_MESSAGE), Length(max=254, message="Password must be 254 characters or less.")])
     confirm = PasswordField("Confirm Password", validators=[InputRequired(message="Please confirm your password.")])
 
@@ -94,5 +109,5 @@ class orderForm(FlaskForm):
     submit=SubmitField('Process Payment')
 
 class CommentForm(FlaskForm):
-  text = TextAreaField('Comment', [InputRequired()])
+  text = TextAreaField('Comment', [InputRequired(), Length(min=6, max=500)])
   submit = SubmitField('Create')
