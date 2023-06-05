@@ -77,8 +77,15 @@
                        <div class="col-md-8">
                            <div class="event-card-body">
                                <h3 class=" event-card-title">{{event.name}}</h3>
+
+                                {% if event.status == 'Open' %}
                                <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
-                               <!-- TODO add if statement for open events -->
+                                
+
+                               {% else %}
+                               <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-danger">{{event.status}}</span> </p>
+                               {% endif %}
+
                                <br>
                                <small>{{event.event_date.strftime("%d/%m/%Y")}}</small>
                                <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
@@ -91,8 +98,22 @@
                                    <a href="/event/{{event.id}}"
                                        class="btn btn-primary btn-md flex-shrink-1">MORE
                                        INFORMATION</a>
+
+                                    {% if event.status == 'Sold Out' %}
+
+                                   <a href="/event/{{event.id}}"
+                                       class="btn btn-primary btn-md flex-shrink-1 disabled">GET TICKETS</a>
+
+
+                                    {% else %}
+
                                    <a href="/event/{{event.id}}"
                                        class="btn btn-primary btn-md flex-shrink-1">GET TICKETS</a>
+
+                                    {% endif %}
+
+
+
                                </div>
                            </div>
                        </div>

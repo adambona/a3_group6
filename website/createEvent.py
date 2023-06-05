@@ -42,7 +42,7 @@ def show(id):
         else:
             db.session.add(order)
             db.session.commit()
-            flash('Tickets Purchased Succesfully')
+            flash('Tickets Purchased Succesfully', 'success')
             return redirect(url_for('createEvent.show', id=id))
 
 
@@ -109,7 +109,7 @@ def check_upload_file(form):
   fp.save(upload_path)
   return db_upload_path
 
-@bp.route('/<event>/comment', methods=['GET', 'POST'])
+@bp.route('/event/<event>/comment', methods=['GET', 'POST'])
 @login_required
 def comment(event):
     form = CommentForm()
