@@ -45,5 +45,5 @@ def search():
 
         # quesry the Destination table and use the filter - like(similar to query)
         return render_template('order-history.html', result=result)
-    return redirect(url_for('order-history.html'))
+    return redirect(url_for('myAccount.orderHistory'))
 
