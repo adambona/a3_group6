@@ -36,89 +36,188 @@
                         </div>
 
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 {% if form.artist_names.errors %}has-error{% endif %}">
                         {{ form.artist_names.label(class_="form-label label-custom") }}
                         {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artist/s...") }}
+                        {% if form.artist_names.errors %}
+                                <ul class="errors">
+                                    {% for error in form.artist_names.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                     </div>
-                    <div class="col-md-4 mb-3">
+
+                    <div class="col-md-4 mb-3 {% if form.genre.errors %}has-error{% endif %}">
                         {{ form.genre.label(class_="form-label label-custom") }}
                         {{ form.genre(class_="form-select input-text") }}
+                        {% if form.genre.errors %}
+                                <ul class="errors">
+                                    {% for error in form.genre.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                     </div>
-                    <div class="mb-3">
+
+                    <div class="mb-3 {% if form.description.errors %}has-error{% endif %}">
                         {{ form.description.label(class_="form-label label-custom") }}
                         {{ form.description(class_="form-control input-text", placeholder="Be clear and descriptive...") }}
+                        {% if form.description.errors %}
+                                <ul class="errors">
+                                    {% for error in form.description.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                     </div>
                 </div>
+
                 <h3 class="mt-4">Upload Image</h3>
                 <p>Upload an image to attract users. This will be shown on the upcoming events page.</p>
                 <div class="container col-sm-11 mb-3">
                     <div class="row mb-3 align-items-center">
-                        <div class="col-md-3">
-                            <img src="./IMG/Placeholder_view_vector.png" class="img-thumbnail" alt="Placeholder Image" id="previewImage">
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 {% if form.image.errors %}has-error{% endif %}">
                             <p class="text-muted">The file must be JPEG or PNG and must not exceed 200KB.</p>
                             {{ form.image(class_="form-control", aria_label="file example") }}
+                            {% if form.image.errors %}
+                                <ul class="errors" id="error">
+                                    {% for error in form.image.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
+
                 <h3 class="mt-4">Location</h3>
                 <p>Let people know where the event will be held.</p>
-                <div class="container col-sm-11 mb-3">
+                <div class="container col-sm-11 mb-3 {% if form.venue_name.errors %}has-error{% endif %}">
                     <div class="mb-3">
                         {{ form.venue_name.label(class_="form-label label-custom") }}
                         {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...") }}
+                        {% if form.image.errors %}
+                            <ul class="errors">
+                                {% for error in form.venue_name.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
-                    <div class="mb-3">
+
+                    <div class="mb-3 {% if form.street_address.errors %}has-error{% endif %}">
                         {{ form.street_address.label(class_="form-label label-custom") }}
                         {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...") }}
+                        {% if form.image.errors %}
+                            <ul class="errors">
+                                {% for error in form.street_address.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
                 </div>
+
                 <h3 class="mt-4">Date and time</h3>
                 <p>Let people know when the event starts and ends so they can make sure to attend.</p>
-                <div class="container col-sm-11 mb-3">
+                <div class="container col-sm-11 mb-3 {% if form.start_date.errors %}has-error{% endif %}">
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.start_date.label(class_="form-label label-custom") }}
                             {{ form.start_date(class_="form-control input-text") }}
+                            {% if form.start_date.errors %}
+                            <ul class="errors">
+                                {% for error in form.start_date.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         </div>
-                        <div class="col-md-6">
+
+
+                        <div class="col-md-6 {% if form.start_time.errors %}has-error{% endif %}">
                             {{ form.start_time.label(class_="form-label label-custom") }}
                             {{ form.start_time(class_="form-control input-text") }}
+                            {% if form.start_time.errors %}
+                            <ul class="errors">
+                                {% for error in form.start_time.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         </div>
+
+
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 {% if form.end_date.errors %}has-error{% endif %}">
                             {{ form.end_date.label(class_="form-label label-custom") }}
                             {{ form.end_date(class_="form-control input-text") }}
+                            {% if form.end_date.errors %}
+                            <ul class="errors">
+                                {% for error in form.end_date.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 {% if form.end_time.errors %}has-error{% endif %}">
                             {{ form.end_time.label(class_="form-label label-custom") }}
                             {{ form.end_time(class_="form-control input-text") }}
+                            {% if form.end_time.errors %}
+                            <ul class="errors">
+                                {% for error in form.end_time.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
                 <h3 class="mt-4">Ticket</h3>
                 <p>Specify the number of tickets available for your event and how much they will cost so people know.</p>
                 <div class="container col-sm-11 mb-3">
-                    <div class="mb-3">
+                    <div class="mb-3 {% if form.num_tickets.errors %}has-error{% endif %}">
                         {{ form.num_tickets.label(class_="form-label label-custom") }}
                         {{ form.num_tickets(class_="form-control input-text text-right", placeholder="1") }}
+                        {% if form.num_tickets.errors %}
+                            <ul class="errors">
+                                {% for error in form.num_tickets.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 {% if form.ticket_price.errors %}has-error{% endif %}">
                         {{ form.ticket_price.label(class_="form-label label-custom") }}
                         <div class="input-group">
                             <span class="input-group-text input-text" id="currency-symbol-custom">$</span>
                             {{ form.ticket_price(class_="form-control input-text text-right", aria_label="Amount (to the nearest dollar)", placeholder="0.00") }}
                             <span class="input-group-text input-text" id="currency-custom">AUD</span>
                         </div>
+                        {% if form.ticket_price.errors %}
+                        <ul class="errors">
+                            {% for error in form.ticket_price.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                     </div>
                 </div>
                 <h3 class="mt-4">Event Status</h3>
                 <p>Provide a current status for your event so people know what is happening.</p>
-                <div class="container mb-3 col-sm-11">
+                <div class="container mb-3 col-sm-11 {% if form.status.errors %}has-error{% endif %}">
                     {{ form.status.label(class_="form-label label-custom") }}
                     {{ form.status(class_="form-select option-custom") }}
+                    {% if form.status.errors %}
+                            <ul class="errors">
+                                {% for error in form.status.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    
                 </div>
             
             </div>
