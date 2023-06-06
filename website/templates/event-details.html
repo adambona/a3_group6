@@ -26,7 +26,14 @@
                     </div>
                     <div class="col-md-3">
                         <div class="col-12 status-info">
+
+                            {% if event.status != 'Open' %}
+                            <h2 class="text-start">Status: <span class="badge bg-danger">{{event.status}}</span></h2>
+
+                            {% else %}
                             <h2 class="text-start">Status: <span class="badge bg-success">{{event.status}}</span></h2>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
@@ -42,9 +49,23 @@
                                 </div>
                             </div>
                             <div class="checkout-model-button text-center">
+
+                                {% if event.status != 'Open' %}
+                                <button class="btn btn-primary buy-btn w-100 btn-square disabled"
+                                    data-bs-target="#modal-toggle-buy-ticket" data-bs-toggle="modal">BUY
+                                    TICKETS</button>
+                                
+                                {% else %}
+
                                 <button class="btn btn-primary buy-btn w-100 btn-square"
                                     data-bs-target="#modal-toggle-buy-ticket" data-bs-toggle="modal">BUY
                                     TICKETS</button>
+
+                                {% endif %}
+
+
+
+
                             </div>
                         </div>
                     </div>
