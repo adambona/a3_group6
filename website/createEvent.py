@@ -137,7 +137,7 @@ def updateEvent(id):
     # Add check if current user is the owner of the event so path attacks cant be used
     
 
-    event = Event.query.filter(Event.id==id).first()
+    events = Event.query.filter(Event.id==id).first()
     form = createEventForm()
     
     if form.validate_on_submit():
@@ -165,4 +165,4 @@ def updateEvent(id):
 
 
 
-    return render_template('update-event.html', form=form, event=event)
+    return render_template('update-event.html', form=form, event=events)
