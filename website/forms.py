@@ -74,26 +74,6 @@ class RegisterForm(FlaskForm):
     #submit button
     submit = SubmitField("Register")
 
-
-""" class createEventForm(FlaskForm):
-    genre=SelectField("Genre", choices=["Pop", "DanceEDM","Hiphop & Rap", "R&B","Latin","Rock", "Metal", "Country", "Folk/Acoustic", "Classical", "Jazz", "Blues", "Easy Listening", "New Age","World/Traditional Folk", "Others"])
-    name=StringField("Event name", validators=[InputRequired()]) 
-    artist_names=StringField("Artists", validators=[InputRequired()])
-
-    status=SelectField("Event status", choices=["Open", "Inactive", "Sold Out", "Cancelled"])
-    # status=SelectField("Event status", choices=["Open"])
-
-    event_date=DateField("Event date", validators=[InputRequired()])
-    start_time=TimeField("Start time", description="Let people know when the event starts and ends so they can make sure to attend.")
-    end_time=TimeField("End time")
-    
-
-    location=StringField("Location/venue", validators=[InputRequired()]) 
-    ticket_price=StringField("Price per ticket", validators=[InputRequired()]) 
-    num_tickets=IntegerField("Total number of tickets available", validators=[InputRequired()]) 
-    description=TextAreaField("Detailed Description of the Event", validators=[InputRequired('You must enter a description and it must be atleast 6 characters'), validate_length(min=6, max=500, min_error_message='Description must be 6 characters or greater', max_error_message='Description must be 500 characters or less')]) 
-    image=FileField("Thumbnail image for the event", validators=[FileRequired(), FileAllowed(ALLOWED_FILE)]) """
-
 class createEventForm(FlaskForm):
     genre = SelectField("Genre", choices=[
         ("Pop", "Pop"),
@@ -170,3 +150,15 @@ class orderForm(FlaskForm):
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired(), Length(min=6, max=500)])
   submit = SubmitField('Create')
+
+class updateForm(FlaskForm):
+    
+    status = SelectField("Event Status", choices=[
+        ("Open", "Open"),
+        ("Inactive", "Inactive"),
+        ("Sold Out", "Sold Out"),
+        ("Cancelled", "Cancelled")
+    ])
+
+
+    submit = SubmitField('update')

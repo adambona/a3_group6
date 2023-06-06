@@ -29,7 +29,7 @@
                                <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
                                <!-- TODO add if statement for open events -->
                                <br>
-                               <small>{{event.event_date.strftime("%d/%m/%Y")}}</small>
+                               <small>{{event.start_date.strftime("%d/%m/%Y")}}</small>
                                <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
                                <p class="event-card-text">{{event.location}} </p>
 
@@ -37,14 +37,9 @@
                                <p class="event-card-text">Tickets Remaining - {{event.num_tickets}}</p>
                                <br>
             
-                               <div class="btn-group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Update Status</button>
-                                <div class="dropdown-menu">
-                                    <a href="/updateStatus{{event.id}}/Open" class="dropdown-item">OPEN</a>
-                                    <a href="/updateStatus{{event.id}}/Inactive" class="dropdown-item">INACTIVE</a>
-                                    <a href="/updateStatus{{event.id}}/Soldout" class="dropdown-item">SOLDOUT</a>
-                                    <a href="/updateStatus{{event.id}}/Cancelled" class="dropdown-item">CANCELLED</a>
-                                </div>
+
+                                <a class="btn btn-primary" href="{{url_for('createEvent.updateEvent', id=event.id)}}"> Edit Event</a>
+                               
                             </div>
                                </div>
                            </div>
