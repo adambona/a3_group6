@@ -90,7 +90,7 @@
                         <img src="{{event.image}}" class="card-img-top event-card-img event-card-order-history-img" alt="event image">
                         <div class="card-body event-card-body">
                             <h3 class="card-title event-card-title">{{event.name}}</h3>
-                            <p class="event-card-text">{{event.event_date.strftime("%d/%m/%Y")}}</p>
+                            <p class="event-card-text">{{event.end_date.strftime("%d/%m/%Y")}}</p>
                             <p class="event-card-text">{{event.location}}</p>
                             <hr>
                             <p class="event-card-text"><span class="fw-bold-custom">Order Placed:</span> {{order.ordered_at.strftime("%d/%m/%Y")}}</p>

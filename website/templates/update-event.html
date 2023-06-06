@@ -27,7 +27,7 @@
                     </div>
                     <div class="mb-3">
                         {{ form.artist_names.label(class_="form-label label-custom") }}
-                        {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artis/s...") }}
+                        {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artis/s...", value = event.artist_names) }}
                     </div>
                     <div class="col-md-4 mb-3">
                         {{ form.genre.label(class_="form-label label-custom") }}
@@ -35,7 +35,8 @@
                     </div>
                     <div class="mb-3">
                         {{ form.description.label(class_="form-label label-custom") }}
-                        {{ form.description(class_="form-control input-text", placeholder="Be clear and descriptive...", value = event.description) }}
+                        {{ form.description(class_="form-control input-text", placeholder="Be clear and descriptive...", value = 'event.description') }}
+
                     </div>
                 </div>
                 <h3 class="mt-4">Upload Image</h3>
@@ -56,11 +57,11 @@
                 <div class="container col-sm-11 mb-3">
                     <div class="mb-3">
                         {{ form.venue_name.label(class_="form-label label-custom") }}
-                        {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...", value = event.location) }}
+                        {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...", value = event.venue_name) }}
                     </div>
                     <div class="mb-3">
                         {{ form.street_address.label(class_="form-label label-custom") }}
-                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...", value = event.location) }}
+                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...", value = event.street_address) }}
                     </div>
                 </div>
                 <h3 class="mt-4">Date and time</h3>

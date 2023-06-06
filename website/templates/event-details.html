@@ -163,7 +163,7 @@
                                 {% if current_user.is_authenticated %}
                                     {% for field in form %}
                                     
-                                    {{wtf.render_field(field)}}
+                                    {{wtf.render_field(field, class="bg-danger")}}
 
                                     {% endfor %}
 

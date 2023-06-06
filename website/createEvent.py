@@ -1,5 +1,5 @@
 
-from .forms import createEventForm, orderForm, CommentForm, updateForm
+from .forms import createEventForm, orderForm, CommentForm
 from .models import Event, Order, Artist, Comment
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
@@ -8,7 +8,6 @@ import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.sql import func
-from sqlalchemy import update
 
 bp = Blueprint('createEvent', __name__)
 
@@ -65,9 +64,9 @@ def createEvent():
         db.session.add(artist) 
         artist_list.append(artist)
 
-        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data, 
-                    #location=form.location.data, 
-                    ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path)
+        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data,
+                      ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path, venue_name=form.venue_name.data, street_address=form.street_address.data)
+
         
         for artist in artist_list:
             artist.event_id = event.id
@@ -80,25 +79,6 @@ def createEvent():
     print("Form validation failed")
 
     return render_template('createEvent.html', form=form)
-
-
-@bp.route('/updateStatus<id>/<status>')
-def updateStatusInactive(id, status):
-    event = db.session.scalar(db.select(Event).where(Event.id==id))
-    if status == 'open':
-        event.status = 'Open'
-    if status == 'inactive':
-        event.status = 'Inactive'
-    if status == 'soldout':
-        event.status = 'Sold Out'
-    if status == 'cancelled':
-        event.status = 'Cancelled'
-
-    db.session.commit()
-
-    events = Event.query.all()
-    return render_template('my-events.html', events=events)
-
 
 def check_upload_file(form):
   #get file data from form  
@@ -138,34 +118,47 @@ def comment(event):
 def updateEvent(id):
     
     # Add check if current user is the owner of the event so path attacks cant be used
-    
+
 
     events = Event.query.filter(Event.id==id).first()
     form = createEventForm()
+
+    if current_user.id == events.user_id:
+        flash('this is your event please update at your own risk')
     
-    if form.validate_on_submit():
-        update_event = Event.query.filter(Event.id==id).first()
+        if form.validate_on_submit():
+            update_event = Event.query.filter(Event.id==id).first()
+            db_file_path = check_upload_file(form)
+            artist_list = []
 
-        #Add artist and other missing fields when they are ready
+            #Add artist and other missing fields when they are ready
 
-        update_event.name = form.name.data
-        update_event.status = form.status.data
-        update_event.start_time = form.start_time.data
-        update_event.end_time = form.end_time.data
-        update_event.end_date = form.end_date.data
-        update_event.start_date = form.start_date.data
-        update_event.ticket_price = form.ticket_price.data
-
-        # Add tickets ? ask others
-        
-        update_event.num_tickets = form.num_tickets.data
-        
-        update_event.genre = form.genre.data
-
-        db.session.commit()
-
-        return redirect(url_for('createEvent.show', id=id))
+            update_event.name = form.name.data
+            update_event.status = form.status.data
+            update_event.start_time = form.start_time.data
+            update_event.end_time = form.end_time.data
+            update_event.end_date = form.end_date.data
+            update_event.start_date = form.start_date.data
+            update_event.description = form.description.data
+            update_event.ticket_price = form.ticket_price.data
+            update_event.venue_name = form.venue_name.data
+            update_event.street_address = form.street_address.data
+            update_event.genre = form.genre.data
 
 
+            # Add tickets ? ask others
+            update_event.num_tickets = form.num_tickets.data
+            
+            artist = Artist(event_id = 0, name = form.artist_names.data)
+            db.session.add(artist) 
+            artist_list.append(artist)
+
+            db.session.commit()
+
+            return redirect(url_for('createEvent.show', id=id))
+
+    else:
+        flash('you cannot update an event you are not the owner of please create your own event')
+        return redirect(url_for('createEvent.createEvent'))
 
     return render_template('update-event.html', form=form, event=events)

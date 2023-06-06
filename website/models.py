@@ -85,7 +85,8 @@ class Event(db.Model):
     location = db.Column(db.Integer, db.ForeignKey('locations.id'))
     artist_names = db.relationship('Artist', backref='events')
     comments = db.relationship('Comment', backref='events')
-
+    venue_name = db.Column(db.String(100), nullable=False, index=True)
+    street_address = db.Column(db.String(100), nullable=False, index=True)
 
 class Location(db.Model):
     """

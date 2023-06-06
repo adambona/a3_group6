@@ -95,12 +95,14 @@ class createEventForm(FlaskForm):
         ("World/Traditional Folk", "World/Traditional Folk"),
         ("Others", "Others")
     ])
+
    
     #name = StringField('Event Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."})
     #name = StringField('Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."}, label="Name", label_kw={"class": "form-label label-custom"})
     #name = StringField('Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."}, label_kw={"class": "form-label label-custom"})
     name = StringField("Event Name", validators=[InputRequired(message="Please enter a name for the event"), validate_length(min=2, max=100, min_error_message='Event name must be 2 characters or greater', max_error_message='Event name must be 100 characters or less')])
     artist_names = StringField("Artists", validators=[InputRequired(message="Please enter the artist/s name")])
+
 
     description = TextAreaField("Detailed Description of the Event", validators=[
         InputRequired(message="Please enter a description for the event."),
@@ -116,12 +118,14 @@ class createEventForm(FlaskForm):
     venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name.")])
     street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address.")])
 
-    start_date = DateField("Event Starts", validators=[InputRequired()])
+    start_date = DateField("", validators=[InputRequired()])
     end_date = DateField("Event Ends", validators=[InputRequired()])
     start_time = TimeField("Start Time")
     end_time = TimeField("End Time")
 
-    ticket_price = StringField("Price per Ticket", validators=[InputRequired(message="Please enter a price per ticket")])
+
+    ticket_price = StringField("Price per Ticket", validators=[InputRequired(message="enter ticket price")])
+
     num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired()])
 
     status = SelectField("Event Status", choices=[
@@ -133,7 +137,7 @@ class createEventForm(FlaskForm):
 
     submit=SubmitField("Create Event")
 
-    def validate_event_date(self, event_date):
+    def validate_start_date(self, event_date):
         if event_date.data < date.today():
             raise ValidationError('Date must be in the future')
 
