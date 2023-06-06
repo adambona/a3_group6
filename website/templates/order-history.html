@@ -24,6 +24,20 @@
             </form>
 
             {% if result|length > 0 %}
+
+
+            {% if result|length == 0 %}
+
+            <h5>No orders have been placed</h5>
+
+            {% else %}
+            
+        
+            <!-- DEBUGGING -->
+            <p>DEBUGGING</p>
+            <span>number of orders should be </span>{{result|length}}
+
+
             <div class="table-responsive d-none d-lg-block">
                 <table class="table">
                     <thead>
@@ -46,7 +60,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-8 col-6">
                                         <h5>{{event.name}}</h5>
-                                        <p id="table-text">{{event.event_date.strftime("%d/%m/%Y")}}</p>
+                                        <p id="table-text">{{event.start_date.strftime("%d/%m/%Y")}}</p>
                                         <p id="table-text">{{event.location}}</p>
                                     </div>
                                 </div>
@@ -56,13 +70,19 @@
                             <td class="align-middle w-10 text-center">${{order.total_cost}}</td>
                             <td class="align-middle w-10 text-center">{{order.order_id}}</td>
                             <td class="align-middle w-10 text-center">
+
                                 <a href="/event/{{event.id}}" class="btn btn-primary btn-sm">View Details</a>
+
+                                <a href="/event/{{event.id}}" class="btn btn-primary btn-sm">View Event</a>
+
                             </td>
                         </tr>
                     </tbody>
-                    {% endfor %}
+                        
+                        {% endfor %}
                 </table>
             </div>
+
             <div class="row row-cols-1 g-4 d-lg-none">
                 {% for event, order in result %}
                 <div class="col">
@@ -87,6 +107,9 @@
                     {% endfor %}
                 </div>
             </div>
+
+            {% endif %}
+
 
             {% else %}
             <div class="py-4 text-center">
