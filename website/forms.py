@@ -1,4 +1,3 @@
-
 from flask_wtf import FlaskForm, Form
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, SelectField, TimeField, IntegerField, DateField, RadioField, BooleanField, FormField, FieldList
 from datetime import datetime, date
@@ -41,7 +40,6 @@ def email_exists(email):
 #creates the login information
 class LoginForm(FlaskForm):
     email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
-    #email_id=StringField("User Name", validators=[InputRequired(message='Please enter a user name.')])
     password=PasswordField("Password", validators=[InputRequired(message='Please enter a password.')])
     submit = SubmitField("Login")
 
@@ -96,10 +94,6 @@ class createEventForm(FlaskForm):
         ("Others", "Others")
     ])
 
-   
-    #name = StringField('Event Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."})
-    #name = StringField('Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."}, label="Name", label_kw={"class": "form-label label-custom"})
-    #name = StringField('Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."}, label_kw={"class": "form-label label-custom"})
     name = StringField("Event Name", validators=[InputRequired(message="Please enter a name for the event"), validate_length(min=2, max=100, min_error_message='Event name must be 2 characters or greater', max_error_message='Event name must be 100 characters or less')])
     artist_names = StringField("Artists", validators=[InputRequired(message="Please enter the artist/s name")])
 
