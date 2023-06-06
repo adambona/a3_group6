@@ -23,7 +23,7 @@
                 <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Search</button>
             </form>
 
-
+            {% if result|length > 0 %}
             <div class="table-responsive d-none d-lg-block">
                 <table class="table">
                     <thead>
@@ -88,6 +88,11 @@
                 </div>
             </div>
 
+            {% else %}
+            <div class="py-4 text-center">
+                <p>Couldn't find any past orders. Maybe you should check out whats on <a href="{{url_for('main.index')}}"> here</a></p>
+            </div>
+            {% endif %}
         </div>
 </main>
 
