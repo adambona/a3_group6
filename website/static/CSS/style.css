@@ -571,3 +571,20 @@ html {
   font-size: calc(1.6rem + 0.9vw) ;
   line-height: 1.4em;
 }
+
+.has-error {
+  border-color: red; /* Red border color for error state */
+}
+
+.has-error .form-control {
+  border-color: red; /* Red border color for input field in error state */
+}
+
+.has-error .errors {
+  color: red; /* Red error text color */
+}
+
+.errors {
+  list-style: none;  /* Remove default bullet points */
+  padding: 0;       /* Remove default padding */
+}

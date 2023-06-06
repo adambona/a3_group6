@@ -70,7 +70,7 @@ class Event(db.Model):
     __tablename__ = 'events'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(56), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     status = db.Column(db.String(10), CheckConstraint("status IN ('Open', 'Inactive', 'Sold Out', 'Cancelled')"), nullable=False, index=True) #checks status is valid status
     start_time = db.Column(db.Time, nullable=False, index=True)
     end_time = db.Column(db.Time, nullable=False, index=True)
