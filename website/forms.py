@@ -75,6 +75,8 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register")
 
 class createEventForm(FlaskForm):
+
+    
     genre = SelectField("Genre", choices=[
         ("Pop", "Pop"),
         ("DanceEDM", "Dance/EDM"),
@@ -94,30 +96,36 @@ class createEventForm(FlaskForm):
         ("Others", "Others")
     ])
 
-    name = StringField("Event Name", validators=[InputRequired(message="test")])
-    artist_names = StringField("Artists", validators=[InputRequired()])
+   
+    #name = StringField('Event Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."})
+    #name = StringField('Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."}, label="Name", label_kw={"class": "form-label label-custom"})
+    #name = StringField('Name', validators=[InputRequired("Please enter a name for the event")], render_kw={"class": "form-control input-text", "placeholder": "Be clear and descriptive..."}, label_kw={"class": "form-label label-custom"})
+    name = StringField("Event Name", validators=[InputRequired(message="Please enter a name for the event"), validate_length(min=2, max=100, min_error_message='Event name must be 2 characters or greater', max_error_message='Event name must be 100 characters or less')])
+    artist_names = StringField("Artists", validators=[InputRequired(message="Please enter the artist/s name")])
+
 
     description = TextAreaField("Detailed Description of the Event", validators=[
-        InputRequired("You must enter a description and it must be at least 6 characters"),
-        validate_length(min=6, max=500, min_error_message="Description must be 6 characters or greater",
-                        max_error_message="Description must be 500 characters or less")
+        InputRequired(message="Please enter a description for the event."),
+        validate_length(min=6, max=500, min_error_message="Description must be 6 characters or greater.",
+                        max_error_message="Description must be 500 characters or less.")
     ])
 
     image = FileField("Thumbnail Image for the Event", validators=[
-        FileRequired(),
+        FileRequired("Please upload an image for the event."),
         FileAllowed(ALLOWED_FILE)
     ])
 
-    venue_name = StringField("Venue Name", validators=[InputRequired()])
-    street_address = StringField("Street Address", validators=[InputRequired()])
+    venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name.")])
+    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address.")])
 
     start_date = DateField("", validators=[InputRequired()])
     end_date = DateField("Event Ends", validators=[InputRequired()])
-    start_time = TimeField("Start Time",
-                           description="Let people know when the event starts and ends so they can make sure to attend.")
+    start_time = TimeField("Start Time")
     end_time = TimeField("End Time")
 
+
     ticket_price = StringField("Price per Ticket", validators=[InputRequired(message="enter ticket price")])
+
     num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired()])
 
     status = SelectField("Event Status", choices=[

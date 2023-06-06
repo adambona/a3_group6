@@ -55,7 +55,8 @@ def show(id):
 def createEvent():
     form = createEventForm()
 
-    if (form.validate_on_submit() == True):
+    if form.validate_on_submit():
+
         db_file_path = check_upload_file(form)
         artist_list = []
         
@@ -63,9 +64,9 @@ def createEvent():
         db.session.add(artist) 
         artist_list.append(artist)
 
-        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data, 
-                      #location=form.location.data, 
+        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data,
                       ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path, venue_name=form.venue_name.data, street_address=form.street_address.data)
+
         
         for artist in artist_list:
             artist.event_id = event.id
@@ -73,8 +74,10 @@ def createEvent():
         db.session.add(event)
         db.session.commit()
 
-        return redirect(url_for('main.index'))
-      
+
+        return redirect(url_for('main.index'))   
+    print("Form validation failed")
+
     return render_template('createEvent.html', form=form)
 
 def check_upload_file(form):

@@ -13,17 +13,27 @@
 <main>
     <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
         <h1 class="py-4">Event Details</h1>
+      
+       <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}" enctype="multipart/form-data" novalidate>
 
-        <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <div>
                 <h3>Basic Info</h3>
                 <p>Let people know about you. Tell us about the event</p>
                 <div class="container mb-3 col-sm-11">
                     <div class="mb-3">
-                        {{ form.name.label(class_="form-label label-custom") }}
-                        {{ form.name(class_= "form-control input-text", placeholder="Be clear and descriptive...") }}
-                        
+
+                        <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                            {{ form.name.label(class_="form-label label-custom") }}
+                            {{ form.name(class_="form-control input-text", placeholder="Be clear and descriptive...") }}
+                            {% if form.name.errors %}
+                                <ul class="errors">
+                                    {% for error in form.name.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
 
                     </div>
                     <div class="mb-3">
@@ -116,7 +126,7 @@
                 <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg flex-shrink-1">CANCEL</a>
                 <input type="submit" class="btn btn-primary btn-lg flex-shrink-1" value="Create Event"/>
             </div>
-        </form>
+        </form> 
     </div>
 </main>
 
