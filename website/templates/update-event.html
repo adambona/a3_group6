@@ -12,38 +12,30 @@
 
 <main>
     <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
-        <h1 class="py-4">Event Details</h1>
-        
-       <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}" enctype="multipart/form-data" novalidate>
+        <h1 class="py-4">Update Event</h1>
+
+        <form method="POST" form="form" action="{{url_for('createEvent.updateEvent', id=event.id)}}" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <div>
+                
                 <h3>Basic Info</h3>
                 <p>Let people know about you. Tell us about the event</p>
                 <div class="container mb-3 col-sm-11">
                     <div class="mb-3">
-                        <div class="form-group {% if form.name.errors %}has-error{% endif %}">
-                            {{ form.name.label(class_="form-label label-custom") }}
-                            {{ form.name(class_="form-control input-text", placeholder="Be clear and descriptive...") }}
-                            {% if form.name.errors %}
-                                <ul class="errors">
-                                    {% for error in form.name.errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                        </div>
+                        {{ form.name.label(class_="form-label label-custom") }}
+                        {{ form.name(class_="form-control input-text", placeholder="Be clear and descriptive...", value = event.name ) }}
                     </div>
                     <div class="mb-3">
                         {{ form.artist_names.label(class_="form-label label-custom") }}
-                        {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artist/s...") }}
+                        {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artis/s...") }}
                     </div>
                     <div class="col-md-4 mb-3">
                         {{ form.genre.label(class_="form-label label-custom") }}
-                        {{ form.genre(class_="form-select input-text") }}
+                        {{ form.genre(class_="form-select input-text", value = event.genre) }}
                     </div>
                     <div class="mb-3">
                         {{ form.description.label(class_="form-label label-custom") }}
-                        {{ form.description(class_="form-control input-text", placeholder="Be clear and descriptive...") }}
+                        {{ form.description(class_="form-control input-text", placeholder="Be clear and descriptive...", value = event.description) }}
                     </div>
                 </div>
                 <h3 class="mt-4">Upload Image</h3>
@@ -55,7 +47,7 @@
                         </div>
                         <div class="col-md-6">
                             <p class="text-muted">The file must be JPEG or PNG and must not exceed 200KB.</p>
-                            {{ form.image(class_="form-control", aria_label="file example") }}
+                            {{ form.image(class_="form-control", aria_label="file example", value = event.image) }}
                         </div>
                     </div>
                 </div>
@@ -64,11 +56,11 @@
                 <div class="container col-sm-11 mb-3">
                     <div class="mb-3">
                         {{ form.venue_name.label(class_="form-label label-custom") }}
-                        {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...") }}
+                        {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...", value = event.location) }}
                     </div>
                     <div class="mb-3">
                         {{ form.street_address.label(class_="form-label label-custom") }}
-                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...") }}
+                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...", value = event.location) }}
                     </div>
                 </div>
                 <h3 class="mt-4">Date and time</h3>
@@ -77,36 +69,37 @@
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.start_date.label(class_="form-label label-custom") }}
-                            {{ form.start_date(class_="form-control input-text") }}
+                            {{ form.start_date(class_="form-control input-text", value = event.start_date) }}
                         </div>
                         <div class="col-md-6">
                             {{ form.start_time.label(class_="form-label label-custom") }}
-                            {{ form.start_time(class_="form-control input-text") }}
+                            {{ form.start_time(class_="form-control input-text", value = event.start_time) }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.end_date.label(class_="form-label label-custom") }}
-                            {{ form.end_date(class_="form-control input-text") }}
+                            {{ form.end_date(class_="form-control input-text", value = event.end_date) }}
                         </div>
                         <div class="col-md-6">
                             {{ form.end_time.label(class_="form-label label-custom") }}
-                            {{ form.end_time(class_="form-control input-text") }}
+                            {{ form.end_time(class_="form-control input-text", value = event.end_time) }}
                         </div>
                     </div>
                 </div>
+                
                 <h3 class="mt-4">Ticket</h3>
                 <p>Specify the number of tickets available for your event and how much they will cost so people know.</p>
                 <div class="container col-sm-11 mb-3">
                     <div class="mb-3">
                         {{ form.num_tickets.label(class_="form-label label-custom") }}
-                        {{ form.num_tickets(class_="form-control input-text text-right", placeholder="1") }}
+                        {{ form.num_tickets(class_="form-control input-text text-right", value = event.num_tickets) }}
                     </div>
                     <div class="mb-3">
                         {{ form.ticket_price.label(class_="form-label label-custom") }}
                         <div class="input-group">
                             <span class="input-group-text input-text" id="currency-symbol-custom">$</span>
-                            {{ form.ticket_price(class_="form-control input-text text-right", aria_label="Amount (to the nearest dollar)", placeholder="0.00") }}
+                            {{ form.ticket_price(class_="form-control input-text text-right", aria_label="Amount (to the nearest dollar)", placeholder="0.00", value = event.ticket_price) }}
                             <span class="input-group-text input-text" id="currency-custom">AUD</span>
                         </div>
                     </div>
@@ -115,15 +108,22 @@
                 <p>Provide a current status for your event so people know what is happening.</p>
                 <div class="container mb-3 col-sm-11">
                     {{ form.status.label(class_="form-label label-custom") }}
-                    {{ form.status(class_="form-select option-custom") }}
+                    {{ form.status(class_="form-select option-custom", value = event.status) }}
                 </div>
-            
+
+                {% for field in form.errors %}
+                {% for error in form.errors[field] %}
+                    <div class="alert alert-error">
+                        <strong>Error!</strong> {{error}}
+                    </div>
+                {% endfor %}
+                {% endfor %}
             </div>
             <div class="d-grid gap-2 d-flex justify-content-end flex-wrap">
                 <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg flex-shrink-1">CANCEL</a>
-                <input type="submit" class="btn btn-primary btn-lg flex-shrink-1" value="Create Event"/>
+                <input type="submit" class="btn btn-primary btn-lg flex-shrink-1" value="Update Event"/>
             </div>
-        </form> 
+        </form>
     </div>
 </main>
 

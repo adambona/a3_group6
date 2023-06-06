@@ -1,5 +1,5 @@
 
-from .forms import createEventForm, orderForm, CommentForm
+from .forms import createEventForm, orderForm, CommentForm, updateForm
 from .models import Event, Order, Artist, Comment
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
@@ -8,6 +8,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.sql import func
+from sqlalchemy import update
 
 bp = Blueprint('createEvent', __name__)
 
@@ -55,8 +56,8 @@ def show(id):
 def createEvent():
     form = createEventForm()
 
-    if (form.validate_on_submit() == True):
-        print("Form validation successful")
+    if form.validate_on_submit():
+
         db_file_path = check_upload_file(form)
         artist_list = []
         
@@ -74,8 +75,10 @@ def createEvent():
         db.session.add(event)
         db.session.commit()
 
+
         return redirect(url_for('main.index'))   
     print("Form validation failed")
+
     return render_template('createEvent.html', form=form)
 
 
@@ -128,3 +131,41 @@ def comment(event):
 
         # flashing a message which needs to be handled by the html
     return redirect(url_for('createEvent.show', id=event))
+
+
+@bp.route('/updateEvent/<int:id>', methods=['GET', 'POST'])
+@login_required
+def updateEvent(id):
+    
+    # Add check if current user is the owner of the event so path attacks cant be used
+    
+
+    events = Event.query.filter(Event.id==id).first()
+    form = createEventForm()
+    
+    if form.validate_on_submit():
+        update_event = Event.query.filter(Event.id==id).first()
+
+        #Add artist and other missing fields when they are ready
+
+        update_event.name = form.name.data
+        update_event.status = form.status.data
+        update_event.start_time = form.start_time.data
+        update_event.end_time = form.end_time.data
+        update_event.end_date = form.end_date.data
+        update_event.start_date = form.start_date.data
+        update_event.ticket_price = form.ticket_price.data
+
+        # Add tickets ? ask others
+        
+        update_event.num_tickets = form.num_tickets.data
+        
+        update_event.genre = form.genre.data
+
+        db.session.commit()
+
+        return redirect(url_for('createEvent.show', id=id))
+
+
+
+    return render_template('update-event.html', form=form, event=events)
