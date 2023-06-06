@@ -13,7 +13,7 @@
 <main>
     <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
         <h1 class="py-4">Event Details</h1>
-        
+
         <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <div>
@@ -22,7 +22,9 @@
                 <div class="container mb-3 col-sm-11">
                     <div class="mb-3">
                         {{ form.name.label(class_="form-label label-custom") }}
-                        {{ form.name(class_="form-control input-text", placeholder="Be clear and descriptive...") }}
+                        {{ form.name(class_= "form-control input-text", placeholder="Be clear and descriptive...") }}
+                        
+
                     </div>
                     <div class="mb-3">
                         {{ form.artist_names.label(class_="form-label label-custom") }}

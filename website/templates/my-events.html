@@ -31,10 +31,10 @@
                                <br>
                                <small>{{event.start_date.strftime("%d/%m/%Y")}}</small>
                                <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
-                               <p class="event-card-text">{{event.location}} </p>
-
+                               <p class="event-card-text">{{event.venue_name}} </p>
+                               <p class="event-card-text">{{event.street_address}} </p>
                                <p class="event-card-text">{{event.genre}}</p>
-                               <p class="event-card-text">Tickets Remaining - {{event.num_tickets}}</p>
+
                                <br>
             
 

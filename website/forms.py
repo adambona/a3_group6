@@ -94,7 +94,7 @@ class createEventForm(FlaskForm):
         ("Others", "Others")
     ])
 
-    name = StringField("Event Name", validators=[InputRequired()])
+    name = StringField("Event Name", validators=[InputRequired(message="test")])
     artist_names = StringField("Artists", validators=[InputRequired()])
 
     description = TextAreaField("Detailed Description of the Event", validators=[
@@ -111,13 +111,13 @@ class createEventForm(FlaskForm):
     venue_name = StringField("Venue Name", validators=[InputRequired()])
     street_address = StringField("Street Address", validators=[InputRequired()])
 
-    start_date = DateField("Event Starts", validators=[InputRequired()])
+    start_date = DateField("", validators=[InputRequired()])
     end_date = DateField("Event Ends", validators=[InputRequired()])
     start_time = TimeField("Start Time",
                            description="Let people know when the event starts and ends so they can make sure to attend.")
     end_time = TimeField("End Time")
 
-    ticket_price = StringField("Price per Ticket", validators=[InputRequired()])
+    ticket_price = StringField("Price per Ticket", validators=[InputRequired(message="enter ticket price")])
     num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired()])
 
     status = SelectField("Event Status", choices=[
@@ -129,7 +129,7 @@ class createEventForm(FlaskForm):
 
     submit=SubmitField("Create Event")
 
-    def validate_event_date(self, event_date):
+    def validate_start_date(self, event_date):
         if event_date.data < date.today():
             raise ValidationError('Date must be in the future')
 
