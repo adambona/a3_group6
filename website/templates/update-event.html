@@ -12,9 +12,10 @@
 
 <main>
     <div class="container container no gutters-xs-only py-4 mb-4 bg-body-white">
-        <h1 class="py-4">Event Details</h1>
-        
-        <form method="POST" form="form" action="{{ url_for('createEvent.createEvent') }}" enctype="multipart/form-data">
+        <h1 class="py-4">Update Event</h1>
+
+
+        <form method="POST" form="form" action="{{url_for('createEvent.updateEvent', id=event.id)}}" enctype="multipart/form-data">
             {{ form.csrf_token }}
             <div>
                 <h3>Basic Info</h3>
@@ -86,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <h3 class="mt-4">Ticket</h3>
                 <p>Specify the number of tickets available for your event and how much they will cost so people know.</p>
                 <div class="container col-sm-11 mb-3">
@@ -112,7 +114,7 @@
             </div>
             <div class="d-grid gap-2 d-flex justify-content-end flex-wrap">
                 <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-lg flex-shrink-1">CANCEL</a>
-                <input type="submit" class="btn btn-primary btn-lg flex-shrink-1" value="Create Event"/>
+                <input type="submit" class="btn btn-primary btn-lg flex-shrink-1" value="Update Event"/>
             </div>
         </form>
     </div>
