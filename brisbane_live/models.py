@@ -81,8 +81,6 @@ class Event(db.Model):
     end_date = db.Column(db.Date, nullable=False, index=True)
     start_date = db.Column(db.Date, nullable=False, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    genre = db.Column(db.Integer, db.ForeignKey('genres.id'))
-    location = db.Column(db.Integer, db.ForeignKey('locations.id'))
     
     artist_names = db.Column(db.String(100), nullable=False, index=True)
     venue_name = db.Column(db.String(100), nullable=False, index=True)
@@ -160,4 +158,4 @@ class Order(db.Model):
     num_tickets = db.Column(db.Integer)
     booked_by = db.Column(db.String)
     total_cost  = db.Column(db.Float(2))
-    ordered_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    ordered_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
