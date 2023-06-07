@@ -168,7 +168,7 @@ class orderForm(FlaskForm):
     first_name=StringField("First name", validators=[InputRequired(), Length(min=1,max=20)])
     last_name=StringField("Last name", validators=[InputRequired(), Length(min=1,max=20)])
     email=StringField("Email address", validators=[InputRequired()])
-    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
+    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card')], validators=[InputRequired()])
     card_number=StringField("Card number", validators=[InputRequired(), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
     expiration=StringField('Expiration', validators=[InputRequired(), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
     cvv=StringField("CVV", validators=[InputRequired(), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
@@ -185,8 +185,8 @@ class orderForm(FlaskForm):
             raise ValidationError('Invalid expiration date')
 
 class CommentForm(FlaskForm):
-  text = TextAreaField('Comment', [InputRequired(), Length(min=6, max=500)])
-  submit = SubmitField('Create')
+  text = TextAreaField('Add a comment', [InputRequired(), Length(min=5, max=40)])
+  submit = SubmitField('Add')
 
 class updateForm(FlaskForm):
     

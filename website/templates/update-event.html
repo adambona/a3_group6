@@ -24,7 +24,7 @@
 
                         <div class="form-group {% if form.name.errors %}has-error{% endif %}">
                             {{ form.name.label(class_="form-label label-custom") }}
-                            {{ form.name(class_="form-control input-text", placeholder="Be clear and descriptive...") }}
+                            {{ form.name(class_="form-control input-text", placeholder="Be clear and descriptive...", value = event.name) }}
                             {% if form.name.errors %}
                                 <ul class="errors">
                                     {% for error in form.name.errors %}
@@ -37,7 +37,7 @@
                     </div>
                     <div class="mb-3 {% if form.artist_names.errors %}has-error{% endif %}">
                         {{ form.artist_names.label(class_="form-label label-custom") }}
-                        {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artist/s...") }}
+                        {{ form.artist_names(class_="form-control input-text", placeholder="Specify the artist/s...", value = event.artist_names) }}
                         {% if form.artist_names.errors %}
                                 <ul class="errors">
                                     {% for error in form.artist_names.errors %}
@@ -78,7 +78,7 @@
                     <div class="row mb-3 align-items-center">
                         <div class="col-md-6 {% if form.image.errors %}has-error{% endif %}">
                             <p class="text-muted">The file must be JPEG or PNG and must not exceed 200KB.</p>
-                            {{ form.image(class_="form-control", aria_label="file example") }}
+                            {{ form.image(class_="form-control", aria_label="file example", value = event.image) }}
                             {% if form.image.errors %}
                                 <ul class="errors" id="error">
                                     {% for error in form.image.errors %}
@@ -95,7 +95,7 @@
                 <div class="container col-sm-11 mb-3 {% if form.venue_name.errors %}has-error{% endif %}">
                     <div class="mb-3">
                         {{ form.venue_name.label(class_="form-label label-custom") }}
-                        {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...") }}
+                        {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...", value = event.venue_name) }}
                         {% if form.image.errors %}
                             <ul class="errors">
                                 {% for error in form.venue_name.errors %}
@@ -107,7 +107,7 @@
 
                     <div class="mb-3 {% if form.street_address.errors %}has-error{% endif %}">
                         {{ form.street_address.label(class_="form-label label-custom") }}
-                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...") }}
+                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...", value = event.street_address) }}
                         {% if form.image.errors %}
                             <ul class="errors">
                                 {% for error in form.street_address.errors %}
@@ -124,7 +124,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.start_date.label(class_="form-label label-custom") }}
-                            {{ form.start_date(class_="form-control input-text") }}
+                            {{ form.start_date(class_="form-control input-text", value = event.start_date) }}
                             {% if form.start_date.errors %}
                             <ul class="errors">
                                 {% for error in form.start_date.errors %}
@@ -152,7 +152,7 @@
                     <div class="row">
                         <div class="col-md-6 {% if form.end_date.errors %}has-error{% endif %}">
                             {{ form.end_date.label(class_="form-label label-custom") }}
-                            {{ form.end_date(class_="form-control input-text") }}
+                            {{ form.end_date(class_="form-control input-text", value = event.end_date) }}
                             {% if form.end_date.errors %}
                             <ul class="errors">
                                 {% for error in form.end_date.errors %}
@@ -176,10 +176,11 @@
                 </div>
                 <h3 class="mt-4">Ticket</h3>
                 <p>Specify the number of tickets available for your event and how much they will cost so people know.</p>
+                <b>Note: This will add to your ticket total not override the initial ticket availibility</b>
                 <div class="container col-sm-11 mb-3">
                     <div class="mb-3 {% if form.num_tickets.errors %}has-error{% endif %}">
                         {{ form.num_tickets.label(class_="form-label label-custom") }}
-                        {{ form.num_tickets(class_="form-control input-text text-right", placeholder="1") }}
+                        {{ form.num_tickets(class_="form-control input-text text-right", value = event.num_tickets) }}
                         {% if form.num_tickets.errors %}
                             <ul class="errors">
                                 {% for error in form.num_tickets.errors %}
@@ -192,7 +193,7 @@
                         {{ form.ticket_price.label(class_="form-label label-custom") }}
                         <div class="input-group">
                             <span class="input-group-text input-text" id="currency-symbol-custom">$</span>
-                            {{ form.ticket_price(class_="form-control input-text text-right", aria_label="Amount (to the nearest dollar)", placeholder="0.00") }}
+                            {{ form.ticket_price(class_="form-control input-text text-right", aria_label="Amount (to the nearest dollar)", value = event.ticket_price) }}
                             <span class="input-group-text input-text" id="currency-custom">AUD</span>
                         </div>
                         {% if form.ticket_price.errors %}

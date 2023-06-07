@@ -43,15 +43,16 @@ html {
   
   #website-name
   {
-    font-size: calc(2rem + 2vw);
+    font-size: calc(2rem + 4vh);
     color: white;
-    font-family: sans-serif;
+    font-family: 'Bebas Neue', sans-serif;
   }
   
   .background-custom{
     background: #002b70
   }
   
+
   .fw-bold-custom{
     font-weight: 500;
   }
@@ -588,3 +589,4 @@ html {
   list-style: none;  /* Remove default bullet points */
   padding: 0;       /* Remove default padding */
 }
+
