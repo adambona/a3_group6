@@ -94,22 +94,26 @@
 
                                <p class="event-card-text">{{event.genre}}</p>
 
+                               <p class="event-card-text">{{event.artist_names}}</p>
+
                                <div class="d-grid gap-2 d-flex justify-content-end flex-wrap"
                                    id="event-card-btn">
 
+                                   <a href="/event/{{event.id}}"
+                                       class="btn btn-primary btn-md flex-shrink-1">MORE INFORMATION</a>
+
                                     {% if event.status == 'Sold Out' %}
 
-                                   <a href="/event/{{event.id}}"
+                                   <a href="{{ url_for('createEvent.show_modal', id=event.id) }}"
                                        class="btn btn-primary btn-md flex-shrink-1 disabled">GET TICKETS</a>
 
 
                                     {% else %}
 
-                                   <a href="/event/{{event.id}}"
+                                   <a href="{{ url_for('createEvent.show_modal', id=event.id) }}"
                                        class="btn btn-primary btn-md flex-shrink-1">GET TICKETS</a>
 
                                     {% endif %}
-
 
 
                                </div>

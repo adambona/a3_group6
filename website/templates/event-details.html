@@ -137,8 +137,10 @@
 
                 <div class="modal fade p-0" id="modal-toggle-checkout" aria-hidden="true"
                     aria-labelledby="modal-toggle-checkout-label" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-xl">
+
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
+
                             <div class="modal-header">
                                 <h3 class="modal-title" id="modal-toggle-checkout-label">Checkout</h3>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -146,111 +148,114 @@
                             </div>
 
                             <form method="post" form="form">
-                            <div class="modal-body">
-                                
-                                <!-- Working Ticket Remaining -->
-                                {% if remaining < 10 %}
-                                <p class="text-danger">Tickets are almost sold out!</p>
-
-                                {% endif %}
-
-                                {% if current_user.is_authenticated %}
-                                    {% for field in form %}
+                                <div class="modal-body">
                                     
-                                    {{wtf.render_field(field)}}
+                                    <!-- Working Ticket Remaining -->
+                                    {% if remaining < 10 %}
+                                    <p class="text-danger">Tickets are almost sold out!</p>
 
-                                    {% endfor %}
+                                    {% endif %}
 
-                                    {% else %} 
-                                        <p>You must be logged in to buy a ticket <a href="{{url_for('auth.login')}}"> Login Here</a></p>
-                                {% endif %}
+                                    {% if current_user.is_authenticated %}
+                                        {% for field in form %}
+                                        
+                                        {{wtf.render_field(field)}}
 
-                                
-                            </div>
-                        </form>
+                                        {% endfor %}
+
+                                        {% else %} 
+                                            <p>You must be logged in to buy a ticket <a href="{{url_for('auth.login')}}"> Login Here</a></p>
+                                    {% endif %}
+
+                                    
+                                </div>
+                            </form>
 
                             <div class="modal-footer">
                                 <button class="btn btn-primary" data-bs-target="#modal-toggle-buy-ticket"
                                     data-bs-toggle="modal">Back</button>
+                                    
+                                
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
 
-                <div class="event-details order-lg-2 order-1">
-                    <div class="row">
-                        <h1 class="pt-4">Event Details</h1>
+            </div>
+            
+            <div class="event-details order-lg-2 order-1">
+                <div class="row">
+                    <h1 class="pt-4">Event Details</h1>
+                    <hr>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <h3 class="pt-2">Date</h3>
+                        <p>{{event.start_date.strftime("%d/%m/%Y")}} - {{event.end_date.strftime("%d/%m/%Y")}}</p>
+                    </div>
+
+                    <div class="col-6">
+                        <h3 class="pt-2">Time</h3>
+                        <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
+                    </div>
+                </div>
+
+
+                    <div class="row align-items-center">
+                        <h3 class="pt-4">Location</h3>
                         <hr>
                     </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <h3 class="pt-2">Date</h3>
-                            <p>{{event.start_date.strftime("%d/%m/%Y")}} - {{event.end_date.strftime("%d/%m/%Y")}}</p>
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-3">
+                            <p>{{event.venue_name}}</p>
                         </div>
-
-                        <div class="col-6">
-                            <h3 class="pt-2">Time</h3>
-                            <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
+                        <div class="col-12 col-lg-5">
+                            <p>{{event.street_address}}</p>
                         </div>
                     </div>
 
-
-                        <div class="row align-items-center">
-                            <h3 class="pt-4">Location</h3>
-                            <hr>
-                        </div>
-                        <div class="row align-items-center">
-                            <div class="col-12 col-lg-3">
-                                <p>{{event.venue_name}}</p>
-                            </div>
-                            <div class="col-12 col-lg-5">
-                                <p>{{event.street_address}}</p>
-                            </div>
-                        </div>
-
-                        <div class="row align-items-center">
-                            <h3 class="pt-4">Description</h3>
-                            <hr>
-                        </div>
-                        <div class="row align-items-center">
-                            <div class="col-12 col-lg-8">
-                                <p>{{event.description}}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="row align-items-center">
-                            <h3 class="pt-4">Genre</h3>
-                            <hr>
-                        </div>
-                        <div class="d-flex p-2">
-                            <span class="badge rounded-pill" id="badge-custom">{{event.genre}}</span>
-                        </div>
-
-                        <div class="row border-bottom"> 
-                            <h3 class="pt-4">Comments</h3>
-                            <hr>
-
-                            {% if current_user.is_authenticated %}
-                            {{wtf.render_form(cform,"/event/{0}/comment".format(event.id))}} 
-
-                            {% else %}
-                            <p>Please login if you would like to add a commment</p>
-                            {% endif %}
-
-                            
-                            <div class="container text-left">
-                                <div class="row row-cols-3">
-                                    {% for comment in event.comments %}
-                                  <div class="col">
-                                    <b>{{comment.user_id}} - <span class="ml-2 text-muted">{{comment.date_posted.strftime('%A %d %B %Y')}}</span></b>
-                                    <p>{{comment.text}}</p>  </div>
-                                    {% endfor %} 
-                                </div>
-                              </div>
-
+                    <div class="row align-items-center">
+                        <h3 class="pt-4">Description</h3>
+                        <hr>
                     </div>
+                    <div class="row align-items-center">
+                        <div class="col-12 col-lg-8">
+                            <p>{{event.description}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <h3 class="pt-4">Genre</h3>
+                        <hr>
+                    </div>
+                    <div class="d-flex p-2">
+                        <span class="badge rounded-pill" id="badge-custom">{{event.genre}}</span>
+                    </div>
+
+                    <div class="row border-bottom"> 
+                        <h3 class="pt-4">Comments</h3>
+                        <hr>
+
+                        {% if current_user.is_authenticated %}
+                        {{wtf.render_form(cform,"/event/{0}/comment".format(event.id))}} 
+
+                        {% else %}
+                        <p>Please login if you would like to add a commment</p>
+                        {% endif %}
+
+                        
+                        <div class="container text-left">
+                            <div class="row row-cols-3">
+                                {% for comment in event.comments %}
+                              <div class="col">
+                                <b>{{comment.user_id}} - <span class="ml-2 text-muted">{{comment.date_posted.strftime('%A %d %B %Y')}}</span></b>
+                                <p>{{comment.text}}</p>  </div>
+                                {% endfor %} 
+                            </div>
+                          </div>
+
                 </div>
             </div>
         </div>
@@ -265,7 +270,7 @@
     <script type="text/javascript">
 
     document.addEventListener('DOMContentLoaded', function () {
-    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-checkout'));
+    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-buy-ticket'));
     modal.show();
   });
 

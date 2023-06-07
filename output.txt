@@ -1,0 +1,228 @@
+Lets-Go-Champ (67):
+      Merge pull request #1 from adambona/adambona-patch-1
+      contains the data models for the application
+      fixed some errors surrounding integer arguments
+      updated value constraints for min and max postcode
+      fixed validation error for Allowed files
+      Removed id() relationship for  initialisation
+      Merge pull request #8 from adambona/index2.0
+      Added app errorhandler for 404 and 500 error
+      Created basic error html template
+      fixed imports and url routing
+      Set up login functionality and manager
+      changed error messages to be more meaningful
+      added login/register links to nav bar and hide acc
+      login and registration html page templates
+      flash msg functionality to base.html
+      fixed error with User model (email field)
+      fixed error with base.html msg flash
+      added mobile number field for user
+      move flashed messaged to below header
+      fixed formatting issues with parent container
+      session variable user
+      remove session variable as no longer required
+      input validation
+      Improved error page UI and style
+      improved error handling
+      Created form validatior for email
+      Updated templates to decode URL for flash messages
+      removed safe tag as Markup used in form validation
+      Form field validation
+      Updated base_without_header footer
+      Fix URL endpoint issues for error pages
+      Render form fields manually to create event
+      testing errors
+      error fixes
+      Added num ticket col and order cards for lg below
+      Order history search functionality
+      Added informative information if no past orders
+      fixed url routing errors
+      Merge branch 'main' into order-history-cards
+      Merge pull request #37 from adambona/order-history-cards
+      db modification
+      update main
+      commit
+      Increase string field size
+      CSS for for form field error
+      updated form field definitions
+      form validation and routing
+      started manually render fields and errors
+      cleanup code
+      create event validation
+      Merge pull request #41 from adambona/improved-create-event-validation
+      fixed min end time validation errors
+      generate secret key
+      ticket modal routing
+      Merge pull request #42 from adambona/secrey-key-encryption
+      fixed errors
+      Merge pull request #44 from adambona/secrey-key-encryption
+      added generic error handler for exceptions
+      fixed encryption of secret key
+      fixed create event btn style
+      fixed unique constraint for user name
+      fixed formatting
+      validation
+      error rendering fix
+      fixed errors
+      custom input required error messagaes
+      artist name validation
+
+Rina (8):
+      update auth.py
+      update auth.py
+      Merge branch 'main' into register-form
+      modified footer in base.html
+      Added comment form to forms.py
+      updated commenting to use db
+      added /event prefix , added comment form
+      Merge branch 'main' into comments
+
+adam bona (1):
+      Folder structure and base/index working
+
+adambona (89):
+      Initial commit
+      Folder setup and starter code added
+      Create test.txt
+      Delete test.txt
+      Merge pull request #2 from adambona/event-class
+      Merge branch 'main' into data-modl
+      Merge pull request #5 from adambona/data-modl
+      Fixed naming convetions, some error handling
+      Merge pull request #6 from adambona/data-modl
+      fixed naming convention, initialized db test pass
+      added db pull for index and fixed logo dead link
+      added search and fixed more dead links
+      Dropdown search added and time formating
+      qc changes
+      Date field added
+      landing page updated with search/styling and date
+      Merge pull request #9 from adambona/index2.0
+      Order class created, myAccount view added
+      deadlink fix in base, order history view added
+      Merge pull request #10 from adambona/order_history
+      Added missing data gen and string/date format
+      Modal Db generation added
+      payment form created and renders in modal
+      getting a strange error but data gen works
+      payment class and db init created
+      payment form takes in and stores data, needs hash
+      removed strftime solves strange None type Error
+      Merge pull request #14 from adambona/data-modl
+      Merge branch 'main' into ticket modal
+      resolved merge conflicts (i think)
+      added flash to login and register, redirect to log
+      added data generation for event page
+      Added order and payment form, added db fields to event page
+      Merge pull request #16 from adambona/ticket-modal
+      order updated, need to fix post from split form or redirect
+      added login verification for ticket purchase
+      ticket remaining and queries working
+      low tickets alert, fixed error if no tickets sold
+      Merge branch 'main' into ticket-validation
+      Merge pull request #24 from adambona/ticket-validation
+      db for testing
+      Merge branch 'main' of https://github.com/adambona/a3_group6
+      Order-history queries and validation added
+      order-history html generation and auth added
+      Merge pull request #26 from adambona/ticket-display
+      Search functionality specific to path, better alerts
+      date validator (future) added
+      db and images for testing
+      Merge pull request #28 from adambona/nav-search
+      Merge branch 'main' into comments
+      Merge pull request #27 from adambona/comments
+      fixed merge conflicts from Comments branch
+      reverted form status'
+      Merge branch 'main' into Validation
+      error-update fixed update status needs more work
+      Merge pull request #30 from adambona/Validation
+      Merge branch 'main' into error-fixes
+      Merge pull request #31 from adambona/error-fixes
+      removed event prefix added to route
+      Merge pull request #32 from adambona/minimum-viable-product
+      Small bug fixes for comment and styling for non Open events
+      Merge pull request #33 from adambona/06-TODO
+      order-history fix, debug code added cleaned base jinja
+      Merge pull request #34 from adambona/minimum-viable-product
+      Merge pull request #35 from adambona/06-TODO
+      Main DB issues resolved
+      Merge pull request #36 from adambona/create-update-event
+      Update event working and links from my events
+      update-event autofills and error printout bottom
+      Merge branch 'main' into create-update-event
+      Merge pull request #38 from adambona/create-update-event
+      updated event_date var
+      Model and db changes for venue/street address update event working
+      Merge branch 'main' into create-event-form-validation
+      Merge pull request #39 from adambona/create-event-form-validation
+      Merge branch 'main' into my-event-validation
+      Merge pull request #40 from adambona/my-event-validation
+      manual loop form errors, my-events rendering
+      Update form with new render, sold out working, username added to comments
+      added event date check
+      Merge branch 'main' into modal-val
+      Merge pull request #43 from adambona/modal-val
+      working modal checkout
+      Summary page added for successful order
+      Merge pull request #45 from adambona/modal-show
+      Miscallenous fixes and formatting
+      Merge pull request #46 from adambona/modal-show
+      Merge branch 'main' into Form-filtering-and-validation
+      Merge pull request #47 from adambona/Form-filtering-and-validation
+
+evelync621 (53):
+      GitHub Action added
+      Update python action
+      Update python action
+      Merge remote-tracking branch 'origin/main'
+      Update python action
+      Delete python action
+      New Workflow
+      Merge remote-tracking branch 'origin/main'
+      Update python action
+      Added event class
+      Extend from base.html, create-event, order-history , event-details
+      Merged event class into models.py Routed createEvent.py Added createEventForm to forms.py Changed create-event.html to render the form dynamically from forms.py changed init to acoomodate the changes
+      Some debugging, createEvent blueprint not working
+      Modifications - Debugged createEvent blueprint Updated createEvent form modified html templates to accomodate changes
+      Update models.py and update event class to accomodate SQLAlchemy
+      Changes to createEvent and creatEvent forms to accomodate database operations.
+      Changes to accomodate image upload
+      Debugging
+      Debugging
+      Debugging
+      Merge pull request #4 from adambona/register-form
+      Render event details page - artist name not working - image upload commented out
+      Merge pull request #11 from adambona/render-event-detail
+      Functioning image upload and render
+      Debugging (typo correction)
+      Merge pull request #12 from adambona/Debug-image-upload
+      Added My Events Page where user can edit the status of their events
+      Merge pull request #13 from adambona/update-event-status
+      Implement autofill event id and user id
+      Merge pull request #15 from adambona/autofill-event-from
+      Artist Field in progress
+      Artist name working with two fields, still require some UI fixes.
+      Merge branch 'main' into autofill-event-from
+      Merge pull request #17 from adambona/autofill-event-from
+      Revert "Autofill event from"
+      Merge pull request #18 from adambona/revert-17-autofill-event-from
+      modifications
+      Merge pull request #19 from adambona/autofill-event-from
+      artist
+      forms
+      Repairing merge #17
+      Merge pull request #20 from adambona/artist-names-fixup
+      Render artist name correction in event-details
+      Merge pull request #21 from adambona/artist-display-fixes
+      Minor changes and comments for discussion in weekly meeting.
+      update
+      Merge pull request #22 from adambona/artist-display-fixes
+      Comments to adress ways to implementing artist_names field
+      Merge pull request #23 from adambona/artist-display-fixes
+      Pre Deployment fixes
+      Merge pull request #25 from adambona/artist-display-fixes
+      my-events page display fix
+      added description for form
+
