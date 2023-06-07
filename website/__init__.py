@@ -64,3 +64,12 @@ def not_found(e):
 @app.errorhandler(500)
 def server_error(e): 
   return render_template("error.html",error=500)
+
+@app.errorhandler(404) 
+def not_found(e): 
+  return render_template("error.html",error=404)
+
+@app.errorhandler(Exception)
+def handle_generic_exception(e):
+    return render_template("error.html", error=e)
+
