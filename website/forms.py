@@ -205,7 +205,7 @@ class orderForm(FlaskForm):
 
 class CommentForm(FlaskForm):
 
-  text = TextAreaField('Add a comment', [InputRequired(), Length(min=5, max=40)])
+  text = TextAreaField('Add a comment', [InputRequired(), Length(min=5, max=100)])
   submit = SubmitField('Add')
 
 
