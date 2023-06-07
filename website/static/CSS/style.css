@@ -43,7 +43,7 @@ html {
   
   #website-name
   {
-    font-size: calc(2rem + 4vh);
+    font-size: calc(1.5rem + 4vh + 0.5vw);
     color: white;
     font-family: 'Bebas Neue', sans-serif;
   }
@@ -589,4 +589,15 @@ html {
   list-style: none;  /* Remove default bullet points */
   padding: 0;       /* Remove default padding */
 }
+
+.navbar-heading {
+  margin-right: 3rem; /* Adjust the margin as desired */
+}
+
+@media (max-width: 992px) {
+  .navbar-heading {
+      margin-right: 0;
+  }
+}
+
 
