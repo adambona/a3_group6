@@ -148,8 +148,10 @@ class createEventForm(FlaskForm):
         start_time = self.start_time.data
         end_time = field.data
 
-        start_datetime = datetime.combine(datetime.now().date(), start_time)
-        end_datetime = datetime.combine(datetime.now().date(), end_time)
+        start_date = self.start_date.data
+        end_data = self.end_date.data
+        start_datetime = datetime.combine(start_date, start_time)
+        end_datetime = datetime.combine(end_data, end_time)
 
         # min end time
         min_end_time = start_datetime + timedelta(hours=1)
