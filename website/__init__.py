@@ -14,8 +14,8 @@ app=Flask(__name__)  # this is the name of the module/package that is calling th
 def create_app():
     
     app.debug=True
-    #app.secret_key='somesecretgoeshere'
-    app.secret_key = os.urandom(32)
+    app.secret_key='somesecretgoeshere'
+    #app.secret_key = os.urandom(32)
     #set the app configuration data 
     app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///brisbane_live_events.sqlite'
     #initialise db with flask app
