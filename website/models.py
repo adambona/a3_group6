@@ -198,7 +198,7 @@ class User(db.Model, UserMixin):
     __tablename__='users' 
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(36), index=True, unique=True, nullable=False)
+    name = db.Column(db.String(36), index=True, unique=False, nullable=False)
     mobile_number = db.Column(db.String(15), index=True, nullable=False)
     email_address = db.Column(db.String(254), index=True, unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
