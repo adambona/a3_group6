@@ -171,16 +171,16 @@ class createEventForm(FlaskForm):
             raise ValidationError('The event end time must be at least 1 hour after the event start time.')
         
 class orderForm(FlaskForm):
-    num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])
-    first_name=StringField("First name", validators=[InputRequired(), Length(min=1,max=20)])
-    last_name=StringField("Last name", validators=[InputRequired(), Length(min=1,max=20)])
+    num_tickets=IntegerField("Number of tickets", validators=[InputRequired("Please enter the number of tickets you would like to purchase."), NumberRange(min=1)])
+    first_name=StringField("First name", validators=[InputRequired(message="Please enter your first name."), Length(min=1,max=20)])
+    last_name=StringField("Last name", validators=[InputRequired(message="Please enter your last name."), Length(min=1,max=20)])
     email=StringField("Email address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
-    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
-    card_number=StringField("Card number", validators=[InputRequired(), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
-    expiration=StringField('Expiration', validators=[InputRequired(), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
-    cvv=StringField("CVV", validators=[InputRequired(), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
-    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
-    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
+    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired("Please enter a payment method")])
+    card_number=StringField("Card number", validators=[InputRequired("Please enter your card number"), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
+    expiration=StringField('Expiration', validators=[InputRequired("Please enter your the expiration date."), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
+    cvv=StringField("CVV", validators=[InputRequired("Please enter a CVV value."), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
+    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired("Please accept our Terms of Service.")])
+    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired("Please confirm your details are correct.")])
     submit=SubmitField('Process Payment')
 
 
