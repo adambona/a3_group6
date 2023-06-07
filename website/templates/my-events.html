@@ -28,7 +28,15 @@
                                <h3 class="event-card-title">{{event.name}}</h3>
 
                                <!-- TODO add if statement for open events -->
-                               <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
+                               <p class="event-card-text">${{event.ticket_price}} 
+
+                                {% if event.status == 'Open' %}
+                                <span class="badge bg-success">{{event.status}}</span> 
+
+                                {% else %}
+                                <span class="badge bg-danger">{{event.status}}</span>
+                                {% endif %}
+                            </p>
 
                                <br>
                                <small>{{event.start_date.strftime("%d/%m/%Y")}}</small>

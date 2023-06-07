@@ -51,16 +51,10 @@
                             <div class="checkout-model-button text-center">
 
                                 {% if event.status != 'Open' %}
-                                <button class="btn btn-primary buy-btn w-100 btn-square disabled"
-                                    data-bs-target="#modal-toggle-buy-ticket" data-bs-toggle="modal">BUY
-                                    TICKETS</button>
-                                
+                                <a href="{{ url_for('createEvent.show_modal', id=event.id) }}" class="btn btn-primary buy-btn w-100 btn-square disabled">BUY TICKETS</a>
                                 {% else %}
 
-                                <button class="btn btn-primary buy-btn w-100 btn-square"
-                                    data-bs-target="#modal-toggle-buy-ticket" data-bs-toggle="modal">BUY
-                                    TICKETS</button>
-
+                                <a href="{{ url_for('createEvent.show_modal', id=event.id) }}" class="btn btn-primary buy-btn w-100 btn-square">BUY TICKETS</a>
                                 {% endif %}
 
 
