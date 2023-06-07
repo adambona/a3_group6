@@ -83,10 +83,13 @@ class Event(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     genre = db.Column(db.Integer, db.ForeignKey('genres.id'))
     location = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    artist_names = db.relationship('Artist', backref='events')
-    comments = db.relationship('Comment', backref='events')
+    
+    artist_names = db.Column(db.String(100), nullable=False, index=True)
     venue_name = db.Column(db.String(100), nullable=False, index=True)
     street_address = db.Column(db.String(100), nullable=False, index=True)
+
+    comments = db.relationship('Comment', backref='events')
+    # artist_names = db.relationship('Artist', backref='events')
 
 class Location(db.Model):
     """
@@ -225,9 +228,6 @@ class Comment(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-
-    def __repr__(self):
-        return "Comment: {}".format(self.text)
 
 class Ticket(db.Model):
     """
