@@ -25,7 +25,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
 
-            #flash('You have successfully registered.', 'success')
+            flash('You have successfully registered.', 'text-success')
             return redirect(url_for('auth.login'))
     else:
         return render_template('user.html', form=register, heading='Register')
@@ -39,27 +39,16 @@ def login():
         email = login_form.email_id.data
         #password = login_form.password.data
         user = User.query.filter_by(email_address=email).first()
-        
-        #check if there is a user with that name
-        #if user is None:
-            #error='There is no matching user name in our system. Please try again.'
-        #check the password
-        #elif not check_password_hash(user.password_hash, password):
-            #error='There is no matching password in our system. Please try again.'
-        #if error is None:
-        #sign in and set the login user
 
         flash('You logged in successfully', 'text-success')
 
         login_user(user)
         return redirect(url_for('main.index'))
-    #else:
-        #flash(error,'danger')
     return render_template('user.html', form=login_form, heading='Login')
 
 @bp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    flash("You have been successfully signed out. See you next time.", 'success')
+    flash("You have been successfully signed out. See you next time.", 'text-success')
     return redirect(url_for('main.index'))

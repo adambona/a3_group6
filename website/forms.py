@@ -109,7 +109,7 @@ class createEventForm(FlaskForm):
     ])
 
     venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name."), validate_length(min=1, max=100, min_error_message='Venue name must be at least 1 character.',max_error_message='Venue name must be 100 characters or less.')], filters=[lambda x: x.strip() if x else None])
-    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. Example 2 George St, Brisbane, QLD 4000'" )],  filters=[lambda x: x.strip() if x else None])
+    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. Example 2 George St, Brisbane, QLD, 4000'" )],  filters=[lambda x: x.strip() if x else None])
 
     start_date = DateField("Event Starts", validators=[InputRequired(message="Please enter a start date.")])
     end_date = DateField("Event Ends", validators=[InputRequired(message="Please enter an end date.")])
@@ -185,7 +185,7 @@ class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired("Please enter the number of tickets you would like to purchase."), NumberRange(min=1)])
     first_name=StringField("First name", validators=[InputRequired(message="Please enter your first name."), Length(min=1,max=20)])
     last_name=StringField("Last name", validators=[InputRequired(message="Please enter your last name."), Length(min=1,max=20)])
-    email=StringField("Email address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
+    email=StringField("Email address", description = "Example - email@gmail.com", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
     pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card')], validators=[InputRequired("Please enter a payment method")])
     card_number=StringField("Card number", validators=[InputRequired("Please enter your card number"), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
     expiration=StringField('Expiration', description = "Example - 12/22", validators=[InputRequired("Please enter your the expiration date."), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
