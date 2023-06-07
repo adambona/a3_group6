@@ -60,15 +60,14 @@ def show_modal(id):
             event.status = 'Sold Out'
             db.session.add(order)
             db.session.commit()
-            flash('Tickets Purchased Succesfully', 'success')
-            return redirect(url_for('createEvent.show', id=id))
+            order_no = order.order_id
+            return redirect(url_for('createEvent.summary', id=id , order=order_no))
 
         else:
             
             db.session.add(order)
             db.session.commit()
             order_no = order.order_id
-
             return redirect(url_for('createEvent.summary', id=id , order=order_no))
         open_modal = False
         
@@ -96,25 +95,16 @@ def createEvent():
     if form.validate_on_submit():
 
         db_file_path = check_upload_file(form)
-        # artist_list = []
-        
-        # artist = Artist(event_id = 0, name = form.artist_names.data)
-        # db.session.add(artist) 
-        # artist_list.append(artist)
 
         event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=form.artist_names.data, start_time=form.start_time.data, end_time=form.end_time.data,
                       ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path, venue_name=form.venue_name.data, street_address=form.street_address.data)
-
-        
-        # for artist in artist_list:
-        #     artist.event_id = event.id
 
         db.session.add(event)
         db.session.commit()
 
 
         return redirect(url_for('main.index'))   
-    print("Form validation failed")
+
 
     return render_template('createEvent.html', form=form)
 
@@ -154,9 +144,6 @@ def comment(event):
 @bp.route('/updateEvent/<int:id>', methods=['GET', 'POST'])
 @login_required
 def updateEvent(id):
-    
-    # Add check if current user is the owner of the event so path attacks cant be used
-
 
     events = Event.query.filter(Event.id==id).first()
     form = createEventForm()
@@ -185,7 +172,7 @@ def updateEvent(id):
             update_event.image = db_file_path
 
 
-            # Add tickets ? ask others
+            # Appends tickets
             update_event.num_tickets += form.num_tickets.data
             
 
@@ -194,7 +181,7 @@ def updateEvent(id):
             return redirect(url_for('createEvent.show', id=id))
 
     else:
-        flash('you cannot update an event you are not the owner of please create your own event')
+        flash('You cannot update an event you are not the owner of please create your own event below', 'text-danger')
         return redirect(url_for('createEvent.createEvent'))
 
     return render_template('update-event.html', form=form, event=events)

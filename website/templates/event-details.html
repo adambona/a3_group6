@@ -7,7 +7,7 @@
 
 {% block header %}
 <head>
-    <title>Brisbane Live {{event.title}}</title>    
+    <title>Brisbane Live - {{event.name}}</title>    
 </head>
 {% endblock %}
 
@@ -91,19 +91,19 @@
                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p class="modal-label-custom">Date and time:</p>
-                                            <p>{{event.event_date}}</p>
-                                            <p class="modal-label-custom">Location:</p>
-                                            <p>{{event.location}}</p>
+                                            <p class="modal-label-custom">Date and time</p>
+                                            <small>{{event.start_date.strftime("%d/%m/%Y")}} - {{event.end_date.strftime("%d/%m/%Y")}}</small>
+                                            <p></p>
+                                            <small>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</small>
+                                            <p></p>
+                                            <p class="modal-label-custom">Location</p>
+                                            <small>{{event.venue_name}}</small>
+                                            <p></p>
+                                            <small>{{event.street_address}}</small>
+                                            <p></p>
 
                                             <div class="col-lg-8">
                                                 <div class="container align-items-stretch">
-                                                    <div class="row border p-1">
-                                                        <div
-                                                            class="col-sm-6 col-4 col-xxs d-flex flex-column justify-content-center">
-                                                            <p class="p-2 mb-0">Adult</p>
-                                                        </div>
-                                                    </div>
                                                     <div class="row border p-1">
                                                         <div class="col-md-12">
                                                             <p class="p-2 mb-0">Ticket Cost - ${{event.ticket_price}}</p>
@@ -235,21 +235,21 @@
                     </div>
 
                     <div class="row border-bottom"> 
-                        <h3 class="pt-4">Comments</h3>
+                        <h3 class="pt-4">Comments <small class="text-muted"> - ({{event.comments|length}})</small> </h3>
                         <hr>
 
                         {% if current_user.is_authenticated %}
                         {{wtf.render_form(cform,"/event/{0}/comment".format(event.id))}} 
 
                         {% else %}
-                        <p>Please login if you would like to add a commment</p>
+                        <small class="text-danger">Please login if you would like to add a commment</small>
                         {% endif %}
 
                         
                         <div class="container text-left">
-                            <div class="row row-cols-3">
+                            <div class="row">
                                 {% for comment in event.comments %}
-                              <div class="col">
+                              <div class="col-sm-12 col-md-4">
                                 <b>{{comment.user_id}} - <span class="ml-2 text-muted">{{comment.date_posted.strftime('%A %d %B %Y')}}</span></b>
                                 <p>{{comment.text}}</p>  </div>
                                 {% endfor %} 

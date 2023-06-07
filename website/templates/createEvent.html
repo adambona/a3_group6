@@ -108,7 +108,7 @@
 
                     <div class="mb-3 {% if form.street_address.errors %}has-error{% endif %}">
                         {{ form.street_address.label(class_="form-label label-custom") }}
-                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...") }}
+                        {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address. Example: 2 George St, Brisbane, QLD 4000 ") }}
                         {% if form.street_address.errors %}
                             <ul class="errors">
                                 {% for error in form.street_address.errors %}

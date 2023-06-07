@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block header %}
+
+<head>
+    <title>Brisbane Live Home</title>
+</head>
 <div class="banner">
    <source media="(max-width: 660px)" srcset="{{ url_for('static', filename='image/banner-640.jpg') }}">
    <source media="(max-width: 1608px)" srcset="{{ url_for('static', filename='image/banner-1280.jpg') }}">
@@ -35,22 +39,21 @@
                            <label>
                                <select class="pr-5 col-12 text-center" id="genre-select" name="search">
                                    <option selected>Select Genre</option>
-                                   <option value="All">All</option>
-                                   <option value="pop">Pop</option>
-                                   <option value="dance / EDM">Dance / EDM</option>
-                                   <option value="hip-hop and rap">Hip-hop and Rap</option>
-                                   <option value="r&b">R&B</option>
-                                   <option value="latin">Latin</option>
-                                   <option value="rock">Rock</option>
-                                   <option value="metal">Metal</option>
-                                   <option value="country">Country</option>
-                                   <option value="folk / acoustic">Folk / Acoustic</option>
-                                   <option value="classical">Classical</option>
-                                   <option value="jazz">Jazz</option>
-                                   <option value="blues">Blues</option>
-                                   <option value="easy listening">Easy Listening</option>
-                                   <option value="new age">New Age</option>
-                                   <option value="world">World</option>
+                                   <option value="Pop">Pop</option>
+                                   <option value="DanceEDM">Dance / EDM</option>
+                                   <option value="Hiphop & Rap">Hip-hop & Rap</option>
+                                   <option value="R&B">R&B</option>
+                                   <option value="Latin">Latin</option>
+                                   <option value="Rock">Rock</option>
+                                   <option value="Metal">Metal</option>
+                                   <option value="Country">Country</option>
+                                   <option value="Folk/Acoustic">Folk / Acoustic</option>
+                                   <option value="Classical">Classical</option>
+                                   <option value="Jazz">Jazz</option>
+                                   <option value="Blues">Blues</option>
+                                   <option value="Easy listening">Easy Listening</option>
+                                   <option value="New age">New Age</option>
+                                   <option value="World/Traditional Folk">World/Traditional Folk</option>
                                </select>
                            </label>
                            <input class="btn btn-primary mb-2" type="submit" value="Search"> 
@@ -67,61 +70,75 @@
        <div class="row row-cols-1 g-4">
 
          <!-- Add Forloop of Event Database Items Here -->
-            {% for event in events %}
-               <div class="event-card">
-                
-                   <div class="row g-0">
-                       <div class="col-md-4">
-                           <img src="{{event.image}}" class="event-card-img" alt="event image">
-                       </div>
-                       <div class="col-md-8">
-                           <div class="event-card-body">
-                               <h3 class=" event-card-title">{{event.name}}</h3>
-
-                                {% if event.status == 'Open' %}
-                               <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
-                                
-
-                               {% else %}
-                               <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-danger">{{event.status}}</span> </p>
-                               {% endif %}
-
-                               <br>
-                               <small>{{event.start_date.strftime("%d/%m/%Y")}} - {{event.end_date.strftime("%d/%m/%Y")}}</small>
-                               <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
-                               <p class="event-card-text">{{event.venue_name}} </p>
-                               <p class="event-card-text">{{event.street_address}} </p>
-
-                               <p class="event-card-text">{{event.genre}}</p>
-
-                               <p class="event-card-text">{{event.artist_names}}</p>
-
-                               <div class="d-grid gap-2 d-flex justify-content-end flex-wrap"
-                                   id="event-card-btn">
-
-                                   <a href="/event/{{event.id}}"
-                                       class="btn btn-primary btn-md flex-shrink-1">MORE INFORMATION</a>
-
-                                    {% if event.status == 'Sold Out' %}
-
-                                   <a href="{{ url_for('createEvent.show_modal', id=event.id) }}"
-                                       class="btn btn-primary btn-md flex-shrink-1 disabled">GET TICKETS</a>
+            {%if events|length == 0 %}
+            <div class="event-card">
+                    
+                <div class="row g-0">
+                    <p>Couldn't find any events matching that description</p>
+                </div>
+            </div>
 
 
-                                    {% else %}
+            {% else %}
+                {% for event in events %}
+                <div class="event-card">
+                    
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{event.image}}" class="event-card-img" alt="event image">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="event-card-body">
+                                <h3 class=" event-card-title">{{event.name}}</h3>
 
-                                   <a href="{{ url_for('createEvent.show_modal', id=event.id) }}"
-                                       class="btn btn-primary btn-md flex-shrink-1">GET TICKETS</a>
+                                    {% if event.status == 'Open' %}
+                                <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-success">{{event.status}}</span> </p>
+                                    
 
-                                    {% endif %}
+                                {% else %}
+                                <p class="event-card-text">${{event.ticket_price}} <span class="badge bg-danger">{{event.status}}</span> </p>
+                                {% endif %}
+
+                                <br>
+                                <small>{{event.start_date.strftime("%d/%m/%Y")}} - {{event.end_date.strftime("%d/%m/%Y")}}</small>
+                                <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
+                                <p class="event-card-text">{{event.venue_name}} </p>
+                                <p class="event-card-text">{{event.street_address}} </p>
+
+                                <p class="event-card-text">{{event.genre}}</p>
+
+                                <p class="event-card-text">{{event.artist_names}}</p>
+
+                                <div class="d-grid gap-2 d-flex justify-content-end flex-wrap"
+                                    id="event-card-btn">
+
+                                    <a href="/event/{{event.id}}"
+                                        class="btn btn-primary btn-md flex-shrink-1">MORE INFORMATION</a>
+
+                                        {% if event.status == 'Sold Out' %}
+
+                                    <a href="{{ url_for('createEvent.show_modal', id=event.id) }}"
+                                        class="btn btn-primary btn-md flex-shrink-1 disabled">GET TICKETS</a>
 
 
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           {% endfor %}
+                                        {% else %}
+
+                                    <a href="{{ url_for('createEvent.show_modal', id=event.id) }}"
+                                        class="btn btn-primary btn-md flex-shrink-1">GET TICKETS</a>
+
+                                        {% endif %}
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+           {% endif %}
+
+
+
        </div>
    </div>
 </div>

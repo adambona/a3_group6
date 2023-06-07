@@ -49,7 +49,7 @@ def login():
         #if error is None:
         #sign in and set the login user
 
-        flash('You logged in successfully', 'success')
+        flash('You logged in successfully', 'text-success')
 
         login_user(user)
         return redirect(url_for('main.index'))

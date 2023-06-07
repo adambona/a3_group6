@@ -23,12 +23,11 @@
                 <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Search</button>
             </form>
 
-            {% if result|length > 0 %}
+            {% if result|length <= 0 %}
 
-
-            {% if result|length == 0 %}
-
-            <h5>No orders have been placed</h5>
+            <div class="py-4 text-center">
+                <p>Couldn't find any past orders. Maybe you should check out whats on <a href="{{url_for('main.index')}}"> here</a></p>
+            </div>
 
             {% else %}
             
@@ -79,7 +78,7 @@
             <div class="row row-cols-1 g-4 d-lg-none">
                 {% for event, order in result %}
                 <div class="col">
-                    <div class="card event-card">
+                    <div class="card event-card mb-3">
                         <img src="{{event.image}}" class="card-img-top event-card-img event-card-order-history-img" alt="event image">
                         <div class="card-body event-card-body">
                             <h3 class="card-title event-card-title">{{event.name}}</h3>
@@ -103,12 +102,6 @@
 
             {% endif %}
 
-
-            {% else %}
-            <div class="py-4 text-center">
-                <p>Couldn't find any past orders. Maybe you should check out whats on <a href="{{url_for('main.index')}}"> here</a></p>
-            </div>
-            {% endif %}
         </div>
 </main>
 

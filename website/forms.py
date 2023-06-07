@@ -92,7 +92,6 @@ class createEventForm(FlaskForm):
         ("Easy Listening", "Easy Listening"),
         ("New Age", "New Age"),
         ("World/Traditional Folk", "World/Traditional Folk"),
-        ("Others", "Others")
     ])
 
     name = StringField("Event Name", validators=[InputRequired(message="Please enter a name for the event"), validate_length(min=2, max=100, min_error_message='Event name must be 2 characters or greater', max_error_message='Event name must be 100 characters or less')], filters=[lambda x: x.strip() if x else None])
@@ -110,7 +109,7 @@ class createEventForm(FlaskForm):
     ])
 
     venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name."), validate_length(min=1, max=100, min_error_message='Venue name must be at least 1 character.',max_error_message='Venue name must be 100 characters or less.')], filters=[lambda x: x.strip() if x else None])
-    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. It should be in the form 'Street Number Street Name (optional) Street Type (optional) Unit/Apt Number (optional), City, State, Postal Code'" )],  filters=[lambda x: x.strip() if x else None])
+    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. Example 2 George St, Brisbane, QLD 4000'" )],  filters=[lambda x: x.strip() if x else None])
 
     start_date = DateField("Event Starts", validators=[InputRequired(message="Please enter a start date.")])
     end_date = DateField("Event Ends", validators=[InputRequired(message="Please enter an end date.")])
@@ -189,8 +188,8 @@ class orderForm(FlaskForm):
     email=StringField("Email address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
     pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card')], validators=[InputRequired("Please enter a payment method")])
     card_number=StringField("Card number", validators=[InputRequired("Please enter your card number"), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
-    expiration=StringField('Expiration', validators=[InputRequired("Please enter your the expiration date."), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
-    cvv=StringField("CVV", validators=[InputRequired("Please enter a CVV value."), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
+    expiration=StringField('Expiration', description = "Example - 12/22", validators=[InputRequired("Please enter your the expiration date."), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
+    cvv=StringField("CVV", description = "3 Digits on the back of your card", validators=[InputRequired("Please enter a CVV value."), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired("Please accept our Terms of Service.")])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired("Please confirm your details are correct.")])
 
@@ -198,7 +197,7 @@ class orderForm(FlaskForm):
 
 
     
-    def validate_expiration(form, field):
+    def validate_expiration(self, field):
         data = field.data
 
         if not re.match('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', data):
