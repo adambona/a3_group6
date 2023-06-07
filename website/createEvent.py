@@ -134,10 +134,11 @@ def updateEvent(id):
     
         if form.validate_on_submit():
             update_event = Event.query.filter(Event.id==id).first()
-            db_file_path = check_upload_file(form)
-            artist_list = []
 
-            #Add artist and other missing fields when they are ready
+            # Update Image
+            db_file_path = check_upload_file(form)
+
+
 
             update_event.name = form.name.data
             update_event.status = form.status.data
@@ -155,9 +156,6 @@ def updateEvent(id):
             # Add tickets ? ask others
             update_event.num_tickets = form.num_tickets.data
             
-            artist = Artist(event_id = 0, name = form.artist_names.data)
-            db.session.add(artist) 
-            artist_list.append(artist)
 
             db.session.commit()
 

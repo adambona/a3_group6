@@ -137,12 +137,12 @@ class createEventForm(FlaskForm):
         if start < date.today():
             raise ValidationError('The event start date must be in the future.')
 
-    # def validate_end_time(self, field):
-    #     start_time = self.start_time.data
-    #     end_time = field.data
-    #     min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
-    #     if end_time < min_end_time:
-    #         raise ValidationError('The event end time must be at least 1 hour after the event start time.')
+    def validate_end_time(self, field):
+        start_time = self.start_time.data
+        end_time = field.data
+        min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
+        if end_time < min_end_time:
+            raise ValidationError('The event end time must be at least 1 hour after the event start time.')
     
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])
@@ -178,6 +178,5 @@ class updateForm(FlaskForm):
         ("Sold Out", "Sold Out"),
         ("Cancelled", "Cancelled")
     ])
-
 
     submit = SubmitField('update')

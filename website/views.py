@@ -1,11 +1,21 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event
 from . import db
+from datetime import datetime, date
+
 
 bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
+    # Check events in the past set to inactive
+    today = date.today()
+    event = db.session.query(Event).filter(Event.start_date < today).all()
+
+    for x in event:
+        x.status = 'Inactive'
+        db.session.commit()
+
     events = db.session.query(Event).filter(Event.status != 'Inactive').order_by(Event.start_date).all()
     return render_template('index.html', events=events)
 
