@@ -14,7 +14,7 @@ bp = Blueprint('createEvent', __name__)
 @bp.route('/event/<int:id>', methods=['GET', 'POST'])
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
-    open_modal = True
+
     # Sum of tickets sold for specific event
     tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
     total_tickets = db.session.query(Event.num_tickets).filter(Event.id==id).scalar()
@@ -23,10 +23,30 @@ def show(id):
         tickets_remaining = total_tickets - tickets_sold
     else:
         tickets_remaining = total_tickets
-
-    form = orderForm()
-    cform = CommentForm()  
     
+    form = orderForm()
+    cform = CommentForm()
+
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform)
+
+@bp.route('/event/<int:id>/checkout', methods=['GET', 'POST'])
+def show_modal(id):
+
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    open_modal = True
+
+    # Sum of tickets sold for specific event
+    tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
+    total_tickets = db.session.query(Event.num_tickets).filter(Event.id==id).scalar()
+
+    if tickets_sold is not None:
+        tickets_remaining = total_tickets - tickets_sold
+    else:
+        tickets_remaining = total_tickets
+    
+    form = orderForm()
+    cform = CommentForm() 
+
     if form.validate_on_submit():
         order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
         email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
@@ -35,7 +55,7 @@ def show(id):
             flash('Number of Tickets Exceeded amount remaining')
             return redirect(url_for('createEvent.show', id=id))
         
-        elif form.num_tickets.data == tickets_remaining:
+        if form.num_tickets.data == tickets_remaining:
 
             event.status = 'Sold Out'
             db.session.add(order)
@@ -44,17 +64,28 @@ def show(id):
             return redirect(url_for('createEvent.show', id=id))
 
         else:
+            
             db.session.add(order)
             db.session.commit()
-            flash('Tickets Purchased Succesfully', 'success')
-            return redirect(url_for('createEvent.show', id=id))
+            order_no = order.order_id
 
+            return redirect(url_for('createEvent.summary', id=id , order=order_no))
         open_modal = False
-    
-    
-# Remove remaining tickets ?
-    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal)
+        
+        
 
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal)
+    
+@bp.route('/event/<int:id>/<int:order>', methods=['GET', 'POST'])
+def summary(id, order):
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    order = db.session.scalar(db.select(Order).where(Order.order_id==order))
+    open_modal = True
+
+
+
+
+    return render_template('summary.html', event=event, open_modal=open_modal, order=order)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
@@ -152,10 +183,11 @@ def updateEvent(id):
             update_event.venue_name = form.venue_name.data
             update_event.street_address = form.street_address.data
             update_event.genre = form.genre.data
+            update_event.image = db_file_path
 
 
             # Add tickets ? ask others
-            update_event.num_tickets = form.num_tickets.data
+            update_event.num_tickets += form.num_tickets.data
             
 
             db.session.commit()

@@ -22,7 +22,7 @@
             <div class="heading-section">
                 <div class="row align-items-center event-headline">
                     <div class="col-md-9">
-                        <h2 class="event-title">{{event.name}} - {{remaining}}</h2>
+                        <h2 class="event-title">{{event.name}}</h2>
                     </div>
                     <div class="col-md-3">
                         <div class="col-12 status-info">
@@ -144,29 +144,14 @@
                                     aria-label="Close"></button>
                             </div>
 
-                            <form method="post" form="form">
+
                             <div class="modal-body">
                                 
-                                <!-- Working Ticket Remaining -->
-                                {% if remaining < 10 %}
-                                <p class="text-danger">Tickets are almost sold out!</p>
-
-                                {% endif %}
-
-                                {% if current_user.is_authenticated %}
-                                    {% for field in form %}
-                                    
-                                    {{wtf.render_field(field)}}
-
-                                    {% endfor %}
-
-                                    {% else %} 
-                                        <p>You must be logged in to buy a ticket <a href="{{url_for('auth.login')}}"> Login Here</a></p>
-                                {% endif %}
-
+                               <h2>thanks for purchasing a ticket your order number is {{order.order_id}}</h2>
+                               <p> summary - {{order.event_id}} - {{order.num_tickets}} - {{order.total_cost}} </p>
                                 
                             </div>
-                        </form>
+
 
                             <div class="modal-footer">
                                 <button class="btn btn-primary" data-bs-target="#modal-toggle-buy-ticket"
@@ -247,26 +232,6 @@
                         <div class="d-flex p-2">
                             <span class="badge rounded-pill" id="badge-custom">{{event.genre}}</span>
                         </div>
-
-                        <div class="row border-bottom"> 
-
-                            {% if current_user.is_authenticated %}
-                            {{wtf.render_form(cform,"/event/{0}/comment".format(event.id))}} 
-
-                            {% else %}
-                            <h2>Please Log in to Add a comment</h2>
-                            {% endif %}
-
-
-
-
-                            {% for comment in event.comments %}
-                            <div class="col-md-12">  
-                              <b>{{comment.user_id}} <span class="ml-2 text-muted">{{comment.date_posted.strftime("%d/%m/%Y")}}</span></b>
-                              <p>{{comment.text}}</p>  
-                            </div> 
-                            {% endfor %} 
-                        </div>  
 
                     </div>
                 </div>
