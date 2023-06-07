@@ -79,7 +79,6 @@
 
                     </div>
                 </div>
-
                 
                 <div class="modal fade p-0" id="modal-toggle-buy-ticket" aria-hidden="true"
                     aria-labelledby="modal-toggle-buy-ticket-label" tabindex="-1">
@@ -271,5 +270,19 @@
         </div>
     </div>
     </div>
+    
 </main>
+{% endblock %}
+
+{% block scripts %}
+    {% if open_modal==True %}
+    <script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', function () {
+    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-checkout'));
+    modal.show();
+  });
+
+    </script>
+    {% endif %}
 {% endblock %}
