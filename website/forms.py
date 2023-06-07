@@ -41,7 +41,7 @@ def email_exists(email):
 
 #creates the login information
 class LoginForm(FlaskForm):
-    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
+    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")], filters=[lambda x: x.strip() if x else None])
     password=PasswordField("Password", validators=[InputRequired(message='Please enter a password.')])
     submit = SubmitField("Login")
 
@@ -60,17 +60,17 @@ class LoginForm(FlaskForm):
 
         if user is not None and not check_password_hash(user.password_hash, password):
             raise ValidationError('There is no matching password in our system. Please try again.')
-  
- # this is the registration form
+    
+    
+# this is the registration form
 class RegisterForm(FlaskForm):
-    user_name = StringField("User Name", validators=[InputRequired(message="Please enter a user name."), validate_length(min=1, max=36, min_error_message='User name must be at least 1 character.', max_error_message='User name must be 36 characters or less.')])
-    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address."), validate_unique_email])
-    mobile_number = StringField("Mobile Number", validators=[InputRequired(message="Please enter a mobile number."), Regexp(MOBILE_NUM_REGEX, message=MOBILE_ERROR_MESSAGE)])
+    user_name = StringField("User Name", validators=[InputRequired(message="Please enter a user name."), validate_length(min=1, max=36, min_error_message='User name must be at least 1 character.', max_error_message='User name must be 36 characters or less.')], filters=[lambda x: x.strip() if x else None])
+    email_id = StringField("Email Address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address."), validate_unique_email], filters=[lambda x: x.strip() if x else None])
+    mobile_number = StringField("Mobile Number", validators=[InputRequired(message="Please enter a mobile number."), Regexp(MOBILE_NUM_REGEX, message=MOBILE_ERROR_MESSAGE)], filters=[lambda x: x.strip() if x else None])
     #linking two fields - password should be equal to data entered in confirm
     password = PasswordField("Password", validators=[InputRequired(message="Please enter a password."),
-                  EqualTo('confirm', message="Passwords do not match. Please Try again."), Regexp(PASSWORD_REGEX, message=PASSWORD_ERROR_MESSAGE), Length(max=254, message="Password must be 254 characters or less.")])
-    confirm = PasswordField("Confirm Password", validators=[InputRequired(message="Please confirm your password.")])
-
+                  EqualTo('confirm', message="Passwords do not match. Please Try again."), Regexp(PASSWORD_REGEX, message=PASSWORD_ERROR_MESSAGE), Length(max=254, message="Password must be 254 characters or less.")], filters=[lambda x: x.strip() if x else None])
+    confirm = PasswordField("Confirm Password", validators=[InputRequired(message="Please confirm your password.")], filters=[lambda x: x.strip() if x else None])
     #submit button
     submit = SubmitField("Register")
 
@@ -95,22 +95,22 @@ class createEventForm(FlaskForm):
         ("Others", "Others")
     ])
 
-    name = StringField("Event Name", validators=[InputRequired(message="Please enter a name for the event"), validate_length(min=2, max=100, min_error_message='Event name must be 2 characters or greater', max_error_message='Event name must be 100 characters or less')])
-    artist_names = StringField("Artists", validators=[InputRequired(message="Please enter the artist/s name")])
+    name = StringField("Event Name", validators=[InputRequired(message="Please enter a name for the event"), validate_length(min=2, max=100, min_error_message='Event name must be 2 characters or greater', max_error_message='Event name must be 100 characters or less')], filters=[lambda x: x.strip() if x else None])
+    artist_names = StringField("Artists", validators=[InputRequired(message="Please enter the artist/s name")], filters=[lambda x: x.strip() if x else None])
 
     description = TextAreaField("Detailed Description of the Event", validators=[
         InputRequired(message="Please enter a description for the event."),
         validate_length(min=6, max=500, min_error_message="Description must be 6 characters or greater.",
                         max_error_message="Description must be 500 characters or less.")
-    ])
+    ], filters=[lambda x: x.strip() if x else None])
 
     image = FileField("Thumbnail Image for the Event", validators=[
         FileRequired("Please upload an image for the event."),
         FileAllowed(ALLOWED_FILE, message="File type must be either PNG or JPG")
     ])
 
-    venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name."), validate_length(min=1, max=100, min_error_message='Venue name must be at least 1 character.',max_error_message='Venue name must be 100 characters or less.')])
-    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address.")])
+    venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name."), validate_length(min=1, max=100, min_error_message='Venue name must be at least 1 character.',max_error_message='Venue name must be 100 characters or less.')], filters=[lambda x: x.strip() if x else None])
+    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. It should be in the form 'Street Number Street Name (optional) Street Type (optional) Unit/Apt Number (optional), City, State, Postal Code'" )],  filters=[lambda x: x.strip() if x else None])
 
     start_date = DateField("Event Starts", validators=[InputRequired(message="Please enter a start date.")])
     end_date = DateField("Event Ends", validators=[InputRequired(message="Please enter an end date.")])
@@ -118,9 +118,9 @@ class createEventForm(FlaskForm):
     end_time = TimeField("End Time", validators=[InputRequired(message="Please enter an end time.")])
 
 
-    ticket_price = FloatField("Price per Ticket", validators=[InputRequired(message="enter ticket price")])
+    ticket_price = FloatField("Price per Ticket", validators=[InputRequired(message="Please enter ticket price")])
 
-    num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired()])
+    num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired("Please enter the number of tickets."), NumberRange(min=0, message="Number of tickets must be a non-negative integer.")])
 
     status = SelectField("Event Status", choices=[
         ("Open", "Open"),
@@ -135,13 +135,26 @@ class createEventForm(FlaskForm):
         start = field.data
         if start < date.today():
             raise ValidationError('The event start date must be in the future.')
+        
+    def validate_end_date(self, field):
+        end = field.data
+        start_date = self.start_date.data
+        if end < start_date:
+            raise ValidationError('The event end date must be in the future.')
 
-    #def validate_end_time(self, field):
-        #start_time = self.start_time.data
-        #end_time = field.data
-        #min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
-        #if end_time < min_end_time:
-            #raise ValidationError('The event end time must be at least 1 hour after the event start time.')
+    def validate_start_time(self, field):
+        start_time = self.start_time.data
+        current_datetime = datetime.now()
+
+        start_date = self.start_date.data
+        start_datetime = datetime.combine(start_date, start_time)
+
+        min_start_time = current_datetime + timedelta(hours=1)
+
+        if start_datetime < min_start_time:
+            raise ValidationError('Start time must be at least 1 hour into the future.')
+
+
     def validate_end_time(self, field):
 
         start_time = self.start_time.data
@@ -152,29 +165,35 @@ class createEventForm(FlaskForm):
         start_datetime = datetime.combine(start_date, start_time)
         end_datetime = datetime.combine(end_data, end_time)
 
-        # min end time
         min_end_time = start_datetime + timedelta(hours=1)
 
         if end_datetime < min_end_time:
             raise ValidationError('The event end time must be at least 1 hour after the event start time.')
 
-    def validate_expiration(form, field):
-        data = field.data
-
-        if not re.match('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', data):
-            raise ValidationError('Invalid expiration date')
-        
+    def validate_artist_names(self, field):
+        names = re.split(r'\s*,\s*|\s+', field.data.strip().strip(','))
+        if len(names) < 1 or all(name == '' for name in names):
+            raise ValidationError('Please enter at least one artist name.')
+        for name in names:
+            name = re.sub(r'\s+', ' ', name.strip())
+            if not name:
+                raise ValidationError('Invalid artist name.')
+            if len(name) < 2:
+                raise ValidationError('Each artist name must have at least two characters.') 
+            
 class orderForm(FlaskForm):
-    num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])
-    first_name=StringField("First name", validators=[InputRequired(), Length(min=1,max=20)])
-    last_name=StringField("Last name", validators=[InputRequired(), Length(min=1,max=20)])
-    email=StringField("Email address", validators=[InputRequired()])
-    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card')], validators=[InputRequired()])
-    card_number=StringField("Card number", validators=[InputRequired(), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
-    expiration=StringField('Expiration', validators=[InputRequired(), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
-    cvv=StringField("CVV", validators=[InputRequired(), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
-    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
-    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
+
+    num_tickets=IntegerField("Number of tickets", validators=[InputRequired("Please enter the number of tickets you would like to purchase."), NumberRange(min=1)])
+    first_name=StringField("First name", validators=[InputRequired(message="Please enter your first name."), Length(min=1,max=20)])
+    last_name=StringField("Last name", validators=[InputRequired(message="Please enter your last name."), Length(min=1,max=20)])
+    email=StringField("Email address", validators=[Email(message="Please enter a valid email address."), Length(min=1,max=254), InputRequired(message="Please enter an email address.")])
+    pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired("Please enter a payment method")])
+    card_number=StringField("Card number", validators=[InputRequired("Please enter your card number"), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
+    expiration=StringField('Expiration', validators=[InputRequired("Please enter your the expiration date."), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
+    cvv=StringField("CVV", validators=[InputRequired("Please enter a CVV value."), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
+    confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired("Please accept our Terms of Service.")])
+    confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired("Please confirm your details are correct.")])
+
     submit=SubmitField('Process Payment')
 
 
@@ -183,11 +202,13 @@ class orderForm(FlaskForm):
         data = field.data
 
         if not re.match('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', data):
-            raise ValidationError('Invalid expiration date')
+            raise ValidationError('Invalid expiration date.')
 
 class CommentForm(FlaskForm):
+
   text = TextAreaField('Add a comment', [InputRequired(), Length(min=5, max=40)])
   submit = SubmitField('Add')
+
 
 class updateForm(FlaskForm):
     
