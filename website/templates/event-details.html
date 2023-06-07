@@ -45,7 +45,7 @@
                         <div class="checkout-model border checkout rounded">
                             <div class="checkout-model-body">
                                 <div class="text-center">
-                                    <h3 id="ticket-price-custom">{{event.ticket_price}}</h3>
+                                    <h3 id="ticket-price-custom">${{event.ticket_price}}</h3>
                                 </div>
                             </div>
                             <div class="checkout-model-button text-center">
@@ -73,9 +73,9 @@
                 <div class="col">
                     <div class="row align-items-center">
 
-                        {% for field in event.artist_names %}
-                        <h4>{{field.name}}</h4>
-                        {% endfor %}
+                        
+                        <h4>{{event.artist_names}}</h4>
+                        
 
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                                 {% if current_user.is_authenticated %}
                                     {% for field in form %}
                                     
-                                    {{wtf.render_field(field, class="bg-danger")}}
+                                    {{wtf.render_field(field)}}
 
                                     {% endfor %}
 
@@ -256,10 +256,20 @@
                         </div>
 
                         <div class="row border-bottom"> 
+
+                            {% if current_user.is_authenticated %}
                             {{wtf.render_form(cform,"/event/{0}/comment".format(event.id))}} 
+
+                            {% else %}
+                            <h2>Please Log in to Add a comment</h2>
+                            {% endif %}
+
+
+
+
                             {% for comment in event.comments %}
                             <div class="col-md-12">  
-                              <b>{{comment.user.name}} <span class="ml-2 text-muted">{{comment.date_posted.strftime("%m/%d/%Y, %H:%M:%S")}}</span></b>
+                              <b>{{comment.user_id}} <span class="ml-2 text-muted">{{comment.date_posted.strftime("%d/%m/%Y")}}</span></b>
                               <p>{{comment.text}}</p>  
                             </div> 
                             {% endfor %} 

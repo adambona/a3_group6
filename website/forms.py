@@ -7,6 +7,7 @@ from flask_wtf.file import FileRequired, FileField, FileAllowed
 from flask import url_for, Markup
 from werkzeug.security import check_password_hash
 from datetime import timedelta
+import re
 
 ALLOWED_FILE = ['PNG','JPG','png','jpg', 'jpeg', 'JPEG']
 
@@ -136,18 +137,18 @@ class createEventForm(FlaskForm):
         if start < date.today():
             raise ValidationError('The event start date must be in the future.')
 
-    def validate_end_time(self, field):
-        start_time = self.start_time.data
-        end_time = field.data
-        min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
-        if end_time < min_end_time:
-            raise ValidationError('The event end time must be at least 1 hour after the event start time.')
+    # def validate_end_time(self, field):
+    #     start_time = self.start_time.data
+    #     end_time = field.data
+    #     min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
+    #     if end_time < min_end_time:
+    #         raise ValidationError('The event end time must be at least 1 hour after the event start time.')
     
 class orderForm(FlaskForm):
-    num_tickets=IntegerField("Number of tickets", validators=[InputRequired(), NumberRange(min=1,max=5)])
+    num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])
     first_name=StringField("First name", validators=[InputRequired(), Length(min=1,max=20)])
     last_name=StringField("Last name", validators=[InputRequired(), Length(min=1,max=20)])
-    email=StringField("Email address", validators=[InputRequired(), Email()])
+    email=StringField("Email address", validators=[InputRequired()])
     pay_type=RadioField("Select payment type", choices=[('Credit Card'), ('Debit Card'), ('PayPal')], validators=[InputRequired()])
     card_number=StringField("Card number", validators=[InputRequired(), Regexp('^\\d{16}$', message='Must contain 16 digits only'), Length(min=16, max=16)])
     expiration=StringField('Expiration', validators=[InputRequired(), Regexp('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', message='Example: Febuary 2023 = 02/23')])
@@ -155,6 +156,15 @@ class orderForm(FlaskForm):
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired()])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
+
+    def validate_num_tickets(self, field):
+        if not 0 <= field.data <= 5:
+            raise ValidationError('Only 5 tickets are allowed per person')
+
+    def validate_email(self, field):
+        pat = "^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+\.[a-z]{1,3}$"
+        if not re.match(pat,field.data):
+            raise ValidationError('Please enter a valid email address')
 
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired(), Length(min=6, max=500)])

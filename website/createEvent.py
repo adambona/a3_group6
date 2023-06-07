@@ -13,7 +13,6 @@ bp = Blueprint('createEvent', __name__)
 
 @bp.route('/event/<int:id>', methods=['GET', 'POST'])
 def show(id):
-    
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     
 
@@ -36,17 +35,24 @@ def show(id):
         if form.num_tickets.data > tickets_remaining :
             flash('Number of Tickets Exceeded amount remaining')
             return redirect(url_for('createEvent.show', id=id))
-
-
         
-        else:
+        elif form.num_tickets.data == tickets_remaining:
+
+            event.status = 'Sold Out'
             db.session.add(order)
             db.session.commit()
             flash('Tickets Purchased Succesfully', 'success')
             return redirect(url_for('createEvent.show', id=id))
 
 
-# Remove remaining tickets ?
+
+        else:
+            db.session.add(order)
+            db.session.commit()
+            flash('Tickets Purchased Succesfully', 'success')
+            return redirect(url_for('createEvent.show', id=id))
+
+    
     return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform)
 
 
@@ -58,18 +64,18 @@ def createEvent():
     if form.validate_on_submit():
 
         db_file_path = check_upload_file(form)
-        artist_list = []
+        # artist_list = []
         
-        artist = Artist(event_id = 0, name = form.artist_names.data)
-        db.session.add(artist) 
-        artist_list.append(artist)
+        # artist = Artist(event_id = 0, name = form.artist_names.data)
+        # db.session.add(artist) 
+        # artist_list.append(artist)
 
-        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=artist_list, start_time=form.start_time.data, end_time=form.end_time.data,
+        event = Event(user_id=current_user.id, status = form.status.data, start_date=form.start_date.data, end_date=form.end_date.data, genre=form.genre.data, name=form.name.data, artist_names=form.artist_names.data, start_time=form.start_time.data, end_time=form.end_time.data,
                       ticket_price=form.ticket_price.data, num_tickets=form.num_tickets.data, description=form.description.data, image=db_file_path, venue_name=form.venue_name.data, street_address=form.street_address.data)
 
         
-        for artist in artist_list:
-            artist.event_id = event.id
+        # for artist in artist_list:
+        #     artist.event_id = event.id
 
         db.session.add(event)
         db.session.commit()
@@ -98,18 +104,18 @@ def check_upload_file(form):
 @login_required
 def comment(event):
     form = CommentForm()
-    # get the destination object associated to the page and the comment
+    
     event_obj = Event.query.filter_by(id=event).first()
     if form.validate_on_submit():
-        # read the comment from the form
+        
         comment = Comment(text=form.text.data,
                           events=event_obj,
-                          #user=current_user
+                          user_id=current_user.name
                           )
         db.session.add(comment)
         db.session.commit()
 
-        # flashing a message which needs to be handled by the html
+        
     return redirect(url_for('createEvent.show', id=event))
 
 
