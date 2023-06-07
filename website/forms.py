@@ -137,13 +137,32 @@ class createEventForm(FlaskForm):
         if start < date.today():
             raise ValidationError('The event start date must be in the future.')
 
+    #def validate_end_time(self, field):
+        #start_time = self.start_time.data
+        #end_time = field.data
+        #min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
+        #if end_time < min_end_time:
+            #raise ValidationError('The event end time must be at least 1 hour after the event start time.')
     def validate_end_time(self, field):
+
         start_time = self.start_time.data
         end_time = field.data
-        min_end_time = (start_time + timedelta(hours=1)) % timedelta(days=1)
-        if end_time < min_end_time:
+
+        start_datetime = datetime.combine(datetime.now().date(), start_time)
+        end_datetime = datetime.combine(datetime.now().date(), end_time)
+
+        # min end time
+        min_end_time = start_datetime + timedelta(hours=1)
+
+        if end_datetime < min_end_time:
             raise ValidationError('The event end time must be at least 1 hour after the event start time.')
-    
+
+def validate_expiration(form, field):
+        data = field.data
+
+        if not re.match('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', data):
+            raise ValidationError('Invalid expiration date')
+        
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired()])
     first_name=StringField("First name", validators=[InputRequired(), Length(min=1,max=20)])
@@ -157,14 +176,13 @@ class orderForm(FlaskForm):
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired()])
     submit=SubmitField('Process Payment')
 
-    def validate_num_tickets(self, field):
-        if not 0 <= field.data <= 5:
-            raise ValidationError('Only 5 tickets are allowed per person')
 
-    def validate_email(self, field):
-        pat = "^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+\.[a-z]{1,3}$"
-        if not re.match(pat,field.data):
-            raise ValidationError('Please enter a valid email address')
+    
+    def validate_expiration(form, field):
+        data = field.data
+
+        if not re.match('^(0[1-9]|1[0-2])\/(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9])$', data):
+            raise ValidationError('Invalid expiration date')
 
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired(), Length(min=6, max=500)])

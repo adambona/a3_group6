@@ -14,8 +14,7 @@ bp = Blueprint('createEvent', __name__)
 @bp.route('/event/<int:id>', methods=['GET', 'POST'])
 def show(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
-    
-
+    open_modal = True
     # Sum of tickets sold for specific event
     tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
     total_tickets = db.session.query(Event.num_tickets).filter(Event.id==id).scalar()
@@ -44,16 +43,18 @@ def show(id):
             flash('Tickets Purchased Succesfully', 'success')
             return redirect(url_for('createEvent.show', id=id))
 
-
-
         else:
             db.session.add(order)
             db.session.commit()
             flash('Tickets Purchased Succesfully', 'success')
             return redirect(url_for('createEvent.show', id=id))
 
+        open_modal = False
     
-    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform)
+    
+# Remove remaining tickets ?
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal)
+
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
