@@ -169,7 +169,18 @@ class createEventForm(FlaskForm):
 
         if end_datetime < min_end_time:
             raise ValidationError('The event end time must be at least 1 hour after the event start time.')
-        
+
+    def validate_artist_names(self, field):
+        names = re.split(r'\s*,\s*|\s+', field.data.strip().strip(','))
+        if len(names) < 1 or all(name == '' for name in names):
+            raise ValidationError('Please enter at least one artist name.')
+        for name in names:
+            name = re.sub(r'\s+', ' ', name.strip())
+            if not name:
+                raise ValidationError('Invalid artist name.')
+            if len(name) < 2:
+                raise ValidationError('Each artist name must have at least two characters.') 
+            
 class orderForm(FlaskForm):
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired("Please enter the number of tickets you would like to purchase."), NumberRange(min=1)])
     first_name=StringField("First name", validators=[InputRequired(message="Please enter your first name."), Length(min=1,max=20)])
