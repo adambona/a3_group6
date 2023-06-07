@@ -1,13 +1,13 @@
 
 from .forms import createEventForm, orderForm, CommentForm
 from .models import Event, Order, Comment
-
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db
 import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.sql import func
+from datetime import datetime
 
 bp = Blueprint('createEvent', __name__)
 
@@ -49,7 +49,7 @@ def show_modal(id):
 
     if form.validate_on_submit():
         order = Order(event_id = id, booked_by = current_user.id, first_name = form.first_name.data, last_name = form.last_name.data,
-        email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
+        email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price, ordered_at=datetime.now())
 
         if form.num_tickets.data > tickets_remaining :
             flash('Cannot Complete Order - Not enough tickets remaining', 'text-danger')
@@ -132,7 +132,7 @@ def comment(event):
         
         comment = Comment(text=form.text.data,
                           events=event_obj,
-                          user_id=current_user.name
+                          user_id=current_user.name, date_posted=datetime.now()
                           )
         db.session.add(comment)
         db.session.commit()

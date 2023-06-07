@@ -146,7 +146,7 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(500), nullable=False)
-    date_posted = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    date_posted = db.Column(db.DateTime,default=datetime.now(), nullable=False)
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
@@ -171,4 +171,4 @@ class Order(db.Model):
     num_tickets = db.Column(db.Integer)
     booked_by = db.Column(db.String)
     total_cost  = db.Column(db.Float(2))
-    ordered_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    ordered_at = db.Column(db.DateTime, default=datetime.now() ,nullable=False)
