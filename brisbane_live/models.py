@@ -89,7 +89,21 @@ class Event(db.Model):
     street_address = db.Column(db.String(100), nullable=False, index=True)
 
     comments = db.relationship('Comment', backref='events')
-    # artist_names = db.relationship('Artist', backref='events')
+
+
+class Genre(db.Model):
+    """
+    genre model representing a genre for a music event.
+
+    Attributes:
+        id (int): The unique identifier (PK) for the genre.
+        genre_name (str): The name of the genre.
+    """
+    __tablename__ = 'genres'
+
+    id = db.Column(db.Integer, primary_key=True)
+    genre_name = db.Column(db.String(100), nullable=False, index=True)
+
 
 class User(db.Model, UserMixin):
     """
@@ -138,7 +152,6 @@ class Comment(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-
 
 class Order(db.Model):
     """ Payment model representing the payment details of a user
