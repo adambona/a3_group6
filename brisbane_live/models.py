@@ -91,96 +91,6 @@ class Event(db.Model):
     comments = db.relationship('Comment', backref='events')
     # artist_names = db.relationship('Artist', backref='events')
 
-class Location(db.Model):
-    """
-    location model representing a location for a music event.
-
-    Attributes:
-        id (int): The unique identifier (PK) for the location.
-        venue_name (str): The venue name of for the location.
-        physical_address_id (int): The foregin key referencing the corresponding physical_addresses's id.
-
-    Relationships:
-        physical_address (PhysicalAddress): The physical address associated with the location.
-    """
-    __tablename__ = 'locations'
-
-    id = db.Column(db.Integer, primary_key=True)
-    venue_name = db.Column(db.String(100), nullable=False, index=True)
-    physical_address_id = db.Column(db.Integer, db.ForeignKey('physical_addresses.id'))
-    physical_address = db.relationship('PhysicalAddress', backref='locations')
-
-    def __repr__(self):
-        return f"Location: venue_name='{self.venue_name}', address={self.physical_address}'"
-
-
-class Genre(db.Model):
-    """
-    genre model representing a genre for a music event.
-
-    Attributes:
-        id (int): The unique identifier (PK) for the genre.
-        genre_name (str): The name of the genre.
-    """
-    __tablename__ = 'genres'
-
-    id = db.Column(db.Integer, primary_key=True)
-    genre_name = db.Column(db.String(100), nullable=False, index=True)
-
-    def __repr__(self):
-        return f"Genre: '{self.genre_name}'"
-
-
-class PhysicalAddress(db.Model):
-    """
-    physical address model representing a physical address.
-
-    Attributes:
-        id (int): The unique identifier (PK) for the address.
-        unit_num (int): The unit number for an address.
-        street_num (int): The street number for an address.
-        street_name (str): The street name for an address.
-        street_suffix (str): The street suffix for an address.
-        city (str): The city for an address.
-        postcode (int): The postcode for an address.
-        state (str): The state for an address.
-    """
-    MIN_POSTCODE = 1000
-    MAX_POSTCODE = 9999
-
-    __tablename__ = 'physical_addresses'
-
-    id = db.Column(db.Integer, primary_key=True)
-    unit_num = db.Column(db.Integer, nullable=True)
-    street_num = db.Column(db.Integer, nullable=False)
-    street_name = db.Column(db.String(100), nullable=False, index=True)
-    street_suffix = db.Column(db.String(10), nullable=False, index=True)
-    city = db.Column(db.String(100), nullable=False, index=True)
-    postcode = db.Column(db.Integer, CheckConstraint(f'postcode >= {MIN_POSTCODE} AND postcode <= {MAX_POSTCODE}'), nullable=False, index=True)
-    state = db.Column(db.String(20), CheckConstraint("state IN ('QLD')"), nullable=False, index=True)
-
-    def __repr__(self):
-        return f"PhysicalAddress: (Unit number:'{self.unit_num}', Street number:'{self.street_num}', Street name:'{self.street_name}', Street suffix:'{self.street_suffix}', City:'{self.city}', Postcode:'{self.postcode}', State:'{self.state}')"
-
-
-class Artist(db.Model):
-    """
-    artist model representing an artist.
-
-    Attributes:
-        id (int): The unique identifier (PK) for the artist.
-        event_id (int): The foregin key referencing the corresponding event's id.
-        name (str): The artist's name.
-    """
-    __tablename__ = 'artist_names'
-
-    id = db.Column(db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False, index=True)
-    name = db.Column(db.String(255), nullable=False, index=True)
-
-    def __repr__(self):
-        return 'Artist Name: %r' % self.name
-
 class User(db.Model, UserMixin):
     """
     User model representing a user.
@@ -228,24 +138,6 @@ class Comment(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-
-class Ticket(db.Model):
-    """
-    Ticket model representing a ticket for an event.
-
-    Attributes:
-        id (int): The unique identifier (PK) for a ticket.
-        user_id (int): The foregin key referencing the corresponding user's id.
-        event_id (int): The foregin key referencing the corresponding event's id.
-    """
-    __tablename__ = 'tickets'
-    id = db.Column(db.Integer, primary_key=True)
-    
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-
-    def __repr__(self):
-        return "Ticket: {}".format(self.id)
 
 
 class Order(db.Model):

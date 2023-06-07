@@ -1,6 +1,6 @@
 
 from .forms import createEventForm, orderForm, CommentForm
-from .models import Event, Order, Artist, Comment
+from .models import Event, Order, Comment
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from . import db

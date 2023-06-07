@@ -109,7 +109,7 @@ class createEventForm(FlaskForm):
     ])
 
     venue_name = StringField("Venue Name", validators=[InputRequired(message="Please enter a venue name."), validate_length(min=1, max=100, min_error_message='Venue name must be at least 1 character.',max_error_message='Venue name must be 100 characters or less.')], filters=[lambda x: x.strip() if x else None])
-    street_address = StringField("Street Address", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. Example 2 George St, Brisbane, QLD, 4000'" )],  filters=[lambda x: x.strip() if x else None])
+    street_address = StringField("Street Address", description="Example 2 George St, Brisbane, QLD, 4000", validators=[InputRequired(message="Please enter a street address."), Regexp('\A\s*(\d+)(?:[\s,-]+([a-zA-Z\s]+?)(?:[\s,-]+(Street|St|Road|Rd|Avenue|Ave|Lane|Ln|Boulevard|Blvd|Drive|Dr|Court|Ct|Place|Pl|Terrace|Tce|Crescent|Cres|Highway|Hwy|Parade|Pde|Square|Sq|Circuit|Cct))?)?(?:[\s,-]+(Unit|Apt|Suite)\s+(\d+))?\s*,\s*([a-zA-Z\s]+?)\s*,\s*([A-Za-z]{2,})\s*,\s*(\d{4})\s*\Z', message="Invalid street address format. Example 2 George St, Brisbane, QLD, 4000'" )],  filters=[lambda x: x.strip() if x else None])
 
     start_date = DateField("Event Starts", validators=[InputRequired(message="Please enter a start date.")])
     end_date = DateField("Event Ends", validators=[InputRequired(message="Please enter an end date.")])
