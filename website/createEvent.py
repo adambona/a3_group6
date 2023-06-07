@@ -64,16 +64,28 @@ def show_modal(id):
             return redirect(url_for('createEvent.show', id=id))
 
         else:
+            
             db.session.add(order)
             db.session.commit()
-            flash('Tickets Purchased Succesfully', 'success')
-            return redirect(url_for('createEvent.show', id=id))
+            order_no = order.order_id
+
+            return redirect(url_for('createEvent.summary', id=id , order=order_no))
         open_modal = False
-        return redirect(url_for('createEvent.show'))
+        
         
 
     return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal)
     
+@bp.route('/event/<int:id>/<int:order>', methods=['GET', 'POST'])
+def summary(id, order):
+    event = db.session.scalar(db.select(Event).where(Event.id==id))
+    order = db.session.scalar(db.select(Order).where(Order.order_id==order))
+    open_modal = True
+
+
+
+
+    return render_template('summary.html', event=event, open_modal=open_modal, order=order)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
@@ -171,10 +183,11 @@ def updateEvent(id):
             update_event.venue_name = form.venue_name.data
             update_event.street_address = form.street_address.data
             update_event.genre = form.genre.data
+            update_event.image = db_file_path
 
 
             # Add tickets ? ask others
-            update_event.num_tickets = form.num_tickets.data
+            update_event.num_tickets += form.num_tickets.data
             
 
             db.session.commit()
