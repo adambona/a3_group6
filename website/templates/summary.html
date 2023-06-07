@@ -23,15 +23,16 @@
                 <div class="row align-items-center event-headline">
                     <div class="col-md-9">
                         <h2 class="event-title">{{event.name}}</h2>
+                        
                     </div>
                     <div class="col-md-3">
                         <div class="col-12 status-info">
 
                             {% if event.status != 'Open' %}
-                            <h2 class="text-start">Status: <span class="badge bg-danger">{{event.status}}</span></h2>
+                            <h2 class="text-start"> <span class="badge bg-danger">{{event.status}}</span></h2>
 
                             {% else %}
-                            <h2 class="text-start">Status: <span class="badge bg-success">{{event.status}}</span></h2>
+                            <h2 class="text-start"><span class="badge bg-success">{{event.status}}</span></h2>
                             {% endif %}
 
                         </div>
@@ -73,7 +74,7 @@
 
                     </div>
                 </div>
-                
+
                 <div class="modal fade p-0" id="modal-toggle-buy-ticket" aria-hidden="true"
                     aria-labelledby="modal-toggle-buy-ticket-label" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down modal-xl">
@@ -147,15 +148,34 @@
 
                             <div class="modal-body">
                                 
-                               <h2>thanks for purchasing a ticket your order number is {{order.order_id}}</h2>
-                               <p> summary - {{order.event_id}} - {{order.num_tickets}} - {{order.total_cost}} </p>
+                                <div class="row">
+                                    <h5>Your order has been placed successfully!</h5>
+                                    <hr>
+                                    <div class="col-3">
+                                        <p class="text-muted">Order ID</p>
+                                        {{order.order_id}}
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="text-muted">Event</p>
+                                        {{event.name}}
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="text-muted">Tickets</p>
+                                        {{order.num_tickets}}
+                                    </div>
+                                    <div class="col-3">
+                                        <p class="text-muted">Total</p>
+                                        {{order.total_cost}}
+                                    </div>
+                                </div>
                                 
                             </div>
 
 
                             <div class="modal-footer">
-                                <button class="btn btn-primary" data-bs-target="#modal-toggle-buy-ticket"
-                                    data-bs-toggle="modal">Back</button>
+
+                                <a href="{{ url_for('myAccount.orderHistory')}}" class="btn btn-primary">Order History</a>
+
                             </div>
                         </div>
                     </div>
@@ -164,60 +184,38 @@
                 <div class="event-details order-lg-2 order-1">
                     <div class="row">
                         <h1 class="pt-4">Event Details</h1>
+                        <hr>
                     </div>
 
                     <div class="row">
-                        <h3 class="pt-4">{{event.event_date}}</h3>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <p>Starts - {{event.start_time}}</p>
+                        <div class="col-6">
+                            <h3 class="pt-2">Date</h3>
+                            <p>{{event.start_date.strftime("%d/%m/%Y")}} - {{event.end_date.strftime("%d/%m/%Y")}}</p>
+                        </div>
+
+                        <div class="col-6">
+                            <h3 class="pt-2">Time</h3>
+                            <p>{{event.start_time.strftime("%I:%M %p")}} - {{event.end_time.strftime("%I:%M %p")}}</p>
                         </div>
                     </div>
 
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <p>Ends - {{event.end_time}}</p>
-                        </div>
+
                         <div class="row align-items-center">
                             <h3 class="pt-4">Location</h3>
                             <hr>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-3">
-                                <p>{{event.location}}</p>
+                                <p>{{event.venue_name}}</p>
                             </div>
                             <div class="col-12 col-lg-5">
-                                <p>{{event.location}}</p>
+                                <p>{{event.street_address}}</p>
                             </div>
                         </div>
 
                         <div class="row align-items-center">
-                            <div class="col-lg-8">
-                                <div class="accordion border-0" id="mapAccordion">
-                                    <div class="accordion-item border-0">
-                                        <h4 class="accordion-header border-0">
-                                            <button
-                                                class="accordion-button collapsed text-primary text-decoration-underline"
-                                                type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#mapCollapse" aria-expanded="false"
-                                                aria-controls="mapCollapse" id="show-map">
-                                                Show Map
-                                            </button>
-                                        </h4>
-                                        <div id="mapCollapse" class="accordion-collapse collapse"
-                                            aria-labelledby="mapHeading" data-bs-parent="#mapAccordion">
-                                            <div class="accordion-body p-0">
-                                                <img src="./IMG/event-1-map.jpg" alt="Map showing event location"
-                                                    class="w-100">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row align-items-center">
-                            <h3 class="pt-4">{{Description}}</h3>
+                            <h3 class="pt-4">Description</h3>
+                            <hr>
                         </div>
                         <div class="row align-items-center">
                             <div class="col-12 col-lg-8">
@@ -228,12 +226,11 @@
 
                         <div class="row align-items-center">
                             <h3 class="pt-4">Genre</h3>
+                            <hr>
                         </div>
                         <div class="d-flex p-2">
                             <span class="badge rounded-pill" id="badge-custom">{{event.genre}}</span>
                         </div>
-
-                    </div>
                 </div>
             </div>
         </div>

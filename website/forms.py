@@ -182,6 +182,7 @@ class createEventForm(FlaskForm):
                 raise ValidationError('Each artist name must have at least two characters.') 
             
 class orderForm(FlaskForm):
+
     num_tickets=IntegerField("Number of tickets", validators=[InputRequired("Please enter the number of tickets you would like to purchase."), NumberRange(min=1)])
     first_name=StringField("First name", validators=[InputRequired(message="Please enter your first name."), Length(min=1,max=20)])
     last_name=StringField("Last name", validators=[InputRequired(message="Please enter your last name."), Length(min=1,max=20)])
@@ -192,6 +193,7 @@ class orderForm(FlaskForm):
     cvv=StringField("CVV", validators=[InputRequired("Please enter a CVV value."), Regexp('^\\d{3}$', message='Must contain 3 digits only'), Length(min=3,max=3)])
     confirm=BooleanField("Brisbane Live Terms of Service", validators=[InputRequired("Please accept our Terms of Service.")])
     confirm2=BooleanField("I confirm my details are correct", validators=[InputRequired("Please confirm your details are correct.")])
+
     submit=SubmitField('Process Payment')
 
 
@@ -203,8 +205,10 @@ class orderForm(FlaskForm):
             raise ValidationError('Invalid expiration date.')
 
 class CommentForm(FlaskForm):
-  text = TextAreaField('Comment', [InputRequired("Please enter some text."), Length(min=6, max=500)])
-  submit = SubmitField('Create')
+
+  text = TextAreaField('Add a comment', [InputRequired(), Length(min=5, max=40)])
+  submit = SubmitField('Add')
+
 
 class updateForm(FlaskForm):
     
