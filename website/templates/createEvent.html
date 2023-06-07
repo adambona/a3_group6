@@ -97,7 +97,7 @@
                     <div class="mb-3">
                         {{ form.venue_name.label(class_="form-label label-custom") }}
                         {{ form.venue_name(class_="form-control input-text", placeholder="Specify the venue name...") }}
-                        {% if form.image.errors %}
+                        {% if form.venue_name.errors %}
                             <ul class="errors">
                                 {% for error in form.venue_name.errors %}
                                     <li>{{ error }}</li>
@@ -109,7 +109,7 @@
                     <div class="mb-3 {% if form.street_address.errors %}has-error{% endif %}">
                         {{ form.street_address.label(class_="form-label label-custom") }}
                         {{ form.street_address(class_="form-control input-text", placeholder="Specify the street address...") }}
-                        {% if form.image.errors %}
+                        {% if form.street_address.errors %}
                             <ul class="errors">
                                 {% for error in form.street_address.errors %}
                                     <li>{{ error }}</li>
