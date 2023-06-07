@@ -34,7 +34,7 @@ def searchGenre():
     if request.args['search'] and request.args['search'] != "":
         query = "%" + request.args['search'] + "%" # search is the name of the form in the html file
         events = Event.query.filter(Event.genre.like(query)).all()
-        # add filter
+
         # quesry the Destination table and use the filter - like(similar to query)
         return render_template('index.html', events=events)
     return redirect(url_for('main.index'))

@@ -81,7 +81,7 @@ class Event(db.Model):
     end_date = db.Column(db.Date, nullable=False, index=True)
     start_date = db.Column(db.Date, nullable=False, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    
+    genre = db.Column(db.Integer, db.ForeignKey('genres.id'))
     artist_names = db.Column(db.String(100), nullable=False, index=True)
     venue_name = db.Column(db.String(100), nullable=False, index=True)
     street_address = db.Column(db.String(100), nullable=False, index=True)
