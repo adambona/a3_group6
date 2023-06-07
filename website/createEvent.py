@@ -52,9 +52,9 @@ def show_modal(id):
         email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price)
 
         if form.num_tickets.data > tickets_remaining :
-            flash('Number of Tickets Exceeded amount remaining')
+            flash('Cannot Complete Order - Not enough tickets remaining', 'text-danger')
             return redirect(url_for('createEvent.show', id=id))
-        
+
         if form.num_tickets.data == tickets_remaining:
 
             event.status = 'Sold Out'
@@ -162,7 +162,6 @@ def updateEvent(id):
     form = createEventForm()
 
     if current_user.id == events.user_id:
-        flash('this is your event please update at your own risk')
     
         if form.validate_on_submit():
             update_event = Event.query.filter(Event.id==id).first()
