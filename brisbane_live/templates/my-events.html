@@ -17,6 +17,15 @@
             </div>
             <div class="table-responsive d-none d-lg-block">
 
+                {% if events|length <= 0 %}
+
+                <div class="py-4 text-center">
+                    <p>Couldn't find any events. Try creating an event today! <a href="{{url_for('createEvent.createEvent')}}"> here</a></p>
+                </div>
+    
+                {% else %}
+                
+
            <div class="col list-col">
             {% for event in events %}
                    <div class="row g-0 pb-3">
@@ -55,6 +64,8 @@
                    </div>
                    {% endfor %}
            </div>
+
+           {% endif %}
            
         </div>
 </main>

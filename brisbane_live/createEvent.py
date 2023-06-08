@@ -52,7 +52,8 @@ def show_modal(id):
         email = form.email.data, pay_type= form.pay_type.data, card_number= form.card_number.data, expiration=form.expiration.data, cvv= form.cvv.data, num_tickets= form.num_tickets.data, total_cost = form.num_tickets.data * event.ticket_price, ordered_at=datetime.now())
 
         if form.num_tickets.data > tickets_remaining :
-            flash('Cannot Complete Order - Not enough tickets remaining', 'text-danger')
+            message = 'Order Cannot be placed - Not enough tickets remaining, there are - {} remaining'.format(tickets_remaining)
+            flash(message, 'text-danger')
             return redirect(url_for('createEvent.show', id=id))
 
         if form.num_tickets.data == tickets_remaining:
