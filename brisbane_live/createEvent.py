@@ -1,4 +1,3 @@
-
 from .forms import createEventForm, orderForm, CommentForm
 from .models import Event, Order, Comment
 from flask import Blueprint, render_template, request, redirect, url_for, flash
@@ -63,7 +62,6 @@ def show_modal(id):
             db.session.add(order)
             db.session.commit()
             order_no = order.order_id
-            open_modal = False
             return redirect(url_for('createEvent.summary', id=id , order=order_no))
 
         else:
@@ -71,11 +69,16 @@ def show_modal(id):
             db.session.add(order)
             db.session.commit()
             order_no = order.order_id
-            open_modal = False
             return redirect(url_for('createEvent.summary', id=id , order=order_no))
-    
-    
-    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal)
+        
+    open_modal_checkout = False  # Default to not showing checkout modal
+
+    if form.errors:  # Validation errors occurred
+        open_modal_checkout = True  # Set flag to show checkout modal
+
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining,
+                           cform=cform, open_modal_checkout=open_modal_checkout, open_modal=open_modal)
+
     
 @bp.route('/event/<int:id>/<int:order>', methods=['GET', 'POST'])
 def summary(id, order):
