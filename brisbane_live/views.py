@@ -10,7 +10,7 @@ bp = Blueprint('main', __name__)
 def index():
     # Check events in the past set to inactive
     today = date.today()
-    event = db.session.query(Event).filter(Event.start_date < today).all()
+    event = db.session.query(Event).filter(Event.end_date < today).all()
 
     for x in event:
         x.status = 'Inactive'
