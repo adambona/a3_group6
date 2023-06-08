@@ -266,7 +266,18 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if open_modal==True %}
+{% if (open_modal==True) and (index == False) %}
+    <script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', function () {
+    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-checkout'));
+    modal.show();
+  });
+
+    </script>
+    
+
+    {% elif (open_modal==True) and (index == True) %}
     <script type="text/javascript">
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -276,4 +287,5 @@
 
     </script>
     {% endif %}
+
 {% endblock %}

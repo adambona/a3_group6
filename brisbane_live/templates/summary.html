@@ -241,7 +241,7 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if open_modal==True %}
+    {% if (open_modal==True) and (index != True)%}
     <script type="text/javascript">
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -250,5 +250,22 @@
   });
 
     </script>
+    
+
+    {% elif (open_modal==True) and (index == True) %}
+    <script type="text/javascript">
+
+    document.addEventListener('DOMContentLoaded', function () {
+    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-buy-ticket'));
+    modal.show();
+  });
+
+    </script>
     {% endif %}
+
 {% endblock %}
+
+
+<!-- if validates go to order summary page checkout -->
+
+<!-- index goes to buy summary -->

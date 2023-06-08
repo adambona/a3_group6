@@ -68,4 +68,3 @@ def server_error(e):
 @app.errorhandler(Exception)
 def handle_generic_exception(e):
     return render_template("error.html", error=e)
-
