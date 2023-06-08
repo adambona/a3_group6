@@ -27,13 +27,14 @@ def show(id):
     form = orderForm()
     cform = CommentForm()
 
-    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, index=True)
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform)
 
 @bp.route('/event/<int:id>/checkout', methods=['GET', 'POST'])
 def show_modal(id):
 
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     open_modal = True
+
 
     # Sum of tickets sold for specific event
     tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
@@ -73,8 +74,8 @@ def show_modal(id):
             open_modal = False
             return redirect(url_for('createEvent.summary', id=id , order=order_no))
     
-    index = False
-    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal, index=index)
+    
+    return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining, cform=cform, open_modal=open_modal)
     
 @bp.route('/event/<int:id>/<int:order>', methods=['GET', 'POST'])
 def summary(id, order):
@@ -85,7 +86,7 @@ def summary(id, order):
 
 
 
-    return render_template('summary.html', event=event, open_modal=open_modal, order=order, index=True)
+    return render_template('summary.html', event=event, open_modal=open_modal, order=order)
 
 
 @bp.route('/createEvent', methods=['GET', 'POST'])
