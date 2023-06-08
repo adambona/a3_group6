@@ -119,7 +119,7 @@ class createEventForm(FlaskForm):
 
     ticket_price = FloatField("Price per Ticket", validators=[InputRequired(message="Please enter ticket price") , NumberRange(min=1)])
 
-    num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired("Please enter the number of tickets."), NumberRange(min=0, message="Number of tickets must be a non-negative integer.")])
+    num_tickets = IntegerField("Total Number of Tickets Available", validators=[InputRequired("Please enter the number of tickets."), NumberRange(min=1, message="Number of tickets must be at least 1.")])
 
     status = SelectField("Event Status", choices=[
         ("Open", "Open"),
