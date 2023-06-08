@@ -241,31 +241,17 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if (open_modal==True) and (index != True)%}
-    <script type="text/javascript">
 
-    document.addEventListener('DOMContentLoaded', function () {
-    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-checkout'));
-    modal.show();
-  });
+    {% if open_modal==True %}
+        <script type="text/javascript">
 
-    </script>
-    
+        document.addEventListener('DOMContentLoaded', function () {
+        var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-checkout'));
+        modal.show();
+    });
 
-    {% elif (open_modal==True) and (index == True) %}
-    <script type="text/javascript">
+        </script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-    var modal = new bootstrap.Modal(document.querySelector('#modal-toggle-buy-ticket'));
-    modal.show();
-  });
-
-    </script>
-    {% endif %}
+        {% endif %}
 
 {% endblock %}
-
-
-<!-- if validates go to order summary page checkout -->
-
-<!-- index goes to buy summary -->

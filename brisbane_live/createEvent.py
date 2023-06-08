@@ -34,6 +34,7 @@ def show_modal(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     open_modal = True
 
+
     # Sum of tickets sold for specific event
     tickets_sold = db.session.query(func.sum(Order.num_tickets)).filter(Order.event_id==id).scalar()
     total_tickets = db.session.query(Event.num_tickets).filter(Event.id==id).scalar()
@@ -77,6 +78,7 @@ def show_modal(id):
 
     return render_template('event-details.html', event=event, form=form, remaining=tickets_remaining,
                            cform=cform, open_modal_checkout=open_modal_checkout, open_modal=open_modal)
+
     
 @bp.route('/event/<int:id>/<int:order>', methods=['GET', 'POST'])
 def summary(id, order):
